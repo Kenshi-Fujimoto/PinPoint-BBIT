@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Tooltip, Polygon, useMap, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
 import { 
   MapPin, 
@@ -513,64 +513,49 @@ export default function InteractiveMap({
                 onZoomChange={(z) => setCurrentZoom(z)}
               />
 
-              {/* 50 CURATED PLACES & BUILDING POLYGONS */}
+              {/* Campus locations use point markers only to keep the imagery clear. */}
               {showPlaces && filteredPlaces.map((place) => {
                 const isMajor = MAJOR_LANDMARK_IDS.has(place.id);
                 const showPermanentLabel = labelDensity === 'all' || (labelDensity === 'major' && isMajor) || (currentZoom >= 19);
 
                 return (
-                  <React.Fragment key={place.id}>
-                    {/* Exact Surveyed Polygon Boundary if available */}
-                    {place.polygon && (
-                      <Polygon
-                        positions={place.polygon}
-                        pathOptions={{
-                          color: place.color || '#0071E3',
-                          fillColor: place.color || '#0071E3',
-                          fillOpacity: 0.18,
-                          weight: 1.5,
-                        }}
-                      />
-                    )}
-
-                    {/* Clean Dot Marker with High-Contrast White Text Tooltip */}
-                    <Marker
-                      position={[place.lat, place.lng]}
-                      icon={createMinimalDotIcon(place.color, isMajor)}
+                  <Marker
+                    key={place.id}
+                    position={[place.lat, place.lng]}
+                    icon={createMinimalDotIcon(place.color, isMajor)}
+                  >
+                    {/* Tooltip for clean label preview on hover / permanent on major */}
+                    <Tooltip
+                      permanent={showPermanentLabel}
+                      direction="top"
+                      offset={[0, -8]}
+                      className="custom-clean-map-tooltip"
                     >
-                      {/* Tooltip for clean label preview on hover / permanent on major */}
-                      <Tooltip
-                        permanent={showPermanentLabel}
-                        direction="top"
-                        offset={[0, -8]}
-                        className="custom-clean-map-tooltip"
-                      >
-                        <span className="font-sans font-bold text-[11px] text-white tracking-wide">
-                          {place.name}
-                        </span>
-                      </Tooltip>
+                      <span className="font-sans font-bold text-[11px] text-white tracking-wide">
+                        {place.name}
+                      </span>
+                    </Tooltip>
 
-                      <Popup>
-                        <div className="p-3.5 text-stone-900 dark:text-white text-xs font-sans space-y-1.5 max-w-xs bg-white dark:bg-stone-900 rounded-2xl shadow-card">
-                          <div className="flex items-center justify-between">
-                            <span className="font-bold text-[10px] uppercase text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded">
-                              {place.categoryLabel}
-                            </span>
-                            <span className="font-mono text-stone-400 text-[10px]">{place.id}</span>
-                          </div>
-                          
-                          <h4 className="font-bold text-sm leading-snug text-stone-900 dark:text-white">{place.name}</h4>
-                          {place.details && (
-                            <p className="text-stone-500 dark:text-stone-400 text-xs leading-relaxed">{place.details}</p>
-                          )}
-                          
-                          <div className="pt-1 text-[11px] text-stone-500 dark:text-stone-400 border-t border-stone-100 dark:border-stone-800">
-                            📍 {place.lat.toFixed(6)}° N, {place.lng.toFixed(6)}° E
-                          </div>
+                    <Popup>
+                      <div className="p-3.5 text-stone-900 dark:text-white text-xs font-sans space-y-1.5 max-w-xs bg-white dark:bg-stone-900 rounded-2xl shadow-card">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-[10px] uppercase text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded">
+                            {place.categoryLabel}
+                          </span>
+                          <span className="font-mono text-stone-400 text-[10px]">{place.id}</span>
                         </div>
-                      </Popup>
-                    </Marker>
-                  </React.Fragment>
+
+                        <h4 className="font-bold text-sm leading-snug text-stone-900 dark:text-white">{place.name}</h4>
+                        {place.details && (
+                          <p className="text-stone-500 dark:text-stone-400 text-xs leading-relaxed">{place.details}</p>
+                        )}
+
+                        <div className="pt-1 text-[11px] text-stone-500 dark:text-stone-400 border-t border-stone-100 dark:border-stone-800">
+                          📍 {place.lat.toFixed(6)}° N, {place.lng.toFixed(6)}° E
+                        </div>
+                      </div>
+                    </Popup>
+                  </Marker>
                 );
               })}
 

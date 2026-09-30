@@ -114,11 +114,11 @@ export default function MapLocationPickerModal({
   isOpen,
   onClose,
   onConfirmLocation,
-  initialLat = 22.460200,
-  initialLng = 88.168400,
+  initialLat = 22.458900,
+  initialLng = 88.169500,
   initialName = 'BBIT Campus'
 }) {
-  const [initialClampedLat, initialClampedLng] = clampToCampus(initialLat || 22.460200, initialLng || 88.168400);
+  const [initialClampedLat, initialClampedLng] = clampToCampus(initialLat || 22.458900, initialLng || 88.169500);
   
   const [selectedLat, setSelectedLat] = useState(initialClampedLat);
   const [selectedLng, setSelectedLng] = useState(initialClampedLng);
@@ -134,7 +134,7 @@ export default function MapLocationPickerModal({
   // Sync state whenever modal is opened
   useEffect(() => {
     if (isOpen) {
-      const [cLat, cLng] = clampToCampus(initialLat || 22.460200, initialLng || 88.168400);
+      const [cLat, cLng] = clampToCampus(initialLat || 22.458900, initialLng || 88.169500);
       setSelectedLat(cLat);
       setSelectedLng(cLng);
       const name = initialName || 'BBIT Campus';

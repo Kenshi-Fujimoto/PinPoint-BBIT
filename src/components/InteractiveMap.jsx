@@ -223,7 +223,7 @@ export default function InteractiveMap({
   const [searchTerm, setSearchTerm] = useState('');
   const [currentZoom, setCurrentZoom] = useState(17);
   const [flyCoords, setFlyCoords] = useState(null);
-  const [hoverCoords, setHoverCoords] = useState({ lat: '22.460200', lng: '88.168400' });
+  const [hoverCoords, setHoverCoords] = useState({ lat: '22.458900', lng: '88.169500' });
   const [userLocation, setUserLocation] = useState(null);
   const [isGpsLocating, setIsGpsLocating] = useState(false);
 

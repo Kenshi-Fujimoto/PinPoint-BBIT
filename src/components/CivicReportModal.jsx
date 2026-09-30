@@ -40,8 +40,8 @@ export default function CivicReportModal({
 }) {
   const defaultPlace = { 
     name: 'Central Plaza', 
-    lat: 22.4599, 
-    lng: 88.1685 
+    lat: 22.4586, 
+    lng: 88.1696 
   };
   
   const [title, setTitle] = useState('');

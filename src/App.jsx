@@ -10,6 +10,7 @@ import InteractiveMap from './components/InteractiveMap';
 import AdminPortal from './components/AdminPortal';
 import AuthModal from './components/AuthModal';
 import PWAInstallBanner from './components/PWAInstallBanner';
+import HeroSection from './components/HeroSection';
 import { EdgeStoreProvider } from './services/edgestore';
 import { 
   subscribeToCivicIssues, 
@@ -478,6 +479,14 @@ export default function App() {
                 setIsAuthModalOpen(true);
               }}
               onSignOut={handleGoogleSignOut}
+            />
+
+            {/* Hero — WebGL shader background */}
+            <HeroSection
+              onNavigate={(tab) => setActiveTab(tab)}
+              onReport={() => handleOpenReportModal('civic')}
+              civicCount={civicIssues.length}
+              lostFoundCount={lostFoundItems.length}
             />
 
             {/* Main App Container */}

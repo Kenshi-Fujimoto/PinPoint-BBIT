@@ -286,7 +286,7 @@ export default function CivicDetailModal({
                 <button
                   type="button"
                   onClick={() => onRequireAuth?.('Sign in with Google to post community remarks.')}
-                  className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition-all shadow-subtle shrink-0"
+                  className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-full text-xs transition-all shadow-subtle shrink-0"
                 >
                   Sign In
                 </button>
@@ -302,7 +302,7 @@ export default function CivicDetailModal({
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-subtle flex items-center space-x-1"
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-xs font-bold transition-all shadow-subtle flex items-center space-x-1"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>Post</span>

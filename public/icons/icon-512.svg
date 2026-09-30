@@ -3,14 +3,14 @@
     <!-- Background Circle Radial Gradient -->
     <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1" />
-      <stop offset="85%" stop-color="#F5F3FB" stop-opacity="1" />
-      <stop offset="100%" stop-color="#EBE7F7" stop-opacity="1" />
+      <stop offset="85%" stop-color="#F0F7FF" stop-opacity="1" />
+      <stop offset="100%" stop-color="#E0EFFF" stop-opacity="1" />
     </radialGradient>
 
     <!-- Blue Pin Gradient -->
     <linearGradient id="bluePinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7371FC" />
-      <stop offset="100%" stop-color="#5B50E6" />
+      <stop offset="0%" stop-color="#0A84FF" />
+      <stop offset="100%" stop-color="#0071E3" />
     </linearGradient>
 
     <!-- Pink Pin Gradient -->

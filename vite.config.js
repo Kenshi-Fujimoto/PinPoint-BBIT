@@ -14,8 +14,8 @@ export default defineConfig({
         name: 'PinPoint',
         short_name: 'PinPoint',
         description: 'PinPoint — Hyperlocal Campus Civic Issue Resolution & Lost Item Platform',
-        theme_color: '#4F46E5',
-        background_color: '#0C0E14',
+        theme_color: '#0071E3',
+        background_color: '#000000',
         display: 'standalone',
         orientation: 'portrait-primary',
         icons: [

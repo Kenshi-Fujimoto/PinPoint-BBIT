@@ -6,7 +6,7 @@ export const CIVIC_CATEGORIES = [
     label: 'Pothole & Road Hazard', 
     icon: 'AlertTriangle', 
     tagClass: 'bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border-orange-200/80 dark:border-orange-800/60',
-    accentColor: '#F97316',
+    accentColor: '#FF9500',
     emoji: '🕳️'
   },
   { 
@@ -14,7 +14,7 @@ export const CIVIC_CATEGORIES = [
     label: 'Lighting & Streetlight', 
     icon: 'Lightbulb', 
     tagClass: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200/80 dark:border-amber-800/60',
-    accentColor: '#F59E0B',
+    accentColor: '#FF9500',
     emoji: '💡'
   },
   { 
@@ -22,7 +22,7 @@ export const CIVIC_CATEGORIES = [
     label: 'Water Leak & Drainage', 
     icon: 'Droplets', 
     tagClass: 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-200/80 dark:border-sky-800/60',
-    accentColor: '#0EA5E9',
+    accentColor: '#32ADE6',
     emoji: '💧'
   },
   { 
@@ -46,7 +46,7 @@ export const CIVIC_CATEGORIES = [
     label: 'WiFi & Connectivity', 
     icon: 'WifiOff', 
     tagClass: 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border-indigo-200/80 dark:border-indigo-800/60',
-    accentColor: '#6366F1',
+    accentColor: '#0071E3',
     emoji: '📶'
   },
   { 
@@ -62,7 +62,7 @@ export const CIVIC_CATEGORIES = [
     label: 'HVAC & Climate', 
     icon: 'Wind', 
     tagClass: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200/80 dark:border-emerald-800/60',
-    accentColor: '#10B981',
+    accentColor: '#34C759',
     emoji: '🍃'
   },
   { 

@@ -39,7 +39,7 @@ export default function AdminPanel({
         particleCount: 80,
         spread: 60,
         origin: { y: 0.6 },
-        colors: ['#A7F3D0', '#DDD6FE', '#FED7AA']
+        colors: ['#C4EFD3', '#CFE6FD', '#FFE2BD']
       });
     }
     onUpdateCivicStatus(issue.id, nextStatus, `Updated via Ops Dashboard by Facility Lead`);

@@ -182,7 +182,7 @@ export default function AdminPortal({
         particleCount: 80,
         spread: 60,
         origin: { y: 0.6 },
-        colors: ['#10B981', '#6366F1', '#F59E0B']
+        colors: ['#34C759', '#0071E3', '#FF9500']
       });
     }
     const note = `Status advanced to ${nextStatus} by BBIT Facilities Dispatch`;

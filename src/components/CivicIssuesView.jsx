@@ -118,7 +118,7 @@ export default function CivicIssuesView({
                 }
               }}
               title={!currentUser ? "Sign in required to report hazards" : "Report New Campus Hazard"}
-              className="px-5 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm transition-all shadow-glow-indigo active:scale-95 flex items-center space-x-2"
+              className="px-5 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm transition-all shadow-glow-indigo active:scale-95 flex items-center space-x-2"
             >
               {!currentUser ? <Lock className="w-4 h-4 text-indigo-200" /> : <Plus className="w-4 h-4" />}
               <span>Report New Hazard</span>
@@ -151,7 +151,7 @@ export default function CivicIssuesView({
             </div>
             <button
               onClick={() => onRequireAuth?.('Sign in with Google to report or upvote civic hazards.')}
-              className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all shadow-subtle text-xs shrink-0 self-start sm:self-center"
+              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-full transition-all shadow-subtle text-xs shrink-0 self-start sm:self-center"
             >
               Sign In with Google
             </button>

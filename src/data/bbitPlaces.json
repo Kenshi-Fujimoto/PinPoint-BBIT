@@ -4,7 +4,7 @@
     "name": "Main Gate",
     "category": "landmark",
     "categoryLabel": "gate",
-    "color": "#EF4444",
+    "color": "#FF3B30",
     "lat": 22.458827,
     "lng": 88.170615,
     "polygon": [
@@ -36,7 +36,7 @@
     "name": "Reception & Enquiry",
     "category": "landmark",
     "categoryLabel": "landmark",
-    "color": "#EF4444",
+    "color": "#FF3B30",
     "lat": 22.458431,
     "lng": 88.169897,
     "polygon": [
@@ -67,7 +67,7 @@
     "name": "BBIT Public School",
     "category": "landmark",
     "categoryLabel": "landmark",
-    "color": "#EF4444",
+    "color": "#FF3B30",
     "lat": 22.4572599,
     "lng": 88.1698754,
     "polygon": [
@@ -98,7 +98,7 @@
     "name": "Central Plaza",
     "category": "landmark",
     "categoryLabel": "landmark",
-    "color": "#EF4444",
+    "color": "#FF3B30",
     "lat": 22.458629,
     "lng": 88.169575,
     "polygon": [
@@ -129,7 +129,7 @@
     "name": "Main Parking Lot",
     "category": "landmark",
     "categoryLabel": "landmark",
-    "color": "#EF4444",
+    "color": "#FF3B30",
     "lat": 22.458728,
     "lng": 88.170433,
     "polygon": [
@@ -160,7 +160,7 @@
     "name": "Administrative Block",
     "category": "admin",
     "categoryLabel": "admin",
-    "color": "#3B82F6",
+    "color": "#0A84FF",
     "lat": 22.458133,
     "lng": 88.170057,
     "polygon": [
@@ -192,7 +192,7 @@
     "name": "Admission Office",
     "category": "admin",
     "categoryLabel": "office",
-    "color": "#3B82F6",
+    "color": "#0A84FF",
     "lat": 22.457985,
     "lng": 88.170165,
     "polygon": [
@@ -223,7 +223,7 @@
     "name": "Examination Cell",
     "category": "admin",
     "categoryLabel": "office",
-    "color": "#3B82F6",
+    "color": "#0A84FF",
     "lat": 22.457935,
     "lng": 88.16995,
     "polygon": [
@@ -254,7 +254,7 @@
     "name": "Accounts & Fees Office",
     "category": "admin",
     "categoryLabel": "office",
-    "color": "#3B82F6",
+    "color": "#0A84FF",
     "lat": 22.457836,
     "lng": 88.170111,
     "polygon": [
@@ -285,7 +285,7 @@
     "name": "Training & Placement Cell",
     "category": "admin",
     "categoryLabel": "office",
-    "color": "#3B82F6",
+    "color": "#0A84FF",
     "lat": 22.458232,
     "lng": 88.169843,
     "polygon": [
@@ -317,7 +317,7 @@
     "name": "Central Library",
     "category": "library",
     "categoryLabel": "library",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.458282,
     "lng": 88.170057,
     "polygon": [
@@ -349,7 +349,7 @@
     "name": "Academic Building A",
     "category": "academic",
     "categoryLabel": "academic",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459274,
     "lng": 88.168502,
     "polygon": [
@@ -381,7 +381,7 @@
     "name": "Academic Building B",
     "category": "academic",
     "categoryLabel": "academic",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459224,
     "lng": 88.169253,
     "polygon": [
@@ -413,7 +413,7 @@
     "name": "Polytechnic Block",
     "category": "academic",
     "categoryLabel": "academic",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459521,
     "lng": 88.168824,
     "polygon": [
@@ -444,7 +444,7 @@
     "name": "MBA Block",
     "category": "academic",
     "categoryLabel": "academic",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459422,
     "lng": 88.170326,
     "polygon": [
@@ -475,7 +475,7 @@
     "name": "M.Tech Block",
     "category": "academic",
     "categoryLabel": "academic",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459125,
     "lng": 88.170433,
     "polygon": [
@@ -506,7 +506,7 @@
     "name": "BCA & BBA Block",
     "category": "academic",
     "categoryLabel": "academic",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459472,
     "lng": 88.170218,
     "polygon": [
@@ -535,7 +535,7 @@
     "name": "CSE Department & Labs",
     "category": "academic",
     "categoryLabel": "lab",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459422,
     "lng": 88.168609,
     "polygon": [
@@ -567,7 +567,7 @@
     "name": "ECE Department & Labs",
     "category": "academic",
     "categoryLabel": "lab",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459174,
     "lng": 88.168824,
     "polygon": [
@@ -599,7 +599,7 @@
     "name": "EE Department & Labs",
     "category": "academic",
     "categoryLabel": "lab",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459125,
     "lng": 88.169092,
     "polygon": [
@@ -631,7 +631,7 @@
     "name": "IT Department & Labs",
     "category": "academic",
     "categoryLabel": "lab",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459075,
     "lng": 88.16936,
     "polygon": [
@@ -662,7 +662,7 @@
     "name": "AI & Data Science Dept",
     "category": "academic",
     "categoryLabel": "lab",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459323,
     "lng": 88.169575,
     "polygon": [
@@ -693,7 +693,7 @@
     "name": "CSE (AI) Lab",
     "category": "academic",
     "categoryLabel": "lab",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459274,
     "lng": 88.169736,
     "polygon": [
@@ -722,7 +722,7 @@
     "name": "CSE (Cyber Security) Lab",
     "category": "academic",
     "categoryLabel": "lab",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459323,
     "lng": 88.169897,
     "polygon": [
@@ -751,7 +751,7 @@
     "name": "Basic Science & Humanities",
     "category": "academic",
     "categoryLabel": "academic",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459422,
     "lng": 88.168985,
     "polygon": [
@@ -782,7 +782,7 @@
     "name": "Mechanical Dept (Polytechnic)",
     "category": "academic",
     "categoryLabel": "lab",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459571,
     "lng": 88.169145,
     "polygon": [
@@ -813,7 +813,7 @@
     "name": "Civil Dept (Polytechnic)",
     "category": "academic",
     "categoryLabel": "lab",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459571,
     "lng": 88.16936,
     "polygon": [
@@ -844,7 +844,7 @@
     "name": "ETC Dept (Polytechnic)",
     "category": "academic",
     "categoryLabel": "lab",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.459571,
     "lng": 88.169521,
     "polygon": [
@@ -875,7 +875,7 @@
     "name": "Central Computing Center",
     "category": "academic",
     "categoryLabel": "lab",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.45853,
     "lng": 88.170326,
     "polygon": [
@@ -907,7 +907,7 @@
     "name": "Central Workshop",
     "category": "academic",
     "categoryLabel": "workshop",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.458827,
     "lng": 88.169038,
     "polygon": [
@@ -938,7 +938,7 @@
     "name": "Seminar Hall",
     "category": "academic",
     "categoryLabel": "lecture",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.458827,
     "lng": 88.169682,
     "polygon": [
@@ -969,7 +969,7 @@
     "name": "A/C Auditorium",
     "category": "building",
     "categoryLabel": "auditorium",
-    "color": "#6366F1",
+    "color": "#0071E3",
     "lat": 22.457588,
     "lng": 88.168609,
     "polygon": [
@@ -1000,7 +1000,7 @@
     "name": "Boys' Hostel",
     "category": "hostel",
     "categoryLabel": "hostel",
-    "color": "#8B5CF6",
+    "color": "#AF52DE",
     "lat": 22.461505,
     "lng": 88.169467,
     "polygon": [
@@ -1032,7 +1032,7 @@
     "name": "Junior Boys' Hostel",
     "category": "hostel",
     "categoryLabel": "hostel",
-    "color": "#8B5CF6",
+    "color": "#AF52DE",
     "lat": 22.46086,
     "lng": 88.170433,
     "polygon": [
@@ -1063,7 +1063,7 @@
     "name": "Girls' Hostel",
     "category": "hostel",
     "categoryLabel": "hostel",
-    "color": "#8B5CF6",
+    "color": "#AF52DE",
     "lat": 22.460711,
     "lng": 88.170755,
     "polygon": [
@@ -1095,7 +1095,7 @@
     "name": "Faculty Hostel",
     "category": "hostel",
     "categoryLabel": "hostel",
-    "color": "#8B5CF6",
+    "color": "#AF52DE",
     "lat": 22.46086,
     "lng": 88.169038,
     "polygon": [
@@ -1126,7 +1126,7 @@
     "name": "Hostel Mess",
     "category": "mess",
     "categoryLabel": "mess",
-    "color": "#F97316",
+    "color": "#FF9500",
     "lat": 22.46091,
     "lng": 88.169897,
     "polygon": [
@@ -1158,7 +1158,7 @@
     "name": "College Canteen",
     "category": "canteen",
     "categoryLabel": "canteen",
-    "color": "#F97316",
+    "color": "#FF9500",
     "lat": 22.45853,
     "lng": 88.16936,
     "polygon": [
@@ -1189,7 +1189,7 @@
     "name": "Cafeteria",
     "category": "canteen",
     "categoryLabel": "cafeteria",
-    "color": "#F97316",
+    "color": "#FF9500",
     "lat": 22.458381,
     "lng": 88.169521,
     "polygon": [
@@ -1220,7 +1220,7 @@
     "name": "Food Court",
     "category": "food",
     "categoryLabel": "food",
-    "color": "#F97316",
+    "color": "#FF9500",
     "lat": 22.458381,
     "lng": 88.169199,
     "polygon": [
@@ -1249,7 +1249,7 @@
     "name": "Campus Tea Stall",
     "category": "tea",
     "categoryLabel": "tea",
-    "color": "#F97316",
+    "color": "#FF9500",
     "lat": 22.458629,
     "lng": 88.170594,
     "polygon": [
@@ -1281,7 +1281,7 @@
     "name": "Cricket Ground",
     "category": "sports",
     "categoryLabel": "ground",
-    "color": "#10B981",
+    "color": "#34C759",
     "lat": 22.460315,
     "lng": 88.167107,
     "polygon": [
@@ -1312,7 +1312,7 @@
     "name": "Football Field",
     "category": "sports",
     "categoryLabel": "ground",
-    "color": "#10B981",
+    "color": "#34C759",
     "lat": 22.458827,
     "lng": 88.166892,
     "polygon": [
@@ -1343,7 +1343,7 @@
     "name": "Basketball Court",
     "category": "sports",
     "categoryLabel": "court",
-    "color": "#10B981",
+    "color": "#34C759",
     "lat": 22.458034,
     "lng": 88.167965,
     "polygon": [
@@ -1374,7 +1374,7 @@
     "name": "Swimming Pool",
     "category": "sports",
     "categoryLabel": "pool",
-    "color": "#10B981",
+    "color": "#34C759",
     "lat": 22.458014,
     "lng": 88.16848,
     "polygon": [
@@ -1405,7 +1405,7 @@
     "name": "Gymnasium",
     "category": "gym",
     "categoryLabel": "gym",
-    "color": "#10B981",
+    "color": "#34C759",
     "lat": 22.457885,
     "lng": 88.168824,
     "polygon": [
@@ -1436,7 +1436,7 @@
     "name": "Central Lawn",
     "category": "green",
     "categoryLabel": "green",
-    "color": "#10B981",
+    "color": "#34C759",
     "lat": 22.458976,
     "lng": 88.169521,
     "polygon": [
@@ -1467,7 +1467,7 @@
     "name": "Campus Garden",
     "category": "green",
     "categoryLabel": "garden",
-    "color": "#10B981",
+    "color": "#34C759",
     "lat": 22.45734,
     "lng": 88.16818,
     "polygon": [
@@ -1498,7 +1498,7 @@
     "name": "Medical Center",
     "category": "health",
     "categoryLabel": "health",
-    "color": "#EC4899",
+    "color": "#FF2D55",
     "lat": 22.457638,
     "lng": 88.169789,
     "polygon": [
@@ -1530,7 +1530,7 @@
     "name": "Campus ATM",
     "category": "atm",
     "categoryLabel": "atm",
-    "color": "#14B8A6",
+    "color": "#32ADE6",
     "lat": 22.458728,
     "lng": 88.170562,
     "polygon": [

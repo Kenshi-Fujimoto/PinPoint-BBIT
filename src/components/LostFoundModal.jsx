@@ -27,8 +27,8 @@ export default function LostFoundModal({
 }) {
   const defaultPlace = { 
     name: 'Central Plaza', 
-    lat: 22.4587, 
-    lng: 88.1708 
+    lat: 22.4599, 
+    lng: 88.1685 
   };
 
   const [type, setType] = useState(initialType);

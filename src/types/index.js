@@ -115,23 +115,23 @@ export const LOST_FOUND_CATEGORIES = [
   { id: 'other', label: 'Other Items', icon: 'Package', color: 'purple' },
 ];
 
-export const BBIT_MAP_CENTER = [22.4591, 88.1697];
+export const BBIT_MAP_CENTER = [22.4602, 88.1684];
 export const BBIT_MAP_ZOOM = 17;
 export const BBIT_WEBSITE_URL = 'https://www.bbit.edu.in';
 
 // Official BBIT (Budge Budge Institute of Technology) Boundary Box for strict clamping
 export const BBIT_CAMPUS_BOUNDS = [
-  [22.4545, 88.1650], // South-West corner
-  [22.4635, 88.1745], // North-East corner
+  [22.4580, 88.1645], // South-West corner
+  [22.4630, 88.1700], // North-East corner
 ];
 
 export function isInsideCampus(lat, lng) {
-  return lat >= 22.4545 && lat <= 22.4635 && lng >= 88.1650 && lng <= 88.1745;
+  return lat >= 22.4580 && lat <= 22.4630 && lng >= 88.1645 && lng <= 88.1700;
 }
 
 export function clampToCampus(lat, lng) {
-  const clampedLat = Math.max(22.4545, Math.min(22.4635, lat));
-  const clampedLng = Math.max(88.1650, Math.min(88.1745, lng));
+  const clampedLat = Math.max(22.4580, Math.min(22.4630, lat));
+  const clampedLng = Math.max(88.1645, Math.min(88.1700, lng));
   return [clampedLat, clampedLng];
 }
 

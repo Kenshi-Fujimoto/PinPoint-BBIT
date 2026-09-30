@@ -1,27 +1,34 @@
-import { INITIAL_CIVIC_ISSUES, INITIAL_LOST_FOUND } from '../data/mockData';
+/**
+ * Local persistence for PinPoint BBIT.
+ *
+ * The app always starts EMPTY. Nothing is ever auto-seeded: reports,
+ * hazards and lost & found items only appear when a student registers them.
+ * Storage keys are versioned; every older generation is purged on load so
+ * stale demo data from previous versions can never resurface.
+ */
 
-const CIVIC_STORAGE_KEY = 'pinpoint_issues_v3';
-const LOST_FOUND_STORAGE_KEY = 'pinpoint_lostfound_v3';
-const USER_UPVOTES_KEY = 'pinpoint_user_upvotes_v3';
+const CIVIC_STORAGE_KEY = 'pinpoint_issues_v4';
+const LOST_FOUND_STORAGE_KEY = 'pinpoint_lostfound_v4';
+const USER_UPVOTES_KEY = 'pinpoint_user_upvotes_v4';
 
-// One-time purge of legacy storage (all previously seeded/cached data)
+// One-time purge of every legacy storage generation
 try {
   ['pinpoint_issues_v1', 'pinpoint_lostfound_v1', 'pinpoint_user_upvotes_v1',
    'pinpoint_issues_v2', 'pinpoint_lostfound_v2', 'pinpoint_user_upvotes_v2',
-   'civicbloom_issues_v1', 'civicbloom_lostfound_v1'].forEach(k => localStorage.removeItem(k));
+   'pinpoint_issues_v3', 'pinpoint_lostfound_v3', 'pinpoint_user_upvotes_v3',
+   'civicbloom_issues_v1', 'civicbloom_lostfound_v1',
+   'civicbloom_user', 'pinpoint_user'].forEach(k => localStorage.removeItem(k));
 } catch (_) { /* no-op */ }
 
 export function getStoredCivicIssues() {
   try {
     const raw = localStorage.getItem(CIVIC_STORAGE_KEY);
-    if (!raw) {
-      localStorage.setItem(CIVIC_STORAGE_KEY, JSON.stringify(INITIAL_CIVIC_ISSUES));
-      return INITIAL_CIVIC_ISSUES;
-    }
-    return JSON.parse(raw);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
   } catch (e) {
     console.error('Error reading civic issues from localStorage:', e);
-    return INITIAL_CIVIC_ISSUES;
+    return [];
   }
 }
 
@@ -36,14 +43,12 @@ export function saveCivicIssues(issues) {
 export function getStoredLostFound() {
   try {
     const raw = localStorage.getItem(LOST_FOUND_STORAGE_KEY);
-    if (!raw) {
-      localStorage.setItem(LOST_FOUND_STORAGE_KEY, JSON.stringify(INITIAL_LOST_FOUND));
-      return INITIAL_LOST_FOUND;
-    }
-    return JSON.parse(raw);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
   } catch (e) {
     console.error('Error reading lost & found from localStorage:', e);
-    return INITIAL_LOST_FOUND;
+    return [];
   }
 }
 
@@ -64,4 +69,3 @@ export function resetAllToDefault() {
     lostFound: [],
   };
 }
-

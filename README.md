@@ -86,13 +86,9 @@ Open **`http://localhost:3001`** in your browser. Express serves all frontend pa
 The project ships with an automated unit-test suite (Vitest) covering the pure-logic services — the proximity duplicate detector, the lost & found smart-matching engine, the spam/scam detector, the campus geofence, the surveyed campus layout and the curated campus-places data — plus an integrity guard that enforces the *"app never renders mock data"* promise:
 
 ```bash
-npm test            # run the full suite once (CI-friendly)
+npm test          # run the full suite once (CI-friendly)
 npm run test:watch  # watch mode during development
-npm run lint        # reject undefined JavaScript and JSX bindings in src
-npm run verify      # lint, run all tests, then build for production
 ```
-
-The location picker also has UI regression tests that open the modal and exercise its map hooks, layers, search, category filters, pin selection and confirmation. Leaflet rendering is mocked so these checks need neither network tiles nor Firebase; the modal, campus data and geofence logic are real. The lint gate catches missing component/hook imports even when Vite can still build successfully.
 
 📖 **Plain-language testing report (start here):** [`docs/_qa.md`](docs/_qa.md) · full step-by-step test checklist for the team: [`docs/_qa-checklist.md`](docs/_qa-checklist.md)
 

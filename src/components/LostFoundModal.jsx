@@ -46,6 +46,7 @@ export default function LostFoundModal({
   const [lat, setLat] = useState(defaultPlace.lat);
   const [lng, setLng] = useState(defaultPlace.lng);
   const [imageUrl, setImageUrl] = useState('');
+  const [photoError, setPhotoError] = useState('');
   const [secretQuestion, setSecretQuestion] = useState('');
   const [reward, setReward] = useState('');
   const [contactInfo, setContactInfo] = useState('');
@@ -61,6 +62,7 @@ export default function LostFoundModal({
       setOtherItemName('');
       setOtherItemDraft('');
       setOtherItemError('');
+      setPhotoError('');
     }
   }, [isOpen, initialType, initialCategory]);
 
@@ -180,6 +182,11 @@ export default function LostFoundModal({
     if (!title.trim()) return;
     if (category === 'other' && !otherItemName.trim()) {
       setOtherItemError('Add an item type before posting this report.');
+      return;
+    }
+    if (type === 'found' && !imageUrl.trim()) {
+      setPhotoError('A photo of the found item is required before you can post this report.');
+      document.getElementById('lf-item-photo')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
 
@@ -552,20 +559,26 @@ export default function LostFoundModal({
             </div>
 
             {/* Photo Uploader */}
-            <div>
+            <div id="lf-item-photo">
               <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1.5">
-                Item Photo
+                Item Photo{type === 'found' ? <span className="text-red-500 ml-0.5">*</span> : <span className="text-stone-400 font-normal ml-1">(optional)</span>}
               </label>
               <EdgeStoreUploader
-                onUploadSuccess={(url) => setImageUrl(url)}
-                onUploadComplete={(url) => setImageUrl(url)}
-                onChange={(url) => setImageUrl(url)}
+                onChange={(url) => {
+                  setImageUrl(url);
+                  if (url) setPhotoError('');
+                }}
                 currentImageUrl={imageUrl}
                 category={category}
                 samplePresets={SAMPLE_LF_PHOTOS}
                 currentUser={currentUser}
                 onRequireAuth={onRequireAuth}
               />
+              {type === 'found' && photoError && !imageUrl && (
+                <p role="alert" className="mt-1.5 text-[11px] font-semibold text-red-600 dark:text-red-400">
+                  {photoError}
+                </p>
+              )}
             </div>
 
             {/* Found Ownership Proof Secret Question */}

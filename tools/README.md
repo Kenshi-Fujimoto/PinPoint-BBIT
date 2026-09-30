@@ -63,3 +63,12 @@ and asserts the recovered footprints match to within a fraction of a metre:
 ```
 ✔ smoke-a: 41.6×26.0 m (drawn 42×26) · centre off by 0.22 m N-S, 0.08 m E-W
 ```
+
+## Code bundle
+
+`docs/campus-map-code.md` is a single-file bundle of every map source file plus
+the regeneration tooling, regenerated with:
+
+```bash
+node tools/bundle-code.mjs
+```

@@ -90,13 +90,13 @@ npm test          # run the full suite once (CI-friendly)
 npm run test:watch  # watch mode during development
 ```
 
-📖 **Plain-language testing report (start here):** [`docs/_qa.md`](docs/_qa.md) · full step-by-step test checklist for the team: [`docs/_qa-checklist.md`](docs/_qa-checklist.md) · viva/panel preparation: [`docs/defense-qa.md`](docs/defense-qa.md)
+📖 **Plain-language testing report (start here):** [`docs/_qa.md`](docs/_qa.md) · full step-by-step test checklist for the team: [`docs/_qa-checklist.md`](docs/_qa-checklist.md)
 
 ---
 
 ## ▲ Deploying to Vercel
 
-> 📖 **Full step-by-step guide:** see **[`docs/deployment.md`](docs/deployment.md)** for environment variables, Firebase/EdgeStore setup, self-hosting (Express/Docker/Nginx), post-deploy smoke tests, troubleshooting and the production-readiness checklist.
+> 📖 **Full step-by-step guide:** see **[`DEPLOYMENT.md`](DEPLOYMENT.md)** for environment variables, Firebase/EdgeStore setup, self-hosting (Express/Docker/Nginx), post-deploy smoke tests, troubleshooting and the production-readiness checklist.
 
 The project is pre-configured with [`vercel.json`](vercel.json) to deploy seamlessly on Vercel:
 
@@ -115,19 +115,6 @@ vercel
    - **Output Directory**: `dist`
 4. Add your **Environment Variables** (`VITE_FIREBASE_API_KEY`, `EDGE_STORE_ACCESS_KEY`, etc.).
 5. Click **Deploy**. Vercel will automatically build the static assets, route client-side SPA requests to `index.html`, and route `/api/edgestore` to the EdgeStore serverless handler!
-
----
-
-## 📚 Documentation
-
-| Document | What it is for |
-| :--- | :--- |
-| [`docs/planning.md`](docs/planning.md) | Project plan & solution design — problem, scope, features, data model, architecture, phases, risks, success criteria |
-| [`docs/deployment.md`](docs/deployment.md) | Deployment guide — environment variables, Firebase/EdgeStore setup, local, Express, Vercel, Docker/Nginx, verification, troubleshooting |
-| [`docs/defense-qa.md`](docs/defense-qa.md) | Defense Q&A handbook — pitch, numbers, algorithm deep-dives, security answers, demo script, hard questions |
-| [`docs/_qa.md`](docs/_qa.md) | Plain-language testing & quality report (non-technical readers) |
-| [`docs/_qa-checklist.md`](docs/_qa-checklist.md) | Full step-by-step manual QA checklist for the team |
-| [`docs/progress.md`](docs/progress.md) | Honest progress report — what works, what doesn't, what's next |
 
 ---
 

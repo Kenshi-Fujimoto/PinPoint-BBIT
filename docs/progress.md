@@ -49,7 +49,7 @@ This table follows the plan we set out in our project plan.
 ## 3. What is working right now
 
 - **The full journey works.** A student can open the app, report a problem with a photo and pin location, and see it appear instantly on the map and in the list.
-- **The map is real.** A surveyed campus plan — boundary wall, road network, lawns, water bodies, parking, trees and gates — with 50 named places drawn as their real footprints read from satellite imagery, plus clustering when many reports sit close together.
+- **The map is real.** 50 named places on the BBIT campus, with satellite imagery and clustering when many reports sit close together.
 - **Reports start empty.** We deliberately removed all sample data so nothing fake ever appears — this was one of our firm promises.
 - **Duplicate warning works.** Trying to report a second pothole in the same spot brings up a warning suggesting the existing report instead, while still letting the student submit their own if they want.
 - **The staff portal works.** Staff can review all reports, filter and search them, mark progress, and remove fake or scam posts. It includes a list of posts that look suspicious.
@@ -64,7 +64,7 @@ This table follows the plan we set out in our project plan.
 This is our most important gap. The staff page currently uses a simple placeholder passcode (and even opens unlocked), instead of checking whether the person is really a staff member. Anyone who finds the page could edit or delete reports. This must be fixed before real students use the app.
 
 **2. Our automated tests only cover the core logic. 🟡**
-We have added a unit-test suite (`npm test`, 73 tests) covering the smart matching, duplicate detection, spam detection, campus geofence, and the curated places data — plus a guard that fails the build if anyone ever wires sample data into the app. What we still lack are tests for the screens themselves: filling in forms, sign-in, and the staff portal still have to be checked by hand.
+We have added a unit-test suite (`npm test`, 64 tests) covering the smart matching, duplicate detection, spam detection, campus geofence, and the curated places data — plus a guard that fails the build if anyone ever wires sample data into the app. What we still lack are tests for the screens themselves: filling in forms, sign-in, and the staff portal still have to be checked by hand.
 
 **3. Saving a report is silent. 🟡**
 When a student submits a report, the window simply closes. It should clearly say "Report saved". If saving fails, it currently only logs the error quietly instead of telling the student.

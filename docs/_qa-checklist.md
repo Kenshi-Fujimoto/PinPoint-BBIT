@@ -120,7 +120,7 @@ npm run test:watch  # watch mode during development
 | :--- | :--- | :--- |
 | `src/services/matchingEngine.test.js` | Haversine distance, 40 m duplicate detection, lost & found similarity scoring, match suggestions | DUP-01…08, MAT-01…08 |
 | `src/services/spamDetector.test.js` | Scam/phishing/fake patterns, field weightings, risk levels, off-campus GPS penalty, moderation reasons | SPA-01…07 |
-| `src/types/index.test.js` | Campus geofence & clamping, surveyed layout (wall, roads, greens, water, parking, trees, gates), category/status catalogues, 50 curated places with footprints | MAP-01…09, STS-01 |
+| `src/types/index.test.js` | Campus geofence & clamping, category/status catalogues, 50 curated places | MAP-01…04, MAP-09, STS-01 |
 | `src/appIntegrity.test.js` | Static guard: no app code may import `mockData` — enforces the "never render fake data" promise | SMK-05, §9.1 |
 
 > **Still manual:** all UI/interaction cases (§5.1, §5.3 flows, §5.7 auth, §5.8 admin portal, §5.11 uploads, §5.12 PWA) and the smoke suite (§4) — see known issue [#2](#8-known-issues--open-defects).
@@ -163,7 +163,7 @@ npm run test:watch  # watch mode during development
 | SMK-10 | Status pipeline | In admin, advance an issue | `Reported → Acknowledged → In Progress → Resolved` with visible history | ☐ |
 | SMK-11 | SPA deep-link refresh | With `/civic` (or admin view) open, hard refresh | No 404 — client routing recovers | ☐ |
 | SMK-12 | Console health | Watch DevTools console during SMK-01…11 | No uncaught errors; only expected warnings | ☐ |
-| SMK-13 | Automated unit tests | `npm test` | All 4 suites pass (73 tests) — matching, spam, geofence & layout, integrity | ☐ |
+| SMK-13 | Automated unit tests | `npm test` | All 4 suites pass (64 tests) — matching, spam, geofence, integrity | ☐ |
 
 ---
 
@@ -303,7 +303,7 @@ Covers `AdminPortal.jsx` / `AdminPanel.jsx`.
 
 Covers `InteractiveMap.jsx`, `MapLocationPickerModal.jsx`, `src/data/bbitPlaces.json`, `isInsideCampus()`.
 
-Campus geofence (derived in `src/types/index.js` from the surveyed campus wall in `src/data/campusLayout.json`): **lat 22.45683–22.45964, lng 88.16787–88.17092** — roughly 310 m × 310 m of real ground, centred on `[22.458234, 88.169398]`, default zoom 17.
+Campus bounding box (from `src/types/index.js`): **lat 22.4570–22.4618, lng 88.1658–88.1710**, centre `[22.4589, 88.1695]`, zoom 17.
 
 | ID | Test Case | Steps | Expected | Result |
 | :--- | :--- | :--- | :--- | :--- |

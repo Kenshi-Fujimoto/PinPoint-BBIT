@@ -1,7 +1,7 @@
 # 📍 PinPoint
 
 > **A Unified Community Platform for Budge Budge Institute of Technology (BBIT) Civic Infrastructure Hazards & Lost-and-Found Possessions**  
-> *Featuring a surveyed map of the Budge Budge Institute of Technology campus — 50 curated places with real footprints, roads, greens and water read from satellite imagery — plus proximity duplicate detection and EdgeStore cloud storage.*
+> *Featuring 50 curated campus places of Budge Budge Institute of Technology, satellite aerial overlays, proximity duplicate detection, and EdgeStore cloud storage.*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-5B5BE6.svg)](https://web.dev/progressive-web-apps/)
@@ -43,7 +43,7 @@
 | Layer | Technologies |
 | :--- | :--- |
 | **Frontend** | React 18, Vite 5, Tailwind CSS 3, Lucide Icons, Canvas Confetti |
-| **Mapping** | Leaflet, React-Leaflet, Esri World Imagery + a surveyed campus plan (boundary wall, road network, greens, water, parking, gates) and 50 curated places with real footprints |
+| **Mapping** | Leaflet, React-Leaflet, High-Res Satellite Aerial Imagery + 50 Curated Campus Places of BBIT |
 | **PWA** | Vite Plugin PWA (`vite-plugin-pwa`), Service Worker, Web App Manifest |
 | **Database** | Firebase Firestore (Real-time `onSnapshot` & Offline Persistence) |
 | **Cloud Storage** | EdgeStore.dev (`@edgestore/react`, `@edgestore/server`) for image buckets |
@@ -83,7 +83,7 @@ Open **`http://localhost:3001`** in your browser. Express serves all frontend pa
 
 ## 🧪 Testing & QA
 
-The project ships with an automated unit-test suite (Vitest) covering the pure-logic services — the proximity duplicate detector, the lost & found smart-matching engine, the spam/scam detector, the campus geofence, the surveyed campus layout and the curated campus-places data — plus an integrity guard that enforces the *"app never renders mock data"* promise:
+The project ships with an automated unit-test suite (Vitest) covering the pure-logic services — the proximity duplicate detector, the lost & found smart-matching engine, the spam/scam detector, campus geofencing, and the curated campus-places data — plus an integrity guard that enforces the *"app never renders mock data"* promise:
 
 ```bash
 npm test          # run the full suite once (CI-friendly)

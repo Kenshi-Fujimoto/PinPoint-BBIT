@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Polygon, Tooltip, useMapEvents, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Tooltip, useMapEvents, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { 
   X, 
@@ -125,7 +125,7 @@ export default function MapLocationPickerModal({
   const [locationName, setLocationName] = useState(initialName || 'BBIT Campus');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [showOverlays, setShowOverlays] = useState(true);
+  const [showPlaces, setShowPlaces] = useState(true);
   const [mapLayerType, setMapLayerType] = useState('satellite'); // 'satellite' or 'streets'
   const [mobileView, setMobileView] = useState('map'); // 'map' or 'places'
   const [flyTarget, setFlyTarget] = useState(null);
@@ -269,7 +269,7 @@ export default function MapLocationPickerModal({
                   Pinpoint Campus Location
                 </h2>
                 <p className="text-[11px] text-stone-400 hidden sm:block truncate">
-                  Tap anywhere on the satellite canvas or choose from 50 surveyed campus buildings
+                  Tap anywhere on the satellite canvas or choose from 50 campus locations
                 </p>
               </div>
             </div>
@@ -427,55 +427,30 @@ export default function MapLocationPickerModal({
                   />
                 )}
 
-                {/* OVERLAY: ALL 50 SURVEYED BUILDINGS & LABELS */}
-                {showOverlays && filteredPlaces.map((place) => {
+                {/* Point markers and labels only; no rectangular area overlays. */}
+                {showPlaces && filteredPlaces.map((place) => {
                   const isMajor = MAJOR_LANDMARK_IDS.has(place.id);
-                  const isSelected = selectedLat === place.lat && selectedLng === place.lng;
 
                   return (
-                    <React.Fragment key={place.id}>
-                      {/* Building Polygon Boundary */}
-                      {place.polygon && (
-                        <Polygon
-                          positions={place.polygon}
-                          pathOptions={{
-                            color: isSelected ? '#0071E3' : (place.color || '#0071E3'),
-                            fillColor: isSelected ? '#0071E3' : (place.color || '#0071E3'),
-                            fillOpacity: isSelected ? 0.45 : 0.22,
-                            weight: isSelected ? 2.5 : 1.5,
-                          }}
-                          eventHandlers={{
-                            click: () => handleSelectPlace(place),
-                          }}
-                        >
-                          <Tooltip direction="top" className="custom-clean-map-tooltip">
-                            <span className="font-sans font-bold text-[11px] text-white">
-                              {place.name} ({place.categoryLabel})
-                            </span>
-                          </Tooltip>
-                        </Polygon>
-                      )}
-
-                      {/* Interactive Building Dot */}
-                      <Marker
-                        position={[place.lat, place.lng]}
-                        icon={createPickerBuildingDot(place.color)}
-                        eventHandlers={{
-                          click: () => handleSelectPlace(place),
-                        }}
+                    <Marker
+                      key={place.id}
+                      position={[place.lat, place.lng]}
+                      icon={createPickerBuildingDot(place.color)}
+                      eventHandlers={{
+                        click: () => handleSelectPlace(place),
+                      }}
+                    >
+                      <Tooltip
+                        permanent={isMajor}
+                        direction="top"
+                        offset={[0, -8]}
+                        className="custom-clean-map-tooltip"
                       >
-                        <Tooltip
-                          permanent={isMajor}
-                          direction="top"
-                          offset={[0, -8]}
-                          className="custom-clean-map-tooltip"
-                        >
-                          <span className="font-sans font-bold text-[11px] text-white">
-                            {place.name}
-                          </span>
-                        </Tooltip>
-                      </Marker>
-                    </React.Fragment>
+                        <span className="font-sans font-bold text-[11px] text-white">
+                          {place.name}
+                        </span>
+                      </Tooltip>
+                    </Marker>
                   );
                 })}
 
@@ -517,16 +492,17 @@ export default function MapLocationPickerModal({
                   <span className="hidden sm:inline">{mapLayerType === 'satellite' ? 'Satellite' : 'Street'}</span>
                 </button>
 
-                {/* Overlay Toggle */}
+                {/* Campus Point Markers Toggle */}
                 <button
                   type="button"
-                  onClick={() => setShowOverlays(!showOverlays)}
+                  onClick={() => setShowPlaces(!showPlaces)}
                   className={`p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl text-xs font-bold shadow-modal border transition-all flex items-center space-x-1 ${
-                    showOverlays 
+                    showPlaces
                       ? 'bg-indigo-600 text-white border-indigo-600' 
                       : 'bg-white/90 dark:bg-stone-900/90 text-stone-800 dark:text-white border-stone-200 dark:border-stone-700'
                   }`}
-                  title="Toggle 50 Building Outlines"
+                  title="Toggle campus place markers"
+                  aria-pressed={showPlaces}
                 >
                   <Layers className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">50 Places</span>

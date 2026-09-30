@@ -29,3 +29,10 @@ dist-ssr
 .env.*.local
 
 .vercel
+
+# Imagery working files — reference captures stay local, derived vectors are committed
+tools/imagery/*.jpg
+tools/imagery/*.jpeg
+tools/imagery/*.png
+tools/satellite-harvester/out/
+tools/georef-out/

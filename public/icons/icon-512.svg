@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Circle Radial Gradient -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1" />
+      <stop offset="85%" stop-color="#F5F3FB" stop-opacity="1" />
+      <stop offset="100%" stop-color="#EBE7F7" stop-opacity="1" />
+    </radialGradient>
+
+    <!-- Blue Pin Gradient -->
+    <linearGradient id="bluePinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7371FC" />
+      <stop offset="100%" stop-color="#5B50E6" />
+    </linearGradient>
+
+    <!-- Pink Pin Gradient -->
+    <linearGradient id="pinkPinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4608E" />
+      <stop offset="100%" stop-color="#E23D71" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Glow Circle -->
+  <circle cx="256" cy="256" r="236" fill="url(#bgGlow)" />
+
+  <!-- Blue Map Pin (Left) -->
+  <path
+    d="M 235,130
+       C 185,130 145,170 145,220
+       C 145,270 215,350 235,370
+       C 255,350 325,270 325,220
+       C 325,170 285,130 235,130 Z"
+    fill="url(#bluePinGrad)"
+    opacity="0.88"
+  />
+
+  <!-- Pink Map Pin (Right, Overlapping with Multiply Blend) -->
+  <path
+    d="M 305,170
+       C 255,170 215,210 215,260
+       C 215,310 285,390 305,410
+       C 325,390 395,310 395,260
+       C 395,210 355,170 305,170 Z"
+    fill="url(#pinkPinGrad)"
+    opacity="0.82"
+    style="mix-blend-mode: multiply;"
+  />
+</svg>

@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    background-color: #FAFAF9;
+    color: #18181B;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  img, video, iframe, canvas, svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Minimal Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E4E4E7;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A1A1AA;
+}
+
+/* Minimal Leaflet Map Styling */
+.leaflet-container {
+  font-family: inherit;
+  border-radius: 1rem;
+  z-index: 10;
+  max-width: 100%;
+  background: #0C0E14 !important;
+  touch-action: pan-x pan-y;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 1rem !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4) !important;
+  padding: 0 !important;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: transparent !important;
+  max-width: 90vw !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: inherit !important;
+}
+
+/* Clean Sleek Map Tooltips with High Contrast Crisp White Text */
+.custom-clean-map-tooltip,
+.leaflet-tooltip.custom-clean-map-tooltip {
+  background: rgba(15, 23, 42, 0.94) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  color: #FFFFFF !important;
+  border-radius: 8px !important;
+  padding: 3px 8px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6) !important;
+  white-space: nowrap !important;
+}
+
+.custom-clean-map-tooltip span,
+.leaflet-tooltip.custom-clean-map-tooltip span {
+  color: #FFFFFF !important;
+}
+
+.custom-clean-map-tooltip::before,
+.leaflet-tooltip-top.custom-clean-map-tooltip::before {
+  border-top-color: rgba(15, 23, 42, 0.94) !important;
+}
+
+/* Subtle animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

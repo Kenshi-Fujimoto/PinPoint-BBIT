@@ -8,7 +8,6 @@ interface HeroSectionProps {
   onReport: () => void
   civicCount: number
   lostFoundCount: number
-  isDark?: boolean
 }
 
 export default function HeroSection({
@@ -16,12 +15,11 @@ export default function HeroSection({
   onReport,
   civicCount,
   lostFoundCount,
-  isDark = false,
 }: HeroSectionProps) {
   return (
     <section className="relative w-full overflow-hidden h-[62vh] min-h-[460px] max-h-[680px]">
-      {/* WebGL mesh-drift shader fills the hero — Apple light palette by default */}
-      <ShaderBackground className="absolute inset-0 h-full w-full" dark={isDark} />
+      {/* Keep the BBIT blue/cyan mesh consistent in both themes. */}
+      <ShaderBackground className="absolute inset-0 h-full w-full" />
 
       {/* Readability + blend into page background */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-stone-50 dark:from-black/10 dark:to-[#000000] pointer-events-none" />

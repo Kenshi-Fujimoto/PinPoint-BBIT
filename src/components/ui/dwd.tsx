@@ -313,28 +313,15 @@ const UNIFORMS = {
   timeScale: -1.373,
 }
 
-// Apple.com-style light preset: white/soft-grey field with azure highlights.
-const LIGHT_UNIFORMS = {
-  ...UNIFORMS,
-  colors: [
-    [0.9607843137254902,0.9607843137254902,0.9686274509803922], // #F5F5F7 Apple grey
-    [0.8941176470588236,0.9450980392156862,0.996078431372549],  // #E4F1FE soft azure
-    [0.7803921568627451,0.9019607843137255,0.9882352941176471],  // #C7E6FC sky
-    [1,1,1],                                                     // white highlight
-    [1,1,1],[1,1,1],[1,1,1],[1,1,1],
-  ],
-  contrast: 1.040,
-  vignette: 0.060,
-  grain: 0.035,
-}
-
 const pendingContextReleases = new WeakMap<HTMLCanvasElement, number>()
 
-export function ShaderBackground({ className, dark = false }: { className?: string; dark?: boolean }) {
+export function ShaderBackground({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    const U = dark ? UNIFORMS : LIGHT_UNIFORMS
+    // Keep the BBIT blue/cyan mesh consistent across light and dark themes.
+    // Theme-specific contrast and fade-to-page are handled by HeroSection's overlay.
+    const U = UNIFORMS
     const canvas = canvasRef.current
     if (!canvas) return
     const pendingRelease = pendingContextReleases.get(canvas)

@@ -488,7 +488,6 @@ export default function App() {
               onReport={() => handleOpenReportModal('civic')}
               civicCount={civicIssues.length}
               lostFoundCount={lostFoundItems.length}
-              isDark={isDark}
             />
 
             {/* Main App Container */}

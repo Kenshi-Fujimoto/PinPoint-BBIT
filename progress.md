@@ -1,118 +1,126 @@
-# 📊 PinPoint BBIT — Progress Tracker
+# 📍 PinPoint — Progress Report
 
-> Living status document for the PinPoint campus platform.
-> **Source of truth for scope:** [`planning.md`](planning.md) · **Product overview:** [`README.md`](README.md)
+**A campus app for Budge Budge Institute of Technology**
 
 | | |
 | :--- | :--- |
-| **Last updated** | 2026-09-30 |
-| **Branch** | `arena/01a0f27b-pinpoint-bbit` |
-| **Base commit** | `e3e35ad` (merge of PR #1) |
-| **Build status** | ✅ `npm run build` passes (6.1 s, 1666 modules) |
-| **Test status** | ❌ No test framework or test files in repo |
-| **Overall readiness** | 🟡 **Feature-complete for a demo; not yet release-ready** (blockers: staff access control, no test suite) |
+| **Last updated** | 30 September 2026 |
+| **Overall status** | 🟡 **Works well as a demo. Not yet ready for real use** — the staff login still needs to be properly secured. |
 
-**Legend:** ✅ Done · 🟡 Partial / needs verification · ⬜ Not started · 🔴 Blocker
+**How to read the status:** ✅ Done · 🟡 Almost there · ⬜ Not started
 
 ---
 
-## 1. Status board
+## 1. What PinPoint does
 
-Mapped directly to the four themes in `planning.md`.
+Students use one app to solve two everyday campus problems:
 
-| # | Workstream | Status | Evidence / Notes |
-| :-- | :--- | :-- | :--- |
-| 1 | **Safe & reliable app** | 🟡 | Empty-start enforced; staff auth is not secure yet (G-01) |
-| 1a | App always starts with empty lists — no sample reports | ✅ | `src/data/mockData.js` exports `[]`; `src/services/storage.js` uses versioned keys `_v4` and purges all legacy generations on load |
-| 1b | Secure sign-in & staff access | 🔴 | Staff portal opens already unlocked; hardcoded shared passcodes (G-01) |
-| 1c | Clear feedback when a report is saved or fails | 🟡 | Modals close on submit with no success/error toast; write failures are `console.error` only (G-02) |
-| 1d | Works on weak / offline connections | 🟡 | Firestore persistent multi-tab cache + localStorage fallback; queued writes on reconnect not implemented (G-03) |
-| 2 | **Core features** | ✅ | All primary user flows implemented |
-| 2a | Report a campus problem with location + photo | ✅ | `CivicReportModal.jsx`, `MapLocationPickerModal.jsx`, `EdgeStoreUploader.jsx` |
-| 2b | Post lost & found items, see possible matches | ✅ | `LostFoundModal.jsx`, `LostFoundView.jsx`, `matchingEngine.js` (multi-factor scoring, % confidence) |
-| 2c | Proximity duplicate detection, still allow a new report | ✅ | `findNearbyCivicDuplicates()` — 40 m at call site (`CivicReportModal.jsx:64`); shows "Similar report nearby" prompt with an override |
-| 2d | Staff update issue progress, visible to students | ✅ | 4-stage pipeline `reported → acknowledged → in_progress → resolved` (`src/types/index.js`), `statusHistory` timeline, reunited celebration |
-| 2e | Works on phones and computers | ✅ | Tailwind responsive layouts, dark mode default, mobile bottom-nav in `Navbar.jsx` |
-| 3 | **Testing before release** | 🔴 | No tests exist at all (G-04) |
-| 4 | **Ready for real use** | 🟡 | Deployment path works; setup docs, rules and data-handling policy missing |
-| 4a | Clear setup instructions for external services | 🟡 | README covers Firebase/EdgeStore env vars at a high level; no `.env.example` (G-05) |
-| 4b | Protect user info, photos and location details | ⬜ | No Firestore security rules file; no privacy/retention notes (G-06) |
-| 4c | Explain how reports are reviewed and managed | 🟡 | Admin portal implements moderation + spam radar; the *policy* is not written down (G-07) |
-| 4d | Deploy and update reliably | ✅ | `vercel.json` rewrites (SPA + API), `server.js` Express SPA fallback, PWA `autoUpdate` service worker |
+- **Report a campus problem** — a pothole, a broken light, a blocked drain. They add a photo and drop a pin on the campus map.
+- **Report a lost or found item** — a water bottle, an ID card, a phone.
+- **Avoid double reports** — if something similar was already reported nearby, the app says so and suggests supporting the existing report instead.
+- **Track what happens next** — staff move a problem through four clear stages: *Reported → Acknowledged → In Progress → Resolved*. Students can watch that progress. Lost items end at *Reunited 🎉*.
 
 ---
 
-## 2. What is built and verified
+## 2. Progress at a glance
 
-- **Campus mapping** — 50 curated BBIT places (`src/data/bbitPlaces.json`, verified count = 50), satellite aerial tiles, marker clustering, campus bounds + `isInsideCampus()` / `clampToCampus()` guards (`src/types/index.js:123-136`).
-- **Civic hazard pipeline** — report → acknowledge → in progress → resolved, with severity upvotes, verification counts, comments and a full `statusHistory` audit trail rendered in `CivicDetailModal.jsx`.
-- **Proximity duplicate detection** — Haversine distance in `matchingEngine.js`, surfaced as a "Similar hazard reported nearby!" prompt before submission, with an explicit option to continue submitting anyway.
-- **Lost & found smart matching** — multi-factor title/description/category/location scoring producing ranked suggestions with confidence percentages (`src/services/matchingEngine.js`).
-- **Anti-spam heuristics** — `src/services/spamDetector.js` flags phishing/scam patterns, fake/junk text and duplicate flooding; feeds the admin "spam radar" and suspect queue.
-- **Staff operations portal** — `src/components/AdminPortal.jsx` (1,565 lines): stats dashboard, search/filter/sort, bulk actions, soft-delete to trash with restore, deletion reasons, resolution & reunion rates.
-- **Persistence** — Firebase Firestore realtime `onSnapshot` subscriptions with persistent multi-tab cache, plus a localStorage mirror so the app stays usable with no Firebase credentials configured.
-- **PWA** — `vite-plugin-pwa` with `autoUpdate`, manifest, maskable icons, install banner; build precaches 20 entries (~1.9 MB).
-- **Deployment** — Vercel config with `/api/edgestore` and `/api/health` rewrites; Express server serves the SPA and the EdgeStore router on one port.
+This table follows the plan we set out in our project plan.
 
----
-
-## 3. Gap register
-
-| ID | Severity | Gap | Evidence | Next action |
-| :-- | :-- | :--- | :--- | :--- |
-| **G-01** | 🔴 Blocker | Staff portal is effectively unauthenticated. `isAuthenticated` initialises to `true`, and even the gate accepts `admin`, `1234` or an **empty** passcode. Passcodes are hardcoded in the client bundle. | `AdminPortal.jsx:44`, `AdminPortal.jsx:268-270` | Drive staff access from Firebase Auth custom claims/allow-list + Firestore rules; remove hardcoded passcodes and the `true` default; add role check before rendering the portal |
-| **G-02** | 🟡 High | No success or failure feedback on submission. Modals call `onSubmit()` then `onClose()` synchronously; Firestore write errors are swallowed with `console.error`. | `CivicReportModal.jsx:191-192`, `LostFoundModal.jsx`, `firebase.js` sync helpers | Make `syncCivicIssue`/`syncLostFoundItem` return status; show success toast + an error toast with retry |
-| **G-03** | 🟡 High | Offline writes are fire-and-forget. If a write fails while offline it is only logged; there is no retry queue, so data can silently diverge from Firestore. | `src/services/firebase.js` (`syncCivicIssue`, `syncLostFoundItem`) | Add an outbox/retry queue flushed on reconnect, and an "unsynced changes" indicator |
-| **G-04** | 🔴 Blocker | Zero automated tests, no test runner. All of planning.md §3 is unaddressed. | No `*.test.*`/`*.spec.*`, no vitest/jest config, no `test` script in `package.json` | Add Vitest; unit-test `matchingEngine`, `spamDetector`, `isInsideCampus`, storage purge; smoke-test empty-start |
-| **G-05** | 🟡 Medium | No `.env.example`; required variables are only implied by README prose. | No `.env*` files in repo | Add `.env.example` documenting `VITE_FIREBASE_*`, `EDGE_STORE_ACCESS_KEY`, `EDGE_STORE_SECRET_KEY`, `PORT` |
-| **G-06** | 🟡 Medium | No Firestore security rules checked in. All writes are client-side, so the DB is only as safe as the console settings. | No `*.rules` file anywhere in repo | Commit `firestore.rules` (owner-only writes for reports, staff-only for status/moderation) and document deployment |
-| **G-07** | 🟢 Low | Moderation/review policy and privacy/data-retention notes are not written down. | `planning.md` §4 items 2-3 | Add a short `docs/` policy section (who reviews reports, retention of photos/locations, deletion-on-request) |
-| **G-08** | 🟢 Low | Deleted-item history lives only in memory — the admin trash empties on reload. | `App.jsx:44` (`useState([])`, never persisted) | Persist trash to Firestore or versioned localStorage |
-| **G-09** | 🟢 Low | Large JS bundles: main chunk 1,038 kB (~201 kB gzip), Firebase 534 kB, Leaflet 297 kB. Vite warns about chunk size. | `npm run build` output | Lazy-load `AdminPortal`, Leaflet map and Firebase; split vendor chunks |
-| **G-10** | 🟢 Low | Doc drift: README describes the duplicate threshold as `<40m` while the engine default is 35 m (the call site passes 40). | `matchingEngine.js:26-28` vs `README.md` | Align the default and the docs |
-| **G-11** | 🟡 Medium | `npm audit` reports 24 advisories (17 moderate, 5 high, 1 critical). The critical/high entries are `next@16.3.2` → `sharp@0.35.3`, pulled in **transitively by `@edgestore/react@0.2.2`** — neither package is imported or shipped in this app's client bundle. Remaining ones sit in the server/ toolchain path (`qs` via `express`, `cookie`, `esbuild` via `vite`, `brace-expansion`, `fast-uri`). | `npm audit`, `npm ls next sharp qs esbuild` | Run `npm audit fix`, then confirm EdgeStore still works; consider pinning/overriding `next`/`sharp` out of the tree if unused |
-
----
-
-## 4. Verification log
-
-| Date | Check | Result |
+| What we planned | Status | In simple words |
 | :--- | :--- | :--- |
-| 2026-09-30 | `npm ci` | ✅ Clean install from lockfile |
-| 2026-09-30 | `npm audit` | ⚠️ 24 advisories (1 low, 17 moderate, 5 high, 1 critical) — see G-11; 19 remain when dev-only packages are excluded |
-| 2026-09-30 | `npm run build` | ✅ Passes in 6.11 s; PWA service worker generated (`dist/sw.js`, 20 precache entries) |
-| 2026-09-30 | Empty-start promise audit | ✅ `INITIAL_CIVIC_ISSUES`/`INITIAL_LOST_FOUND` are `[]`; storage keys bumped to `_v4` with legacy purge |
-| 2026-09-30 | Campus places count | ✅ 50 entries in `bbitPlaces.json` — matches README claim |
-| 2026-09-30 | Automated test run | ❌ Not possible — no test suite exists (G-04) |
-| 2026-09-30 | Staff access review | 🔴 Portal renders unlocked by default (G-01) |
-
-Not yet exercised in this environment: live Firebase reads/writes, EdgeStore uploads, Google sign-in popup, Vercel deploy, and real-device PWA install — all require credentials or a deployment target.
-
----
-
-## 5. Next up (prioritised)
-
-1. 🔴 **Lock down the staff portal** — remove the `useState(true)` default, delete hardcoded passcodes, gate on a Firebase Auth role/claim (G-01).
-2. 🔴 **Introduce Vitest** and cover the pure logic modules first: `matchingEngine`, `spamDetector`, campus bounds, storage purge (G-04).
-3. 🟡 **Submission feedback** — success/failure toasts and a retry path on write errors (G-02).
-4. 🟡 **Offline outbox** with reconnect flush so no report is silently lost (G-03).
-5. 🟡 **`.env.example` + `firestore.rules`** committed and referenced from the README (G-05, G-06).
-6. 🟢 Persist admin trash, split heavy bundles, fix the 35 m/40 m doc drift (G-08, G-09, G-10).
-7. 🟡 Clear the dependency advisories with `npm audit fix` and re-verify the EdgeStore route (G-11).
+| App starts empty, with no fake reports | ✅ | Done — every report you see was posted by a real user |
+| Report a problem with a photo and location | ✅ | Done |
+| Post lost and found items | ✅ | Done |
+| Suggest lost-and-found matches | ✅ | Done — shows a confidence percentage |
+| Warn about nearby duplicate reports | ✅ | Done — warns if a similar report is within about 40 metres |
+| Let staff update a problem's progress | ✅ | Done — students see the updates |
+| Works on both phone and computer | ✅ | Done |
+| Clear message when a report is saved or fails | 🟡 | Partly — the window closes but doesn't yet confirm it saved |
+| Works when the internet is weak | 🟡 | Partly — the app still opens, but a report made offline may not reach the server |
+| Secure sign-in and staff access | ⬜ | **Not done — this is our main blocker** |
+| Test everything before release | ⬜ | Not done — we have no automated tests yet |
+| Setup instructions for other people | 🟡 | Partly written |
+| Protect user data and photos | ⬜ | Not done — database access rules not written yet |
 
 ---
 
-## 6. Session log
+## 3. What is working right now
 
-| Date | Summary |
+- **The full journey works.** A student can open the app, report a problem with a photo and pin location, and see it appear instantly on the map and in the list.
+- **The map is real.** 50 named places on the BBIT campus, with satellite imagery and clustering when many reports sit close together.
+- **Reports start empty.** We deliberately removed all sample data so nothing fake ever appears — this was one of our firm promises.
+- **Duplicate warning works.** Trying to report a second pothole in the same spot brings up a warning suggesting the existing report instead, while still letting the student submit their own if they want.
+- **The staff portal works.** Staff can review all reports, filter and search them, mark progress, and remove fake or scam posts. It includes a list of posts that look suspicious.
+- **The app builds and runs cleanly.** We build the app and run it successfully with no errors.
+- **It behaves like a real phone app.** It can be installed on a phone with its own icon, and it keeps working from saved data when offline.
+
+---
+
+## 4. What is not finished yet
+
+**1. The staff area is not properly protected. 🔴**
+This is our most important gap. The staff page currently uses a simple placeholder passcode (and even opens unlocked), instead of checking whether the person is really a staff member. Anyone who finds the page could edit or delete reports. This must be fixed before real students use the app.
+
+**2. We have no automated tests. 🔴**
+Our project plan said we would test before release. So far we have only tested by hand. We have no repeatable tests, which means changes could silently break something.
+
+**3. Saving a report is silent. 🟡**
+When a student submits a report, the window simply closes. It should clearly say "Report saved". If saving fails, it currently only logs the error quietly instead of telling the student.
+
+**4. Reports made offline may be lost. 🟡**
+The app opens and shows old data without internet, but a report created offline is not guaranteed to be sent later. We need a proper retry system.
+
+**5. Setup instructions are incomplete. 🟡**
+A new person trying to run the project would not find a full list of the settings and access keys it needs.
+
+**6. Data protection rules are not written. ⬜**
+We have not yet written the rules that control who can read or change reports in the database. Photos and locations are personal information, so this matters.
+
+**7. Some libraries need updating. 🟡**
+A security check on our supporting libraries reported warnings. The most serious ones are in libraries we don't actually use, but we still need to clean this up.
+
+**8. Small polish items.** The staff recycle bin forgets deleted items after a refresh, and the app takes a moment to load the first time on a slow connection.
+
+---
+
+## 5. How we checked our work
+
+| We checked | Result |
 | :--- | :--- |
-| 2026-09-30 | Created this tracker. Audited the codebase against `planning.md`; verified the production build; opened 10 tracked gaps. No application code changed. |
-| _2026-08 (prior session)_ | PR #1 merged: empty-start storage (`_v4` keys + legacy purge), Firestore realtime sync with offline cache, staff operations portal, spam heuristics, smart matching, PWA setup, Express + Vercel serving. |
+| Does the app build and run without errors? | ✅ Yes |
+| Does the app start with no sample or fake reports? | ✅ Yes — verified in the code |
+| Are all 50 campus places on the map? | ✅ Yes — counted and confirmed |
+| Do the report, lost-and-found and staff features exist and connect? | ✅ Yes — confirmed by reading through each screen |
+| Can the app be installed on a phone? | ✅ Yes — phone app files generated successfully |
+| Do we have automated tests? | ❌ No — none exist yet |
+| Is there a live test with real Google sign-in and photo uploads? | ⬜ Not yet — this needs real accounts and cannot be tested in our setup |
 
 ---
 
-### How to keep this file useful
+## 6. What we will do next
 
-- Update **Last updated**, the status board and the verification log whenever behaviour changes.
-- Gaps get an ID, a severity and a **next action** — close them by moving the row out of §3 and recording the evidence in §4.
-- Add one row per work session to §6; keep it to what changed and what was verified.
+1. 🔴 **Protect the staff area** with a real login and a proper staff role, and remove the placeholder passcode.
+2. 🔴 **Add automated tests** so we can prove a change hasn't broken anything.
+3. 🟡 **Confirm every save** — tell students clearly when a report is saved or when it fails.
+4. 🟡 **Make offline reports reliable** so nothing is silently lost.
+5. 🟡 **Finish the setup guide and write the data protection rules.**
+6. 🟡 **Update the outdated libraries.**
+7. 🟢 **Polish** the recycle bin and speed up the first load.
+
+---
+
+## 7. Try it yourself
+
+1. Open the app — it starts completely empty, with no fake reports.
+2. Tap **Report an Issue**, add a photo and pin a location on the campus map.
+3. Submit it and watch it appear instantly on the map and in the list.
+4. Try reporting something in the same spot again to see the duplicate warning.
+5. Open the **Facility Staff Portal** to see how staff review and update reports.
+
+> **Please note:** the staff portal is currently open by design, so you can explore it freely. Securing it is the very first item on our list above.
+
+---
+
+## The honest one-line summary
+
+**PinPoint is a working, feature-complete campus app — the reporting, mapping, matching and staff tools all function. What stands between this and real student use is the staff login, a test suite, and clear feedback when reports are saved.**

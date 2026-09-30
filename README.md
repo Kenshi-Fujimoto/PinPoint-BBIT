@@ -83,6 +83,8 @@ Open **`http://localhost:3001`** in your browser. Express serves all frontend pa
 
 ## ▲ Deploying to Vercel
 
+> 📖 **Full step-by-step guide:** see **[`DEPLOYMENT.md`](DEPLOYMENT.md)** for environment variables, Firebase/EdgeStore setup, self-hosting (Express/Docker/Nginx), post-deploy smoke tests, troubleshooting and the production-readiness checklist.
+
 The project is pre-configured with [`vercel.json`](vercel.json) to deploy seamlessly on Vercel:
 
 ### Method 1: Deploy with Vercel CLI

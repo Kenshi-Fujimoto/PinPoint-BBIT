@@ -12,14 +12,14 @@ export default function PinPointLogo({ className = "w-8 h-8", withBackground = t
         {/* Background Circle Radial Gradient */}
         <radialGradient id="pinpointBgGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-          <stop offset="85%" stopColor="#F5F3FB" stopOpacity="1" />
-          <stop offset="100%" stopColor="#EBE7F7" stopOpacity="1" />
+          <stop offset="85%" stopColor="#F0F7FF" stopOpacity="1" />
+          <stop offset="100%" stopColor="#E0EFFF" stopOpacity="1" />
         </radialGradient>
 
         {/* Blue Pin Gradient */}
         <linearGradient id="pinpointBlueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#7371FC" />
-          <stop offset="100%" stopColor="#5B50E6" />
+          <stop offset="0%" stopColor="#0A84FF" />
+          <stop offset="100%" stopColor="#0071E3" />
         </linearGradient>
 
         {/* Pink Pin Gradient */}

@@ -32,10 +32,10 @@ const pickerPinIcon = L.divIcon({
   className: 'custom-picker-pin',
   html: `
     <div style="position: relative; display: flex; flex-direction: column; align-items: center; width: 44px; height: 50px; cursor: grab;">
-      <div style="width: 36px; height: 36px; border-radius: 12px; background: linear-gradient(135deg, #6366F1, #4F46E5); border: 2.5px solid #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(99, 102, 241, 0.9); color: white; font-weight: bold; font-size: 16px;">
+      <div style="width: 36px; height: 36px; border-radius: 12px; background: linear-gradient(135deg, #0A84FF, #0071E3); border: 2.5px solid #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0, 113, 227, 0.9); color: white; font-weight: bold; font-size: 16px;">
         📍
       </div>
-      <div style="width: 4px; height: 10px; background: #4F46E5; border-radius: 2px;"></div>
+      <div style="width: 4px; height: 10px; background: #0071E3; border-radius: 2px;"></div>
       <div style="width: 8px; height: 4px; background: rgba(0,0,0,0.3); border-radius: 50%;"></div>
     </div>
   `,
@@ -44,7 +44,7 @@ const pickerPinIcon = L.divIcon({
 });
 
 // Minimal Building Dot on Picker Map
-function createPickerBuildingDot(color = '#6366F1') {
+function createPickerBuildingDot(color = '#0071E3') {
   return L.divIcon({
     className: 'picker-building-dot',
     html: `
@@ -372,7 +372,7 @@ export default function MapLocationPickerModal({
                         : 'bg-white dark:bg-stone-800/90 border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-700'
                     }`}
                   >
-                    <span className="w-2.5 h-2.5 rounded-full mt-1 shrink-0 shadow-xs" style={{ background: b.color || '#6366F1' }} />
+                    <span className="w-2.5 h-2.5 rounded-full mt-1 shrink-0 shadow-xs" style={{ background: b.color || '#0071E3' }} />
                     <div className="min-w-0 flex-1">
                       <div className="truncate font-semibold">{b.name}</div>
                       <div className={`text-[10px] truncate ${isSelected ? 'text-indigo-100' : 'text-stone-400'}`}>
@@ -439,8 +439,8 @@ export default function MapLocationPickerModal({
                         <Polygon
                           positions={place.polygon}
                           pathOptions={{
-                            color: isSelected ? '#6366F1' : (place.color || '#6366F1'),
-                            fillColor: isSelected ? '#6366F1' : (place.color || '#6366F1'),
+                            color: isSelected ? '#0071E3' : (place.color || '#0071E3'),
+                            fillColor: isSelected ? '#0071E3' : (place.color || '#0071E3'),
                             fillOpacity: isSelected ? 0.45 : 0.22,
                             weight: isSelected ? 2.5 : 1.5,
                           }}
@@ -573,7 +573,7 @@ export default function MapLocationPickerModal({
             <button
               type="button"
               onClick={handleConfirm}
-              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-subtle flex items-center justify-center space-x-1.5 text-xs transition-all flex-1 sm:flex-initial"
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold shadow-subtle flex items-center justify-center space-x-1.5 text-xs transition-all flex-1 sm:flex-initial"
             >
               <Check className="w-4 h-4" />
               <span>Confirm Location</span>

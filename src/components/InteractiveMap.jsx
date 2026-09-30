@@ -55,7 +55,7 @@ function MapCoordinateInspector({ onMove, onZoomChange }) {
 }
 
 // Minimal Clean Dot Marker for Places
-function createMinimalDotIcon(color = '#6366F1', isMajor = false) {
+function createMinimalDotIcon(color = '#0071E3', isMajor = false) {
   const size = isMajor ? 12 : 8;
   return L.divIcon({
     className: 'custom-dot-pin',
@@ -74,10 +74,10 @@ function createMinimalDotIcon(color = '#6366F1', isMajor = false) {
 function createSatelliteCivicIcon(category, isResolved, urgency, clusterCount = 1, clusterIndex = 0) {
   const isUrgent = urgency >= 30;
   const bg = isResolved 
-    ? 'linear-gradient(135deg, #10B981, #059669)' 
+    ? 'linear-gradient(135deg, #34C759, #2DAE4E)' 
     : isUrgent 
-    ? 'linear-gradient(135deg, #F97316, #EA580C)' 
-    : 'linear-gradient(135deg, #F59E0B, #D97706)';
+    ? 'linear-gradient(135deg, #FF9500, #E08200)' 
+    : 'linear-gradient(135deg, #FF9500, #B86800)';
   
   const shadowColor = isResolved ? 'rgba(16, 185, 129, 0.6)' : isUrgent ? 'rgba(249, 115, 22, 0.7)' : 'rgba(245, 158, 11, 0.6)';
   const emoji = category === 'pothole' ? '🕳️' : category === 'streetlight' ? '💡' : category === 'water_leak' ? '💧' : '⚠️';
@@ -92,7 +92,7 @@ function createSatelliteCivicIcon(category, isResolved, urgency, clusterCount = 
         <div style="width: 32px; height: 32px; border-radius: 10px; background: ${bg}; border: 2px solid #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px ${shadowColor}; font-size: 15px; cursor: pointer; transform: translateZ(0); transition: transform 0.15s ease; position: relative;">
           ${emoji}
           ${clusterCount > 1 ? `
-            <span style="position: absolute; top: -6px; right: -6px; background: #4338CA; color: #FFFFFF; border: 1.5px solid #FFFFFF; font-size: 9px; font-weight: 800; border-radius: 9999px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.6);">
+            <span style="position: absolute; top: -6px; right: -6px; background: #0058B8; color: #FFFFFF; border: 1.5px solid #FFFFFF; font-size: 9px; font-weight: 800; border-radius: 9999px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.6);">
               ${clusterIndex + 1}
             </span>
           ` : ''}
@@ -108,10 +108,10 @@ function createSatelliteCivicIcon(category, isResolved, urgency, clusterCount = 
 function createSatelliteLostFoundIcon(type, isReunited, clusterCount = 1, clusterIndex = 0) {
   const isLost = type === 'lost';
   const bg = isReunited 
-    ? 'linear-gradient(135deg, #10B981, #059669)' 
+    ? 'linear-gradient(135deg, #34C759, #2DAE4E)' 
     : isLost 
-    ? 'linear-gradient(135deg, #EC4899, #DB2777)' 
-    : 'linear-gradient(135deg, #0EA5E9, #0284C7)';
+    ? 'linear-gradient(135deg, #FF2D55, #E02549)' 
+    : 'linear-gradient(135deg, #32ADE6, #0091D5)';
   
   const shadowColor = isReunited ? 'rgba(16, 185, 129, 0.6)' : isLost ? 'rgba(236, 72, 153, 0.6)' : 'rgba(14, 165, 233, 0.6)';
   const emoji = isReunited ? '🎉' : isLost ? '🔍' : '📦';
@@ -123,7 +123,7 @@ function createSatelliteLostFoundIcon(type, isReunited, clusterCount = 1, cluste
         <div style="width: 30px; height: 30px; border-radius: 10px; background: ${bg}; border: 2px solid #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px ${shadowColor}; font-size: 14px; cursor: pointer; position: relative;">
           ${emoji}
           ${clusterCount > 1 ? `
-            <span style="position: absolute; top: -6px; right: -6px; background: #4338CA; color: #FFFFFF; border: 1.5px solid #FFFFFF; font-size: 9px; font-weight: 800; border-radius: 9999px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.6);">
+            <span style="position: absolute; top: -6px; right: -6px; background: #0058B8; color: #FFFFFF; border: 1.5px solid #FFFFFF; font-size: 9px; font-weight: 800; border-radius: 9999px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.6);">
               ${clusterIndex + 1}
             </span>
           ` : ''}
@@ -525,8 +525,8 @@ export default function InteractiveMap({
                       <Polygon
                         positions={place.polygon}
                         pathOptions={{
-                          color: place.color || '#6366F1',
-                          fillColor: place.color || '#6366F1',
+                          color: place.color || '#0071E3',
+                          fillColor: place.color || '#0071E3',
                           fillOpacity: 0.18,
                           weight: 1.5,
                         }}

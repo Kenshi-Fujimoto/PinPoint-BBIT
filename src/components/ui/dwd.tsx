@@ -313,12 +313,28 @@ const UNIFORMS = {
   timeScale: -1.373,
 }
 
+// Apple.com-style light preset: white/soft-grey field with azure highlights.
+const LIGHT_UNIFORMS = {
+  ...UNIFORMS,
+  colors: [
+    [0.9607843137254902,0.9607843137254902,0.9686274509803922], // #F5F5F7 Apple grey
+    [0.8941176470588236,0.9450980392156862,0.996078431372549],  // #E4F1FE soft azure
+    [0.7803921568627451,0.9019607843137255,0.9882352941176471],  // #C7E6FC sky
+    [1,1,1],                                                     // white highlight
+    [1,1,1],[1,1,1],[1,1,1],[1,1,1],
+  ],
+  contrast: 1.040,
+  vignette: 0.060,
+  grain: 0.035,
+}
+
 const pendingContextReleases = new WeakMap<HTMLCanvasElement, number>()
 
-export function ShaderBackground({ className }: { className?: string }) {
+export function ShaderBackground({ className, dark = false }: { className?: string; dark?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
+    const U = dark ? UNIFORMS : LIGHT_UNIFORMS
     const canvas = canvasRef.current
     if (!canvas) return
     const pendingRelease = pendingContextReleases.get(canvas)
@@ -364,41 +380,41 @@ export function ShaderBackground({ className }: { className?: string }) {
       space: gl.getUniformLocation(program, "u_space"),
       cursor: gl.getUniformLocation(program, "u_cursor"),
     }
-    gl.uniform3fv(uni.colors, new Float32Array(UNIFORMS.colors.flat()))
+    gl.uniform3fv(uni.colors, new Float32Array(U.colors.flat()))
     gl.uniform4f(
       uni.shape,
-      UNIFORMS.scale,
-      UNIFORMS.intensity,
-      UNIFORMS.paramA,
-      UNIFORMS.warp,
+      U.scale,
+      U.intensity,
+      U.paramA,
+      U.warp,
     )
     gl.uniform4f(
       uni.surface,
-      UNIFORMS.detail,
-      UNIFORMS.contrast,
-      UNIFORMS.brightness,
-      UNIFORMS.saturation,
+      U.detail,
+      U.contrast,
+      U.brightness,
+      U.saturation,
     )
     gl.uniform4f(
       uni.finish,
-      UNIFORMS.hue,
-      UNIFORMS.vignette,
-      UNIFORMS.blur,
-      UNIFORMS.grain,
+      U.hue,
+      U.vignette,
+      U.blur,
+      U.grain,
     )
     gl.uniform4f(
       uni.transform,
-      UNIFORMS.seed,
-      UNIFORMS.rotate,
-      UNIFORMS.drift,
-      UNIFORMS.oklab,
+      U.seed,
+      U.rotate,
+      U.drift,
+      U.oklab,
     )
     gl.uniform4f(
       uni.cursor,
       0,
-      UNIFORMS.cursorEffect,
-      UNIFORMS.cursorStrength,
-      UNIFORMS.cursorRadius,
+      U.cursorEffect,
+      U.cursorStrength,
+      U.cursorRadius,
     )
 
     let targetX = 0
@@ -417,7 +433,7 @@ export function ShaderBackground({ className }: { className?: string }) {
     let inView = true
     let disposed = false
     const start = performance.now()
-    const timeAnimated = Math.abs(UNIFORMS.timeScale) > 0.0001
+    const timeAnimated = Math.abs(U.timeScale) > 0.0001
 
     const resizeCanvas = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -485,7 +501,7 @@ export function ShaderBackground({ className }: { className?: string }) {
       requestRender()
     }
     window.addEventListener("resize", updateLayout)
-    if (UNIFORMS.cursorEnabled) {
+    if (U.cursorEnabled) {
       window.addEventListener("pointermove", onPointerMove, { passive: true })
       window.addEventListener("pointercancel", onPointerLeave)
       window.addEventListener("scroll", updateLayout, true)
@@ -532,22 +548,22 @@ export function ShaderBackground({ className }: { className?: string }) {
         uni.scene,
         width,
         height,
-        ((now - start) / 1000) * UNIFORMS.timeScale,
-        UNIFORMS.colorCount,
+        ((now - start) / 1000) * U.timeScale,
+        U.colorCount,
       )
       gl.uniform4f(
         uni.space,
-        UNIFORMS.offsetX,
-        UNIFORMS.offsetY,
+        U.offsetX,
+        U.offsetY,
         mouseX,
         mouseY,
       )
       gl.uniform4f(
         uni.cursor,
-        UNIFORMS.cursorEnabled ? cursorPresence : 0,
-        UNIFORMS.cursorEffect,
-        UNIFORMS.cursorStrength,
-        UNIFORMS.cursorRadius,
+        U.cursorEnabled ? cursorPresence : 0,
+        U.cursorEffect,
+        U.cursorStrength,
+        U.cursorRadius,
       )
       gl.drawArrays(gl.TRIANGLES, 0, 3)
       const pointerSettling =
@@ -565,7 +581,7 @@ export function ShaderBackground({ className }: { className?: string }) {
       intersectionObserver.disconnect()
       document.removeEventListener("visibilitychange", onVisibilityChange)
       window.removeEventListener("resize", updateLayout)
-      if (UNIFORMS.cursorEnabled) {
+      if (U.cursorEnabled) {
         window.removeEventListener("pointermove", onPointerMove)
         window.removeEventListener("pointercancel", onPointerLeave)
         window.removeEventListener("scroll", updateLayout, true)

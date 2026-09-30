@@ -214,7 +214,7 @@ export default function Navbar({
             <button
               onClick={() => onOpenReportModal(activeTab === 'lostfound' ? 'lostfound' : 'civic')}
               title={!user ? "Sign in required to post or report" : (activeTab === 'lostfound' ? 'Post Lost or Found Item' : 'Report Civic Hazard')}
-              className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs transition-all shadow-glow-indigo active:scale-95"
+              className="flex items-center space-x-1.5 px-3.5 py-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs transition-all shadow-glow-indigo active:scale-95"
             >
               {!user ? <Lock className="w-3.5 h-3.5 text-indigo-200" /> : <Plus className="w-3.5 h-3.5" />}
               <span>{activeTab === 'lostfound' ? 'Post Item' : 'Report Issue'}</span>

@@ -93,12 +93,12 @@ if (fs.existsSync(distPath)) {
           <meta charset="utf-8"/>
           <title>PinPoint - Express Server</title>
           <style>
-            body { font-family: system-ui, -apple-system, sans-serif; background: #0c0e14; color: #f3f4f6; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
+            body { font-family: system-ui, -apple-system, sans-serif; background: #000000; color: #f5f5f7; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; }
             .card { background: #161922; border: 1px solid #282e3e; border-radius: 1.5rem; padding: 32px; max-width: 500px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
             h2 { color: #818cf8; margin-top: 0; }
             p { color: #9ca3af; font-size: 14px; line-height: 1.6; }
-            .btn { display: inline-block; background: #4f46e5; color: white; padding: 10px 20px; border-radius: 12px; text-decoration: none; font-weight: bold; margin-top: 15px; font-size: 13px; }
-            code { background: #232838; padding: 2px 6px; border-radius: 6px; color: #38bdf8; font-family: monospace; }
+            .btn { display: inline-block; background: #0071e3; color: white; padding: 10px 20px; border-radius: 12px; text-decoration: none; font-weight: bold; margin-top: 15px; font-size: 13px; }
+            code { background: #1d1d1f; padding: 2px 6px; border-radius: 6px; color: #5ac8fa; font-family: monospace; }
           </style>
         </head>
         <body>

@@ -109,7 +109,7 @@ export default function LostFoundDetailModal({
       particleCount: 100,
       spread: 70,
       origin: { y: 0.6 },
-      colors: ['#10B981', '#6366F1', '#38BDF8', '#F59E0B']
+      colors: ['#34C759', '#0071E3', '#5AC8FA', '#FF9500']
     });
     onMarkReunited(item.id);
   };
@@ -309,7 +309,7 @@ export default function LostFoundDetailModal({
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 bg-indigo-600 text-white rounded-xl font-bold"
+                  className="px-4 py-1.5 bg-indigo-600 text-white rounded-full font-bold"
                 >
                   Submit Claim
                 </button>
@@ -378,7 +378,7 @@ export default function LostFoundDetailModal({
                 <button
                   type="button"
                   onClick={() => onRequireAuth?.('Sign in with Google to leave sighting tips.')}
-                  className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition-all shadow-subtle shrink-0"
+                  className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-full text-xs transition-all shadow-subtle shrink-0"
                 >
                   Sign In
                 </button>
@@ -394,7 +394,7 @@ export default function LostFoundDetailModal({
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-xl font-bold"
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-full font-bold"
                 >
                   Send
                 </button>

@@ -6,10 +6,22 @@
   html, body {
     overflow-x: hidden;
     max-width: 100vw;
-    background-color: #FAFAF9;
-    color: #18181B;
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #FFFFFF;
+    color: #1D1D1F;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Inter, Helvetica, Arial, sans-serif;
     letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html.dark, html.dark body {
+    background-color: #000000;
+    color: #F5F5F7;
+  }
+
+  /* Apple-style large headings: tight tracking */
+  h1, h2, h3 {
+    letter-spacing: -0.015em;
   }
 
   img, video, iframe, canvas, svg {
@@ -29,12 +41,20 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #E4E4E7;
+  background: #D2D2D7;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #A1A1AA;
+  background: #A1A1A6;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #424245;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6E6E73;
 }
 
 /* Minimal Leaflet Map Styling */
@@ -43,7 +63,7 @@
   border-radius: 1rem;
   z-index: 10;
   max-width: 100%;
-  background: #0C0E14 !important;
+  background: #000000 !important;
   touch-action: pan-x pan-y;
 }
 

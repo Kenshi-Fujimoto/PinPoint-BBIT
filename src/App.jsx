@@ -43,20 +43,19 @@ export default function App() {
   const [authPromptReason, setAuthPromptReason] = useState('');
   const [deletedItemsHistory, setDeletedItemsHistory] = useState([]);
 
-  // Theme Management (Dark Mode by default, user-controlled toggle)
+  // Theme Management (Apple-style light theme by default, user-controlled toggle)
   const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem('pinpoint_theme') || localStorage.getItem('civicbloom_theme');
-    if (saved === 'light') return false;
-    return true; // Default to Dark theme
+    const saved = localStorage.getItem('pinpoint_appearance');
+    return saved === 'dark'; // Default to Apple light theme
   });
 
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('pinpoint_theme', 'dark');
+      localStorage.setItem('pinpoint_appearance', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.setItem('pinpoint_theme', 'light');
+      localStorage.setItem('pinpoint_appearance', 'light');
     }
   }, [isDark]);
 
@@ -458,7 +457,7 @@ export default function App() {
 
   return (
     <EdgeStoreProvider>
-      <div className="min-h-screen bg-stone-50 dark:bg-[#0B0D13] text-stone-900 dark:text-stone-100 flex flex-col font-sans transition-colors duration-200">
+      <div className="min-h-screen bg-stone-50 dark:bg-[#000000] text-stone-900 dark:text-stone-100 flex flex-col font-sans transition-colors duration-200">
         
         {/* PUBLIC VIEW */}
         {viewMode === 'public' && (
@@ -487,6 +486,7 @@ export default function App() {
               onReport={() => handleOpenReportModal('civic')}
               civicCount={civicIssues.length}
               lostFoundCount={lostFoundItems.length}
+              isDark={isDark}
             />
 
             {/* Main App Container */}

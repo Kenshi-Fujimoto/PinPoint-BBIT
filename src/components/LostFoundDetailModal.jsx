@@ -142,7 +142,7 @@ export default function LostFoundDetailModal({
             )}
 
             <span className="text-xs font-medium text-stone-600 dark:text-stone-300 bg-stone-100 dark:bg-stone-800 px-2.5 py-1 rounded-lg">
-              {currentCategory.label}
+              {currentCategory.label}{item.category === 'other' && item.otherItemName ? ` · ${item.otherItemName}` : ''}
             </span>
           </div>
 

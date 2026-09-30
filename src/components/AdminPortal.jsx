@@ -354,10 +354,10 @@ export default function AdminPortal({
           <button
             onClick={onResetData}
             className="px-3.5 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-stone-300 border border-stone-800 text-xs font-semibold flex items-center space-x-1.5 transition-all"
-            title="Reset demo data"
+            title="Clear all registered data"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>Reset Demo Data</span>
+            <span>Clear All Data</span>
           </button>
 
           <button

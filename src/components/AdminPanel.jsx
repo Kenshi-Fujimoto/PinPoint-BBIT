@@ -69,7 +69,7 @@ export default function AdminPanel({
             className="self-start sm:self-center px-4 py-2 rounded-2xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-700 text-xs font-semibold flex items-center space-x-1.5 shadow-soft-sm transition-all"
           >
             <RotateCcw className="w-3.5 h-3.5 text-stone-400" />
-            <span>Reset Demo Seed Data</span>
+            <span>Clear All Data</span>
           </button>
         </div>
       </div>

@@ -1,12 +1,13 @@
 import { INITIAL_CIVIC_ISSUES, INITIAL_LOST_FOUND } from '../data/mockData';
 
-const CIVIC_STORAGE_KEY = 'pinpoint_issues_v2';
-const LOST_FOUND_STORAGE_KEY = 'pinpoint_lostfound_v2';
-const USER_UPVOTES_KEY = 'pinpoint_user_upvotes_v2';
+const CIVIC_STORAGE_KEY = 'pinpoint_issues_v3';
+const LOST_FOUND_STORAGE_KEY = 'pinpoint_lostfound_v3';
+const USER_UPVOTES_KEY = 'pinpoint_user_upvotes_v3';
 
-// One-time purge of legacy storage (pre-BBIT data)
+// One-time purge of legacy storage (all previously seeded/cached data)
 try {
   ['pinpoint_issues_v1', 'pinpoint_lostfound_v1', 'pinpoint_user_upvotes_v1',
+   'pinpoint_issues_v2', 'pinpoint_lostfound_v2', 'pinpoint_user_upvotes_v2',
    'civicbloom_issues_v1', 'civicbloom_lostfound_v1'].forEach(k => localStorage.removeItem(k));
 } catch (_) { /* no-op */ }
 

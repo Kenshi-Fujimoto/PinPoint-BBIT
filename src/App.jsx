@@ -420,9 +420,9 @@ export default function App() {
     setDeletedItemsHistory(prev => prev.filter(r => r.originalId !== item.id));
   };
 
-  // Reset to default seed data
+  // Clear all registered data
   const handleResetData = () => {
-    if (window.confirm('Reset all demo data to initial BBIT sample dataset?')) {
+    if (window.confirm('Remove ALL registered reports, hazards, and lost & found items? This cannot be undone.')) {
       const reset = resetAllToDefault();
       setCivicIssues(reset.civicIssues);
       setLostFoundItems(reset.lostFound);

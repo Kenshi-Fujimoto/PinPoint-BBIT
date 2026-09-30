@@ -69,6 +69,7 @@ export default function App() {
   const [isCivicModalOpen, setIsCivicModalOpen] = useState(false);
   const [isLostFoundModalOpen, setIsLostFoundModalOpen] = useState(false);
   const [lostFoundModalType, setLostFoundModalType] = useState('lost');
+  const [lostFoundModalCategory, setLostFoundModalCategory] = useState('bottles_mugs');
 
   // Real-time Auth State Subscription
   useEffect(() => {
@@ -446,6 +447,7 @@ export default function App() {
       setIsCivicModalOpen(true);
     } else {
       setLostFoundModalType('lost');
+      setLostFoundModalCategory('bottles_mugs');
       setIsLostFoundModalOpen(true);
     }
   };
@@ -509,12 +511,13 @@ export default function App() {
                 <LostFoundView
                   items={lostFoundItems}
                   onSelectItem={(item) => setSelectedLostFoundItem(item)}
-                  onOpenCreateModal={(type) => {
+                  onOpenCreateModal={(type, category = 'bottles_mugs') => {
                     if (!currentUser) {
                       triggerAuthPrompt('Sign in with Google to post lost or found items.');
                       return;
                     }
                     setLostFoundModalType(type);
+                    setLostFoundModalCategory(category);
                     setIsLostFoundModalOpen(true);
                   }}
                   currentUser={currentUser}
@@ -624,6 +627,8 @@ export default function App() {
           onClose={() => setIsLostFoundModalOpen(false)}
           onSubmit={handleCreateLostFoundItem}
           initialType={lostFoundModalType}
+          initialCategory={lostFoundModalCategory}
+          existingItems={lostFoundItems}
           currentUser={currentUser}
           onRequireAuth={triggerAuthPrompt}
         />

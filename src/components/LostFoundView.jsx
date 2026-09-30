@@ -23,8 +23,24 @@ export default function LostFoundView({
 }) {
   const [selectedType, setSelectedType] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedOtherItemName, setSelectedOtherItemName] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [onlyMyPosts, setOnlyMyPosts] = useState(false);
+
+  const otherItemNames = useMemo(() => {
+    const names = new Map();
+    items.forEach((item) => {
+      if (item.category !== 'other') return;
+      if (selectedType === 'lost' && (item.type !== 'lost' || item.status === 'reunited')) return;
+      if (selectedType === 'found' && (item.type !== 'found' || item.status === 'reunited')) return;
+      if (selectedType === 'reunited' && item.status !== 'reunited') return;
+
+      const rawName = item.otherItemName || item.title;
+      const name = typeof rawName === 'string' ? rawName.trim() : '';
+      if (name && !names.has(name.toLowerCase())) names.set(name.toLowerCase(), name);
+    });
+    return [...names.values()].sort((a, b) => a.localeCompare(b));
+  }, [items, selectedType]);
 
   const filteredItems = useMemo(() => {
     let result = [...items];
@@ -45,6 +61,14 @@ export default function LostFoundView({
       result = result.filter(item => item.category === selectedCategory);
     }
 
+    if (selectedOtherItemName) {
+      result = result.filter((item) => {
+        const itemName = item.otherItemName || item.title || '';
+        return item.category === 'other' &&
+          itemName.trim().toLowerCase() === selectedOtherItemName.toLowerCase();
+      });
+    }
+
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       result = result.filter(
@@ -58,7 +82,7 @@ export default function LostFoundView({
     }
 
     return result.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-  }, [items, selectedType, selectedCategory, searchQuery, onlyMyPosts, currentUser]);
+  }, [items, selectedType, selectedCategory, selectedOtherItemName, searchQuery, onlyMyPosts, currentUser]);
 
   const systemMatches = useMemo(() => {
     const matchesFound = [];
@@ -89,6 +113,16 @@ export default function LostFoundView({
     if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
     if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
     return `${Math.floor(diff / 86400)}d ago`;
+  };
+
+  const selectType = (nextType) => {
+    setSelectedType(nextType);
+    setSelectedOtherItemName(null);
+  };
+
+  const selectCategory = (nextCategory) => {
+    setSelectedCategory(nextCategory);
+    setSelectedOtherItemName(null);
   };
 
   return (
@@ -208,7 +242,7 @@ export default function LostFoundView({
           <div className="flex items-center space-x-2 flex-wrap gap-y-2">
             <div className="flex items-center bg-stone-100 dark:bg-stone-800 p-0.5 rounded-xl text-xs font-medium border border-stone-200/60 dark:border-stone-700">
               <button
-                onClick={() => setSelectedType('all')}
+                onClick={() => selectType('all')}
                 className={`px-3 py-1 rounded-lg transition-all ${selectedType === 'all'
                   ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-white shadow-subtle font-bold'
                   : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
@@ -217,7 +251,7 @@ export default function LostFoundView({
                 All
               </button>
               <button
-                onClick={() => setSelectedType('lost')}
+                onClick={() => selectType('lost')}
                 className={`px-3 py-1 rounded-lg transition-all ${selectedType === 'lost'
                   ? 'bg-pink-600 text-white shadow-subtle font-bold'
                   : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
@@ -226,7 +260,7 @@ export default function LostFoundView({
                 Lost
               </button>
               <button
-                onClick={() => setSelectedType('found')}
+                onClick={() => selectType('found')}
                 className={`px-3 py-1 rounded-lg transition-all ${selectedType === 'found'
                   ? 'bg-sky-600 text-white shadow-subtle font-bold'
                   : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
@@ -235,7 +269,7 @@ export default function LostFoundView({
                 Found
               </button>
               <button
-                onClick={() => setSelectedType('reunited')}
+                onClick={() => selectType('reunited')}
                 className={`px-3 py-1 rounded-lg transition-all ${selectedType === 'reunited'
                   ? 'bg-emerald-600 text-white shadow-subtle font-bold'
                   : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
@@ -264,7 +298,7 @@ export default function LostFoundView({
         {/* Category Pills */}
         <div className="flex items-center space-x-1.5 overflow-x-auto pb-0.5 no-scrollbar text-xs">
           <button
-            onClick={() => setSelectedCategory('all')}
+            onClick={() => selectCategory('all')}
             className={`whitespace-nowrap px-3 py-1 rounded-lg transition-all font-semibold ${selectedCategory === 'all'
               ? 'bg-stone-900 dark:bg-white text-white dark:text-stone-900 shadow-subtle'
               : 'text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-stone-800'
@@ -276,20 +310,73 @@ export default function LostFoundView({
           {LOST_FOUND_CATEGORIES.map(cat => {
             const isSelected = selectedCategory === cat.id;
             return (
-              <button
-                key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
-                className={`whitespace-nowrap px-3 py-1 rounded-lg transition-all flex items-center space-x-1.5 font-medium border ${isSelected
-                  ? 'bg-indigo-600 border-indigo-600 text-white font-bold shadow-subtle'
-                  : 'bg-stone-50 dark:bg-stone-800/80 border-stone-200/80 dark:border-stone-700/80 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-700'
-                  }`}
-              >
-                <Icon name={cat.icon} className="w-3.5 h-3.5" />
-                <span>{cat.label}</span>
-              </button>
+              <div key={cat.id} className="inline-flex items-center gap-1 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => selectCategory(cat.id)}
+                  className={`whitespace-nowrap px-3 py-1 rounded-lg transition-all flex items-center space-x-1.5 font-medium border ${isSelected
+                    ? 'bg-indigo-600 border-indigo-600 text-white font-bold shadow-subtle'
+                    : 'bg-stone-50 dark:bg-stone-800/80 border-stone-200/80 dark:border-stone-700/80 text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-700'
+                    }`}
+                >
+                  <Icon name={cat.icon} className="w-3.5 h-3.5" />
+                  <span>{cat.label}</span>
+                </button>
+                {cat.id === 'other' && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      selectCategory('other');
+                      onOpenCreateModal(selectedType === 'found' ? 'found' : 'lost', 'other');
+                    }}
+                    title="Add an item to Other Items"
+                    aria-label="Add an item to Other Items"
+                    className="whitespace-nowrap px-2.5 py-1 rounded-lg transition-all flex items-center space-x-1 border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-950/50 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/60 font-semibold"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Add item</span>
+                  </button>
+                )}
+              </div>
             );
           })}
         </div>
+
+        {selectedCategory === 'other' && otherItemNames.length > 0 && (
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 no-scrollbar text-xs">
+            <span className="shrink-0 text-[11px] font-semibold text-stone-500 dark:text-stone-400">Other item names:</span>
+            <button
+              type="button"
+              onClick={() => setSelectedOtherItemName(null)}
+              aria-pressed={!selectedOtherItemName}
+              className={`whitespace-nowrap px-2.5 py-1 rounded-lg border transition-all ${
+                !selectedOtherItemName
+                  ? 'bg-purple-600 border-purple-600 text-white font-bold'
+                  : 'bg-stone-50 dark:bg-stone-800 border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-stone-100'
+              }`}
+            >
+              All Other Items
+            </button>
+            {otherItemNames.map((name) => {
+              const isSelected = selectedOtherItemName?.toLowerCase() === name.toLowerCase();
+              return (
+                <button
+                  key={name.toLowerCase()}
+                  type="button"
+                  onClick={() => setSelectedOtherItemName(name)}
+                  aria-pressed={isSelected}
+                  className={`max-w-48 truncate whitespace-nowrap px-2.5 py-1 rounded-lg border transition-all ${
+                    isSelected
+                      ? 'bg-purple-600 border-purple-600 text-white font-bold'
+                      : 'bg-stone-50 dark:bg-stone-800 border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 hover:bg-stone-100'
+                  }`}
+                >
+                  {name}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Grid of Items */}
@@ -366,7 +453,7 @@ export default function LostFoundView({
 
                   {/* Category & Attributes */}
                   <div className="text-[11px] text-stone-500 dark:text-stone-400 font-medium mb-1">
-                    {category.label} {item.color ? `• ${item.color}` : ''}
+                    {category.label}{item.category === 'other' && item.otherItemName ? ` · ${item.otherItemName}` : ''} {item.color ? `• ${item.color}` : ''}
                   </div>
 
                   {/* Title */}

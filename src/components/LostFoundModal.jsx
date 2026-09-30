@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Lock, Award, HeartHandshake, Navigation, Compass, MapPin } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { X, Lock, Award, HeartHandshake, Navigation, Compass, MapPin, Plus } from 'lucide-react';
 import { 
   LOST_FOUND_CATEGORIES, 
   CAMPUS_LANDMARKS, 
@@ -22,6 +22,8 @@ export default function LostFoundModal({
   onClose, 
   onSubmit, 
   initialType = 'lost',
+  initialCategory = 'bottles_mugs',
+  existingItems = [],
   currentUser,
   onRequireAuth
 }) {
@@ -33,7 +35,10 @@ export default function LostFoundModal({
 
   const [type, setType] = useState(initialType);
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('bottles_mugs');
+  const [otherItemName, setOtherItemName] = useState('');
+  const [otherItemDraft, setOtherItemDraft] = useState('');
+  const [otherItemError, setOtherItemError] = useState('');
+  const [category, setCategory] = useState(initialCategory);
   const [color, setColor] = useState('');
   const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
@@ -47,6 +52,29 @@ export default function LostFoundModal({
   const [isMapPickerOpen, setIsMapPickerOpen] = useState(false);
   const [isGettingGps, setIsGettingGps] = useState(false);
   const [gpsNote, setGpsNote] = useState('');
+
+  useEffect(() => {
+    if (isOpen) {
+      setType(initialType);
+      setCategory(initialCategory);
+      setTitle('');
+      setOtherItemName('');
+      setOtherItemDraft('');
+      setOtherItemError('');
+    }
+  }, [isOpen, initialType, initialCategory]);
+
+  const existingOtherItemNames = [...new Map(
+    existingItems
+      .filter((item) => item.category === 'other')
+      .map((item) => {
+        const name = typeof item.otherItemName === 'string' && item.otherItemName.trim()
+          ? item.otherItemName.trim()
+          : typeof item.title === 'string' ? item.title.trim() : '';
+        return [name.toLowerCase(), name];
+      })
+      .filter(([key]) => key)
+  ).values()].sort((a, b) => a.localeCompare(b));
 
   if (!isOpen) return null;
 
@@ -122,6 +150,25 @@ export default function LostFoundModal({
     setGpsNote('📍 Precision spot selected on map');
   };
 
+  const handleCategoryChange = (nextCategory) => {
+    setCategory(nextCategory);
+    setOtherItemName('');
+    setOtherItemDraft('');
+    setOtherItemError('');
+  };
+
+  const handleAddOtherItem = () => {
+    const itemName = otherItemDraft.trim();
+    if (!itemName) {
+      setOtherItemError('Type an item name in the box before adding it.');
+      return;
+    }
+
+    setOtherItemName(itemName);
+    setOtherItemDraft('');
+    setOtherItemError('');
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!currentUser) {
@@ -131,6 +178,10 @@ export default function LostFoundModal({
       return;
     }
     if (!title.trim()) return;
+    if (category === 'other' && !otherItemName.trim()) {
+      setOtherItemError('Add an item type before posting this report.');
+      return;
+    }
 
     const finalLat = Number(lat);
     const finalLng = Number(lng);
@@ -140,6 +191,7 @@ export default function LostFoundModal({
       type,
       title: title.trim(),
       category,
+      otherItemName: category === 'other' ? otherItemName.trim() : '',
       color: color.trim() || '',
       brand: brand.trim() || '',
       description: description.trim() || 'No details provided.',
@@ -259,7 +311,7 @@ export default function LostFoundModal({
                   <button
                     key={cat.id}
                     type="button"
-                    onClick={() => setCategory(cat.id)}
+                    onClick={() => handleCategoryChange(cat.id)}
                     className={`p-2.5 rounded-2xl border text-left flex items-center space-x-2 transition-all ${
                       category === cat.id
                         ? type === 'lost'
@@ -275,7 +327,75 @@ export default function LostFoundModal({
               </div>
             </div>
 
-            {/* Title */}
+            {category === 'other' && (
+              <div className="p-3.5 rounded-2xl bg-purple-50/70 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/70 space-y-2">
+                <div>
+                  <label className="block text-xs font-bold text-purple-900 dark:text-purple-200 mb-0.5">
+                    Add an item to Other Items
+                  </label>
+                  <p className="text-[11px] text-purple-800/80 dark:text-purple-300/80">
+                    Choose or add an item type here, then enter the specific item's name below.
+                  </p>
+                </div>
+                {existingOtherItemNames.length > 0 && (
+                  <div className="space-y-1">
+                    <span className="block text-[11px] font-semibold text-purple-800 dark:text-purple-300">Existing item types</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {existingOtherItemNames.map((name) => (
+                        <button
+                          key={name.toLowerCase()}
+                          type="button"
+                          onClick={() => {
+                            setOtherItemName(name);
+                            setOtherItemDraft('');
+                            setOtherItemError('');
+                          }}
+                          aria-pressed={otherItemName.toLowerCase() === name.toLowerCase()}
+                          className={`px-2.5 py-1 rounded-lg border text-[11px] font-semibold transition-colors ${
+                            otherItemName.toLowerCase() === name.toLowerCase()
+                              ? 'bg-purple-600 border-purple-600 text-white'
+                              : 'bg-white dark:bg-stone-900 border-purple-200 dark:border-purple-800 text-purple-800 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/50'
+                          }`}
+                        >
+                          {name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div className="flex items-stretch gap-2">
+                  <input
+                    type="text"
+                    value={otherItemDraft}
+                    onChange={(e) => {
+                      setOtherItemDraft(e.target.value);
+                      setOtherItemError('');
+                    }}
+                    placeholder="e.g. Undergarments, umbrella, calculator"
+                    className="min-w-0 flex-1 px-3.5 py-2 rounded-xl bg-white dark:bg-stone-900 border border-purple-200 dark:border-purple-800 text-stone-900 dark:text-white placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleAddOtherItem}
+                    disabled={!otherItemDraft.trim()}
+                    className="shrink-0 px-3 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold flex items-center justify-center gap-1 transition-all disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Add item</span>
+                  </button>
+                </div>
+                <p
+                  role="status"
+                  className={`text-[11px] ${otherItemError ? 'text-rose-500' : otherItemName ? 'text-emerald-600 dark:text-emerald-400' : 'text-stone-500 dark:text-stone-400'}`}
+                >
+                  {otherItemError || (otherItemName
+                    ? `✓ ${otherItemName} added to Other Items.`
+                    : 'Add an item type to continue.')}
+                </p>
+              </div>
+            )}
+
+            {/* Item Title */}
             <div>
               <label className="block text-xs font-bold text-stone-700 dark:text-stone-300 mb-1">
                 Item Name / Title *
@@ -285,7 +405,7 @@ export default function LostFoundModal({
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g. Navy Blue HydroFlask with Cat Stickers"
+                placeholder={category === 'other' ? 'e.g. Black cotton undergarments, size M' : 'e.g. Navy Blue HydroFlask with Cat Stickers'}
                 className="w-full px-3.5 py-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-white placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-medium"
               />
             </div>
@@ -298,7 +418,7 @@ export default function LostFoundModal({
                 </label>
                 <select
                   value={category}
-                  onChange={(e) => setCategory(e.target.value)}
+                  onChange={(e) => handleCategoryChange(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-900 dark:text-white text-xs font-medium focus:outline-none focus:ring-1 focus:ring-indigo-500"
                 >
                   {LOST_FOUND_CATEGORIES.map((c) => (

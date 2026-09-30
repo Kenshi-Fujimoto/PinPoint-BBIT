@@ -24,48 +24,66 @@ export function distanceMeters(aLat, aLng, bLat, bLng) {
   return Math.hypot(dx, dy);
 }
 
-/** Signed area of a [lat, lng] ring in square metres (positive = CCW). */
+/**
+ * Signed area of a [lat, lng] ring in square metres (positive = CCW).
+ * Worked in metres relative to the first vertex: absolute lat/lng products are
+ * ~1e13 here and their cancellation costs several digits of precision.
+ */
 export function polygonAreaM2(ring) {
   if (!ring || ring.length < 3) return 0;
-  const lat0 = ring.reduce((s, p) => s + p[0], 0) / ring.length;
-  const kx = 111412.84 * Math.cos((lat0 * Math.PI) / 180);
   const ky = METERS_PER_DEG_LAT;
+  const meanLat = ring.reduce((s, p) => s + p[0], 0) / ring.length;
+  const kx = metersPerDegLng(meanLat);
+  const [y0, x0] = ring[0];
   let area = 0;
   for (let i = 0; i < ring.length; i += 1) {
     const [y1, x1] = ring[i];
     const [y2, x2] = ring[(i + 1) % ring.length];
-    area += x1 * kx * y2 * ky - x2 * kx * y1 * ky;
+    const px1 = (x1 - x0) * kx;
+    const py1 = (y1 - y0) * ky;
+    const px2 = (x2 - x0) * kx;
+    const py2 = (y2 - y0) * ky;
+    area += px1 * py2 - px2 * py1;
   }
   return area / 2;
 }
 
-/** Geometric centre of a [lat, lng] ring (area centroid, falling back to mean). */
+/**
+ * Geometric centre of a [lat, lng] ring (area centroid, falling back to the
+ * plain mean for degenerate rings). Metres-relative for numerical stability.
+ */
 export function polygonCentroid(ring) {
   if (!ring || !ring.length) return null;
-  if (ring.length < 3) {
-    const lat = ring.reduce((s, p) => s + p[0], 0) / ring.length;
-    const lng = ring.reduce((s, p) => s + p[1], 0) / ring.length;
-    return [lat, lng];
-  }
-  const lat0 = ring.reduce((s, p) => s + p[0], 0) / ring.length;
-  const kx = 111412.84 * Math.cos((lat0 * Math.PI) / 180);
+  const mean = () => [
+    ring.reduce((s, p) => s + p[0], 0) / ring.length,
+    ring.reduce((s, p) => s + p[1], 0) / ring.length,
+  ];
+  if (ring.length < 3) return mean();
+
   const ky = METERS_PER_DEG_LAT;
+  const meanLat = ring.reduce((s, p) => s + p[0], 0) / ring.length;
+  const kx = metersPerDegLng(meanLat);
+  const [y0, x0] = ring[0];
   let cx = 0;
   let cy = 0;
   let signedArea = 0;
+
   for (let i = 0; i < ring.length; i += 1) {
     const [y1, x1] = ring[i];
     const [y2, x2] = ring[(i + 1) % ring.length];
-    const a = x1 * kx * y2 * ky - x2 * kx * y1 * ky;
+    const px1 = (x1 - x0) * kx;
+    const py1 = (y1 - y0) * ky;
+    const px2 = (x2 - x0) * kx;
+    const py2 = (y2 - y0) * ky;
+    const a = px1 * py2 - px2 * py1;
     signedArea += a;
-    cx += (x1 * kx + x2 * kx) * a;
-    cy += (y1 * ky + y2 * ky) * a;
+    cx += (px1 + px2) * a;
+    cy += (py1 + py2) * a;
   }
-  if (Math.abs(signedArea) < 1e-6) {
-    return [ring.reduce((s, p) => s + p[0], 0) / ring.length, ring.reduce((s, p) => s + p[1], 0) / ring.length];
-  }
+
+  if (Math.abs(signedArea) < 1e-6) return mean();
   signedArea *= 0.5;
-  return [cy / (6 * signedArea) / ky, cx / (6 * signedArea) / kx];
+  return [y0 + cy / (6 * signedArea) / ky, x0 + cx / (6 * signedArea) / kx];
 }
 
 /** Ray-casting point-in-polygon test for a [lat, lng] ring. */

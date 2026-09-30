@@ -1,1559 +1,1729 @@
 [
   {
-    "id": "main-gate-xaji",
+    "id": "main-gate",
     "name": "Main Gate",
     "category": "landmark",
     "categoryLabel": "gate",
     "color": "#FF3B30",
-    "lat": 22.458827,
-    "lng": 88.170615,
+    "lat": 22.4583401,
+    "lng": 88.1707421,
+    "shortName": "Main Gate",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.458527,
-        88.170365
+        22.4583953,
+        88.1706826
       ],
       [
-        22.458527,
-        88.17086499999999
+        22.4583953,
+        88.1708016
       ],
       [
-        22.459127,
-        88.17086499999999
+        22.4582849,
+        88.1708016
       ],
       [
-        22.459127,
-        88.170365
+        22.4582849,
+        88.1706826
       ]
     ],
-    "details": "Primary entrance of BBIT on the campus road off Budge Budge Trunk Road",
+    "details": "Guard room and entrance canopy at the head of the main drive",
     "aliases": [
       "Front Gate",
       "BBIT Gate"
     ]
   },
   {
-    "id": "reception-and-enquiry-0y6d",
+    "id": "reception-and-enquiry",
     "name": "Reception & Enquiry",
     "category": "landmark",
-    "categoryLabel": "landmark",
+    "categoryLabel": "gate",
     "color": "#FF3B30",
-    "lat": 22.458431,
-    "lng": 88.169897,
+    "lat": 22.4584275,
+    "lng": 88.1706131,
+    "shortName": "Reception",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458231,
-        88.169697
+        22.458478,
+        88.1705238
       ],
       [
-        22.458231,
-        88.17009700000001
+        22.458478,
+        88.1707024
       ],
       [
-        22.458631,
-        88.17009700000001
+        22.4583769,
+        88.1707024
       ],
       [
-        22.458631,
-        88.169697
+        22.4583769,
+        88.1705238
       ]
     ],
-    "details": "Visitor reception and enquiry desk at the admin complex",
+    "details": "Visitor reception beside the main drive",
     "aliases": [
       "Front Office"
     ]
   },
   {
-    "id": "bbit-public-school-pbhs",
-    "name": "BBIT Public School",
-    "category": "landmark",
-    "categoryLabel": "landmark",
-    "color": "#FF3B30",
-    "lat": 22.4572599,
-    "lng": 88.1698754,
-    "polygon": [
-      [
-        22.4568599,
-        88.1694254
-      ],
-      [
-        22.4568599,
-        88.1703254
-      ],
-      [
-        22.4576599,
-        88.1703254
-      ],
-      [
-        22.4576599,
-        88.1694254
-      ]
-    ],
-    "details": "CBSE-affiliated school run by the BBIT trust (OSM-geocoded)",
-    "aliases": [
-      "Public School"
-    ]
-  },
-  {
-    "id": "central-plaza-ahxt",
+    "id": "central-plaza",
     "name": "Central Plaza",
     "category": "landmark",
-    "categoryLabel": "landmark",
+    "categoryLabel": "gate",
     "color": "#FF3B30",
-    "lat": 22.458629,
-    "lng": 88.169575,
+    "lat": 22.4586166,
+    "lng": 88.1697599,
+    "shortName": "Central Plaza",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458329,
-        88.169275
+        22.4586894,
+        88.1695912
       ],
       [
-        22.458329,
-        88.16987499999999
+        22.4586894,
+        88.1699285
       ],
       [
-        22.458928999999998,
-        88.16987499999999
+        22.4585423,
+        88.1699186
       ],
       [
-        22.458928999999998,
-        88.169275
+        22.4585423,
+        88.1696011
       ]
     ],
-    "details": "Open paved plaza between academic blocks",
+    "details": "Paved plaza at the heart of the academic core",
     "aliases": [
       "Campus Plaza"
     ]
   },
   {
-    "id": "main-parking-lot-hv3a",
-    "name": "Main Parking Lot",
-    "category": "landmark",
-    "categoryLabel": "landmark",
-    "color": "#FF3B30",
-    "lat": 22.458728,
-    "lng": 88.170433,
-    "polygon": [
-      [
-        22.458428,
-        88.170133
-      ],
-      [
-        22.458428,
-        88.170733
-      ],
-      [
-        22.459028,
-        88.170733
-      ],
-      [
-        22.459028,
-        88.170133
-      ]
-    ],
-    "details": "Two-wheeler and four-wheeler parking near the gate",
-    "aliases": [
-      "Parking"
-    ]
-  },
-  {
-    "id": "administrative-block-3zmf",
+    "id": "administrative-block",
     "name": "Administrative Block",
     "category": "admin",
-    "categoryLabel": "admin",
-    "color": "#0A84FF",
-    "lat": 22.458133,
-    "lng": 88.170057,
+    "categoryLabel": "administration",
+    "color": "#AF52DE",
+    "lat": 22.4588181,
+    "lng": 88.1702361,
+    "shortName": "Admin Block",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.457783,
-        88.169757
+        22.4589008,
+        88.1699682
       ],
       [
-        22.457783,
-        88.170357
+        22.4589008,
+        88.170504
       ],
       [
-        22.458483,
-        88.170357
+        22.4587354,
+        88.170504
       ],
       [
-        22.458483,
-        88.169757
+        22.4587354,
+        88.1699682
       ]
     ],
-    "details": "Central admin block housing offices and the library",
+    "details": "Director's office, registry and administrative departments",
     "aliases": [
       "Admin Block",
       "Admin Building"
     ]
   },
   {
-    "id": "admission-office-8mdd",
+    "id": "admission-office",
     "name": "Admission Office",
     "category": "admin",
-    "categoryLabel": "office",
-    "color": "#0A84FF",
-    "lat": 22.457985,
-    "lng": 88.170165,
+    "categoryLabel": "administration",
+    "color": "#AF52DE",
+    "lat": 22.4592272,
+    "lng": 88.1698095,
+    "shortName": "Admission Office",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.457805,
-        88.169985
+        22.4593237,
+        88.169611
       ],
       [
-        22.457805,
-        88.170345
+        22.4593237,
+        88.1700079
       ],
       [
-        22.458165,
-        88.170345
+        22.4591307,
+        88.1700079
       ],
       [
-        22.458165,
-        88.169985
+        22.4591307,
+        88.169611
       ]
     ],
-    "details": "Admissions helpdesk for B.Tech, MBA, M.Tech & Polytechnic",
+    "details": "Admissions counter and enquiry desk",
     "aliases": [
       "Admission Cell"
     ]
   },
   {
-    "id": "examination-cell-4v30",
+    "id": "examination-cell",
     "name": "Examination Cell",
     "category": "admin",
-    "categoryLabel": "office",
-    "color": "#0A84FF",
-    "lat": 22.457935,
-    "lng": 88.16995,
+    "categoryLabel": "administration",
+    "color": "#AF52DE",
+    "lat": 22.4592272,
+    "lng": 88.1702411,
+    "shortName": "Examination Cell",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.457755,
-        88.16977
+        22.4593237,
+        88.1700476
       ],
       [
-        22.457755,
-        88.17013
+        22.4593237,
+        88.1704345
       ],
       [
-        22.458115,
-        88.17013
+        22.4591307,
+        88.1704345
       ],
       [
-        22.458115,
-        88.16977
+        22.4591307,
+        88.1700476
       ]
     ],
-    "details": "MAKAUT examination administration",
+    "details": "Examinations, results and records",
     "aliases": [
       "Exam Cell"
     ]
   },
   {
-    "id": "accounts-and-fees-office-t9nt",
+    "id": "accounts-and-fees-office",
     "name": "Accounts & Fees Office",
     "category": "admin",
-    "categoryLabel": "office",
-    "color": "#0A84FF",
-    "lat": 22.457836,
-    "lng": 88.170111,
+    "categoryLabel": "administration",
+    "color": "#AF52DE",
+    "lat": 22.459241,
+    "lng": 88.1705536,
+    "shortName": "Accounts & Fees Office",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.457656,
-        88.169931
+        22.4593237,
+        88.1704544
       ],
       [
-        22.457656,
-        88.170291
+        22.4593237,
+        88.1706528
       ],
       [
-        22.458016,
-        88.170291
+        22.4591582,
+        88.1706528
       ],
       [
-        22.458016,
-        88.169931
+        22.4591582,
+        88.1704544
       ]
     ],
-    "details": "Fee payment, receipts and scholarships",
+    "details": "Fee counter and accounts",
     "aliases": [
       "Accounts Office"
     ]
   },
   {
-    "id": "training-and-placement-cell-3w5u",
+    "id": "training-and-placement-cell",
     "name": "Training & Placement Cell",
     "category": "admin",
-    "categoryLabel": "office",
-    "color": "#0A84FF",
-    "lat": 22.458232,
-    "lng": 88.169843,
+    "categoryLabel": "administration",
+    "color": "#AF52DE",
+    "lat": 22.4590342,
+    "lng": 88.1699037,
+    "shortName": "Placement Cell",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458052,
-        88.169663
+        22.4591031,
+        88.169611
       ],
       [
-        22.458052,
-        88.170023
+        22.4591031,
+        88.1701964
       ],
       [
-        22.458412,
-        88.170023
+        22.4589652,
+        88.1701964
       ],
       [
-        22.458412,
-        88.169663
+        22.4589652,
+        88.169611
       ]
     ],
-    "details": "Internship and placement coordination",
+    "details": "Industrial training and campus placements",
     "aliases": [
       "T&P Cell",
       "Placement Cell"
     ]
   },
   {
-    "id": "central-library-zbik",
+    "id": "central-library",
     "name": "Central Library",
     "category": "library",
     "categoryLabel": "library",
-    "color": "#0071E3",
-    "lat": 22.458282,
-    "lng": 88.170057,
+    "color": "#5856D6",
+    "lat": 22.4588028,
+    "lng": 88.1697612,
+    "shortName": "Library",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.458032,
-        88.169807
+        22.4588917,
+        88.1695912
       ],
       [
-        22.458032,
-        88.170307
+        22.4588917,
+        88.1699285
       ],
       [
-        22.458532,
-        88.170307
+        22.4587354,
+        88.1699384
       ],
       [
-        22.458532,
-        88.169807
+        22.4587078,
+        88.1698392
+      ],
+      [
+        22.458717,
+        88.1695912
       ]
     ],
-    "details": "5000 sq ft library on 3rd floor of Admin Block; 40,000+ books, digital library & NPTEL",
+    "details": "Central library, reference section and reading rooms",
     "aliases": [
       "Library",
       "E-Library"
     ]
   },
   {
-    "id": "academic-building-a-cidk",
+    "id": "academic-building-a",
     "name": "Academic Building A",
     "category": "academic",
-    "categoryLabel": "academic",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459274,
-    "lng": 88.168502,
+    "lat": 22.4587859,
+    "lng": 88.1691645,
+    "shortName": "Academic Building A",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.458874,
-        88.168102
+        22.45891,
+        88.1690454
       ],
       [
-        22.458874,
-        88.168902
+        22.45891,
+        88.1692836
       ],
       [
-        22.459674,
-        88.168902
+        22.4586618,
+        88.1692836
       ],
       [
-        22.459674,
-        88.168102
+        22.4586618,
+        88.1690454
       ]
     ],
-    "details": "Main U-shaped academic block: classrooms, tutorial rooms & labs",
+    "details": "Lecture halls, tutorial rooms and faculty cabins",
     "aliases": [
       "Academic Block A",
       "A Block"
     ]
   },
   {
-    "id": "academic-building-b-wnnh",
+    "id": "academic-building-b",
     "name": "Academic Building B",
     "category": "academic",
-    "categoryLabel": "academic",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459224,
-    "lng": 88.169253,
+    "lat": 22.4587859,
+    "lng": 88.1694175,
+    "shortName": "Academic Building B",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.458873999999998,
-        88.168853
+        22.45891,
+        88.1693133
       ],
       [
-        22.458873999999998,
-        88.169653
+        22.45891,
+        88.1695217
       ],
       [
-        22.459574,
-        88.169653
+        22.4586618,
+        88.1695217
       ],
       [
-        22.459574,
-        88.168853
+        22.4586618,
+        88.1693133
       ]
     ],
-    "details": "Blue-roofed academic wing with AV classrooms",
+    "details": "Lecture halls and seminar rooms",
     "aliases": [
       "Academic Block B",
       "B Block"
     ]
   },
   {
-    "id": "polytechnic-block-j7xv",
+    "id": "polytechnic-block",
     "name": "Polytechnic Block",
     "category": "academic",
-    "categoryLabel": "academic",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459521,
-    "lng": 88.168824,
+    "lat": 22.4585102,
+    "lng": 88.1691645,
+    "shortName": "Polytechnic Block",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.459221,
-        88.168524
+        22.4586343,
+        88.1690454
       ],
       [
-        22.459221,
-        88.169124
+        22.4586343,
+        88.1692836
       ],
       [
-        22.459820999999998,
-        88.169124
+        22.4583861,
+        88.1692836
       ],
       [
-        22.459820999999998,
-        88.168524
+        22.4583861,
+        88.1690454
       ]
     ],
-    "details": "Diploma wing: Civil, Mechanical, EE, ETC & CST",
+    "details": "Diploma programmes: ETCE, EE, ME, CST and CE",
     "aliases": [
       "Diploma Block"
     ]
   },
   {
-    "id": "mba-block-g0fn",
+    "id": "mba-block",
     "name": "MBA Block",
     "category": "academic",
-    "categoryLabel": "academic",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459422,
-    "lng": 88.170326,
+    "lat": 22.4586251,
+    "lng": 88.1702361,
+    "shortName": "MBA Block",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.459142,
-        88.170046
+        22.4586986,
+        88.1699682
       ],
       [
-        22.459142,
-        88.170606
+        22.4586986,
+        88.170504
       ],
       [
-        22.459702,
-        88.170606
+        22.4585515,
+        88.170504
       ],
       [
-        22.459702,
-        88.170046
+        22.4585515,
+        88.1699682
       ]
     ],
-    "details": "Management studies wing",
+    "details": "Management programmes, case-study rooms and seminar suites",
     "aliases": [
       "Management Block"
     ]
   },
   {
-    "id": "mtech-block-9xuy",
+    "id": "mtech-block",
     "name": "M.Tech Block",
     "category": "academic",
-    "categoryLabel": "academic",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459125,
-    "lng": 88.170433,
+    "lat": 22.4585102,
+    "lng": 88.1693927,
+    "shortName": "M.Tech Block",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458845,
-        88.170153
+        22.4586343,
+        88.1692935
       ],
       [
-        22.458845,
-        88.170713
+        22.4586343,
+        88.1694919
       ],
       [
-        22.459405,
-        88.170713
+        22.4583861,
+        88.1694919
       ],
       [
-        22.459405,
-        88.170153
+        22.4583861,
+        88.1692935
       ]
     ],
-    "details": "Postgraduate engineering wing",
+    "details": "Post-graduate engineering programmes and research labs",
     "aliases": [
       "PG Block"
     ]
   },
   {
-    "id": "bca-and-bba-block-41ib",
+    "id": "bca-and-bba-block",
     "name": "BCA & BBA Block",
     "category": "academic",
-    "categoryLabel": "academic",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459472,
-    "lng": 88.170218,
+    "lat": 22.4590342,
+    "lng": 88.1704296,
+    "shortName": "BCA & BBA Block",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.459222,
-        88.16996800000001
+        22.4591031,
+        88.1702063
       ],
       [
-        22.459222,
-        88.170468
+        22.4591031,
+        88.1706528
       ],
       [
-        22.459722000000003,
-        88.170468
+        22.4589652,
+        88.1706528
       ],
       [
-        22.459722000000003,
-        88.16996800000001
+        22.4589652,
+        88.1702063
       ]
     ],
-    "details": "Computer application & business administration courses",
+    "details": "Computer applications and business administration",
     "aliases": []
   },
   {
-    "id": "cse-department-and-labs-ljh7",
+    "id": "cse-department-and-labs",
     "name": "CSE Department & Labs",
     "category": "academic",
-    "categoryLabel": "lab",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459422,
-    "lng": 88.168609,
+    "lat": 22.4587676,
+    "lng": 88.1688768,
+    "shortName": "CSE Dept & Labs",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.459172,
-        88.16835900000001
+        22.4589284,
+        88.1687775
       ],
       [
-        22.459172,
-        88.168859
+        22.4589284,
+        88.168976
       ],
       [
-        22.459672,
-        88.168859
+        22.4586067,
+        88.168976
       ],
       [
-        22.459672,
-        88.16835900000001
+        22.4586067,
+        88.1687775
       ]
     ],
-    "details": "Computer Science & Engineering department with programming labs",
+    "details": "Computer Science & Engineering department, programming and networks labs",
     "aliases": [
       "CSE Dept",
       "CSE Lab"
     ]
   },
   {
-    "id": "ece-department-and-labs-5lxo",
+    "id": "ece-department-and-labs",
     "name": "ECE Department & Labs",
     "category": "academic",
-    "categoryLabel": "lab",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459174,
-    "lng": 88.168824,
+    "lat": 22.4593191,
+    "lng": 88.168976,
+    "shortName": "ECE Dept & Labs",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458924,
-        88.168574
+        22.4593789,
+        88.1688172
       ],
       [
-        22.458924,
-        88.169074
+        22.4593789,
+        88.1691347
       ],
       [
-        22.459424000000002,
-        88.169074
+        22.4592594,
+        88.1691347
       ],
       [
-        22.459424000000002,
-        88.168574
+        22.4592594,
+        88.1688172
       ]
     ],
-    "details": "Electronics & Communication Engineering labs",
+    "details": "Electronics & Communication Engineering department and VLSI lab",
     "aliases": [
       "ECE Dept",
       "ECE Lab"
     ]
   },
   {
-    "id": "ee-department-and-labs-6qji",
+    "id": "ee-department-and-labs",
     "name": "EE Department & Labs",
     "category": "academic",
-    "categoryLabel": "lab",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459125,
-    "lng": 88.169092,
+    "lat": 22.4590249,
+    "lng": 88.168976,
+    "shortName": "EE Dept & Labs",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458875,
-        88.16884200000001
+        22.4590847,
+        88.1688172
       ],
       [
-        22.458875,
-        88.169342
+        22.4590847,
+        88.1691347
       ],
       [
-        22.459375,
-        88.169342
+        22.4589652,
+        88.1691347
       ],
       [
-        22.459375,
-        88.16884200000001
+        22.4589652,
+        88.1688172
       ]
     ],
-    "details": "Electrical Engineering machines & circuits lab",
+    "details": "Electrical Engineering department and machines laboratory",
     "aliases": [
       "EE Dept",
       "Electrical Lab"
     ]
   },
   {
-    "id": "it-department-and-labs-ujv6",
+    "id": "it-department-and-labs",
     "name": "IT Department & Labs",
     "category": "academic",
-    "categoryLabel": "lab",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459075,
-    "lng": 88.16936,
+    "lat": 22.4590249,
+    "lng": 88.1693331,
+    "shortName": "IT Dept & Labs",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458824999999997,
-        88.16911
+        22.4590847,
+        88.1691744
       ],
       [
-        22.458824999999997,
-        88.16960999999999
+        22.4590847,
+        88.1694919
       ],
       [
-        22.459325,
-        88.16960999999999
+        22.4589652,
+        88.1694919
       ],
       [
-        22.459325,
-        88.16911
+        22.4589652,
+        88.1691744
       ]
     ],
-    "details": "Information Technology department",
+    "details": "Information Technology department and software labs",
     "aliases": [
       "IT Dept"
     ]
   },
   {
-    "id": "ai-and-data-science-dept-oh9s",
+    "id": "ai-and-data-science-dept",
     "name": "AI & Data Science Dept",
     "category": "academic",
-    "categoryLabel": "lab",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459323,
-    "lng": 88.169575,
+    "lat": 22.4593191,
+    "lng": 88.1693331,
+    "shortName": "AI & Data Science",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.459103000000002,
-        88.169355
+        22.4593789,
+        88.1691744
       ],
       [
-        22.459103000000002,
-        88.169795
+        22.4593789,
+        88.1694919
       ],
       [
-        22.459543,
-        88.169795
+        22.4592594,
+        88.1694919
       ],
       [
-        22.459543,
-        88.169355
+        22.4592594,
+        88.1691744
       ]
     ],
-    "details": "CSE in Artificial Intelligence & Data Science",
+    "details": "Artificial intelligence, machine learning and data science",
     "aliases": [
       "AIDS Dept"
     ]
   },
   {
-    "id": "cse-ai-lab-dbdw",
+    "id": "cse-ai-lab",
     "name": "CSE (AI) Lab",
     "category": "academic",
-    "categoryLabel": "lab",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459274,
-    "lng": 88.169736,
+    "lat": 22.4595122,
+    "lng": 88.168976,
+    "shortName": "AI Lab",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.459054000000002,
-        88.169516
+        22.4595719,
+        88.1688172
       ],
       [
-        22.459054000000002,
-        88.169956
+        22.4595719,
+        88.1691347
       ],
       [
-        22.459494,
-        88.169956
+        22.4594524,
+        88.1691347
       ],
       [
-        22.459494,
-        88.169516
+        22.4594524,
+        88.1688172
       ]
     ],
-    "details": "Artificial Intelligence specialization lab",
+    "details": "Artificial intelligence and deep-learning laboratory",
     "aliases": []
   },
   {
-    "id": "cse-cyber-security-lab-2pcn",
+    "id": "cse-cyber-security-lab",
     "name": "CSE (Cyber Security) Lab",
     "category": "academic",
-    "categoryLabel": "lab",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459323,
-    "lng": 88.169897,
+    "lat": 22.459172,
+    "lng": 88.1693331,
+    "shortName": "Cyber Security Lab",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.459103000000002,
-        88.16967700000001
+        22.4592318,
+        88.1691744
       ],
       [
-        22.459103000000002,
-        88.170117
+        22.4592318,
+        88.1694919
       ],
       [
-        22.459543,
-        88.170117
+        22.4591123,
+        88.1694919
       ],
       [
-        22.459543,
-        88.16967700000001
+        22.4591123,
+        88.1691744
       ]
     ],
-    "details": "Cyber Security specialization lab",
+    "details": "Cyber security, forensics and ethical hacking laboratory",
     "aliases": []
   },
   {
-    "id": "basic-science-and-humanities-9t84",
+    "id": "basic-science-and-humanities",
     "name": "Basic Science & Humanities",
     "category": "academic",
-    "categoryLabel": "academic",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459422,
-    "lng": 88.168985,
+    "lat": 22.459172,
+    "lng": 88.168976,
+    "shortName": "Basic Science",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.459172,
-        88.16873500000001
+        22.4592318,
+        88.1688172
       ],
       [
-        22.459172,
-        88.169235
+        22.4592318,
+        88.1691347
       ],
       [
-        22.459672,
-        88.169235
+        22.4591123,
+        88.1691347
       ],
       [
-        22.459672,
-        88.16873500000001
+        22.4591123,
+        88.1688172
       ]
     ],
-    "details": "BSH department: maths, physics, chemistry & humanities",
+    "details": "First-year teaching, physics, chemistry and mathematics labs",
     "aliases": [
       "BSH Dept"
     ]
   },
   {
-    "id": "mechanical-dept-polytechnic-azyt",
+    "id": "mechanical-dept-polytechnic",
     "name": "Mechanical Dept (Polytechnic)",
     "category": "academic",
-    "categoryLabel": "lab",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459571,
-    "lng": 88.169145,
+    "lat": 22.4578115,
+    "lng": 88.1681772,
+    "shortName": "Mechanical (Diploma)",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.459351,
-        88.168925
+        22.4578988,
+        88.1680036
       ],
       [
-        22.459351,
-        88.169365
+        22.4578988,
+        88.1683509
       ],
       [
-        22.459791,
-        88.169365
+        22.4577242,
+        88.1683509
       ],
       [
-        22.459791,
-        88.168925
+        22.4577242,
+        88.1680036
       ]
     ],
-    "details": "Mechanical engineering diploma labs",
+    "details": "Mechanical engineering workshops, drawing hall and thermal lab",
     "aliases": [
       "Mechanical Lab"
     ]
   },
   {
-    "id": "civil-dept-polytechnic-jxep",
+    "id": "civil-dept-polytechnic",
     "name": "Civil Dept (Polytechnic)",
     "category": "academic",
-    "categoryLabel": "lab",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459571,
-    "lng": 88.16936,
+    "lat": 22.4576093,
+    "lng": 88.1681772,
+    "shortName": "Civil (Diploma)",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.459351,
-        88.16914
+        22.4576966,
+        88.1680036
       ],
       [
-        22.459351,
-        88.16958
+        22.4576966,
+        88.1683509
       ],
       [
-        22.459791,
-        88.16958
+        22.457522,
+        88.1683509
       ],
       [
-        22.459791,
-        88.16914
+        22.457522,
+        88.1680036
       ]
     ],
-    "details": "Civil engineering diploma labs & survey yard",
+    "details": "Civil engineering laboratories, survey store and materials testing",
     "aliases": [
       "Civil Lab"
     ]
   },
   {
-    "id": "etc-dept-polytechnic-q85j",
+    "id": "etc-dept-polytechnic",
     "name": "ETC Dept (Polytechnic)",
     "category": "academic",
-    "categoryLabel": "lab",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.459571,
-    "lng": 88.169521,
+    "lat": 22.4580138,
+    "lng": 88.1681772,
+    "shortName": "ETC (Diploma)",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.459351,
-        88.169301
+        22.4581011,
+        88.1680036
       ],
       [
-        22.459351,
-        88.169741
+        22.4581011,
+        88.1683509
       ],
       [
-        22.459791,
-        88.169741
+        22.4579264,
+        88.1683509
       ],
       [
-        22.459791,
-        88.169301
+        22.4579264,
+        88.1680036
       ]
     ],
-    "details": "Electronics & Telecommunication diploma labs",
+    "details": "Electronics and telecommunication laboratories",
     "aliases": [
       "ETC Lab"
     ]
   },
   {
-    "id": "central-computing-center-sg65",
+    "id": "central-computing-center",
     "name": "Central Computing Center",
     "category": "academic",
-    "categoryLabel": "lab",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.45853,
-    "lng": 88.170326,
+    "lat": 22.4584596,
+    "lng": 88.1697598,
+    "shortName": "Computing Center",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.45828,
-        88.17007600000001
+        22.4585148,
+        88.1695912
       ],
       [
-        22.45828,
-        88.170576
+        22.4585148,
+        88.1699285
       ],
       [
-        22.45878,
-        88.170576
+        22.4584044,
+        88.1699285
       ],
       [
-        22.45878,
-        88.17007600000001
+        22.4584044,
+        88.1695912
       ]
     ],
-    "details": "High-speed shared computing facility",
+    "details": "Central computer centre, server room and internet backbone",
     "aliases": [
       "Computing Center",
       "CCC"
     ]
   },
   {
-    "id": "central-workshop-kxvf",
+    "id": "central-workshop",
     "name": "Central Workshop",
     "category": "academic",
-    "categoryLabel": "workshop",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.458827,
-    "lng": 88.169038,
+    "lat": 22.4574071,
+    "lng": 88.1681624,
+    "shortName": "Workshop",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458527,
-        88.168738
+        22.4574944,
+        88.1680036
       ],
       [
-        22.458527,
-        88.169338
+        22.4574944,
+        88.1683211
       ],
       [
-        22.459127,
-        88.169338
+        22.4573197,
+        88.1683211
       ],
       [
-        22.459127,
-        88.168738
+        22.4573197,
+        88.1680036
       ]
     ],
-    "details": "Fitting, welding & machine shop for practical training",
+    "details": "Fitting, welding, carpentry and machine shops",
     "aliases": [
       "Workshop"
     ]
   },
   {
-    "id": "seminar-hall-1t2t",
+    "id": "seminar-hall",
     "name": "Seminar Hall",
     "category": "academic",
-    "categoryLabel": "lecture",
+    "categoryLabel": "academic block",
     "color": "#0071E3",
-    "lat": 22.458827,
-    "lng": 88.169682,
+    "lat": 22.4585102,
+    "lng": 88.1701865,
+    "shortName": "Seminar Hall",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458607,
-        88.169432
+        22.4585607,
+        88.1699483
       ],
       [
-        22.458607,
-        88.16993199999999
+        22.4585607,
+        88.1704246
       ],
       [
-        22.459046999999998,
-        88.16993199999999
+        22.4584596,
+        88.1704246
       ],
       [
-        22.459046999999998,
-        88.169432
+        22.4584596,
+        88.1699483
       ]
     ],
-    "details": "Seminar and guest lecture hall",
+    "details": "Seminars, workshops and guest lectures",
     "aliases": [
       "Seminar Room"
     ]
   },
   {
-    "id": "ac-auditorium-ala7",
+    "id": "ac-auditorium",
     "name": "A/C Auditorium",
     "category": "building",
     "categoryLabel": "auditorium",
-    "color": "#0071E3",
-    "lat": 22.457588,
-    "lng": 88.168609,
+    "color": "#FF9500",
+    "lat": 22.4572232,
+    "lng": 88.1701616,
+    "shortName": "Auditorium",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.457288000000002,
-        88.168259
+        22.4573565,
+        88.1699285
       ],
       [
-        22.457288000000002,
-        88.168959
+        22.4573565,
+        88.1703948
       ],
       [
-        22.457888,
-        88.168959
+        22.4570899,
+        88.1703948
       ],
       [
-        22.457888,
-        88.168259
+        22.4570899,
+        88.1699285
       ]
     ],
-    "details": "Air-conditioned auditorium for events and convocations",
+    "details": "Air-conditioned auditorium for college functions and cultural events",
     "aliases": [
       "Auditorium"
     ]
   },
   {
-    "id": "boys-hostel-53lc",
+    "id": "boys-hostel",
     "name": "Boys' Hostel",
     "category": "hostel",
     "categoryLabel": "hostel",
-    "color": "#AF52DE",
-    "lat": 22.461505,
-    "lng": 88.169467,
+    "color": "#34C759",
+    "lat": 22.4592686,
+    "lng": 88.168083,
+    "shortName": "Boys' Hostel",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.461105,
-        88.168967
+        22.4593078,
+        88.167906
       ],
       [
-        22.461105,
-        88.169967
+        22.4593302,
+        88.1682524
       ],
       [
-        22.461904999999998,
-        88.169967
+        22.4592293,
+        88.16826
       ],
       [
-        22.461904999999998,
-        88.168967
+        22.4592069,
+        88.1679136
       ]
     ],
-    "details": "1000-seat boys' hostel with 24x7 Wi-Fi and security",
+    "details": "Men's hostel bar with courtyard and attached mess",
     "aliases": [
       "Boys Hostel",
       "BH"
     ]
   },
   {
-    "id": "junior-boys-hostel-58dr",
+    "id": "junior-boys-hostel",
     "name": "Junior Boys' Hostel",
     "category": "hostel",
     "categoryLabel": "hostel",
-    "color": "#AF52DE",
-    "lat": 22.46086,
-    "lng": 88.170433,
+    "color": "#34C759",
+    "lat": 22.4591031,
+    "lng": 88.168083,
+    "shortName": "Jr Boys' Hostel",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.46056,
-        88.170133
+        22.4591647,
+        88.1679136
       ],
       [
-        22.46056,
-        88.170733
+        22.4591423,
+        88.16826
       ],
       [
-        22.46116,
-        88.170733
+        22.4590414,
+        88.1682524
       ],
       [
-        22.46116,
-        88.170133
+        22.4590639,
+        88.167906
       ]
     ],
-    "details": "Dedicated block for first-year students",
+    "details": "First and second year men's hostel",
     "aliases": [
       "Junior Hostel"
     ]
   },
   {
-    "id": "girls-hostel-c11e",
+    "id": "girls-hostel",
     "name": "Girls' Hostel",
     "category": "hostel",
     "categoryLabel": "hostel",
-    "color": "#AF52DE",
-    "lat": 22.460711,
-    "lng": 88.170755,
+    "color": "#34C759",
+    "lat": 22.4589376,
+    "lng": 88.1680929,
+    "shortName": "Girls' Hostel",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.460411,
-        88.170455
+        22.4589768,
+        88.1679159
       ],
       [
-        22.460411,
-        88.171055
+        22.4589993,
+        88.1682623
       ],
       [
-        22.461011,
-        88.171055
+        22.4588984,
+        88.1682699
       ],
       [
-        22.461011,
-        88.170455
+        22.458876,
+        88.1679235
       ]
     ],
-    "details": "500-seat girls' hostel with round-the-clock security",
+    "details": "Women's hostel with secured entry and warden quarters",
     "aliases": [
       "Girls Hostel",
       "GH"
     ]
   },
   {
-    "id": "faculty-hostel-rtj5",
+    "id": "faculty-hostel",
     "name": "Faculty Hostel",
     "category": "hostel",
     "categoryLabel": "hostel",
-    "color": "#AF52DE",
-    "lat": 22.46086,
-    "lng": 88.169038,
+    "color": "#34C759",
+    "lat": 22.4587033,
+    "lng": 88.168088,
+    "shortName": "Faculty Hostel",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.46056,
-        88.168738
+        22.458763,
+        88.167954
       ],
       [
-        22.46056,
-        88.169338
+        22.458763,
+        88.1682219
       ],
       [
-        22.46116,
-        88.169338
+        22.4586435,
+        88.1682219
       ],
       [
-        22.46116,
-        88.168738
+        22.4586435,
+        88.167954
       ]
     ],
-    "details": "Residential block for faculty members",
+    "details": "Residence for visiting and resident faculty",
     "aliases": [
       "Staff Hostel"
     ]
   },
   {
-    "id": "hostel-mess-pht0",
+    "id": "hostel-mess",
     "name": "Hostel Mess",
     "category": "mess",
-    "categoryLabel": "mess",
-    "color": "#FF9500",
-    "lat": 22.46091,
-    "lng": 88.169897,
+    "categoryLabel": "dining hall",
+    "color": "#FF9F0A",
+    "lat": 22.4593013,
+    "lng": 88.1684806,
+    "shortName": "Mess",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.46061,
-        88.16959700000001
+        22.4593605,
+        88.1683013
       ],
       [
-        22.46061,
-        88.170197
+        22.4593513,
+        88.1686188
       ],
       [
-        22.461209999999998,
-        88.170197
+        22.4592226,
+        88.1686287
       ],
       [
-        22.461209999999998,
-        88.16959700000001
+        22.4592134,
+        88.1685196
+      ],
+      [
+        22.4592685,
+        88.1685097
+      ],
+      [
+        22.4592777,
+        88.1683013
       ]
     ],
-    "details": "Four-meal hostel dining hall",
+    "details": "Dining hall for hostel residents with kitchen block",
     "aliases": [
       "Mess",
       "Dining Hall"
     ]
   },
   {
-    "id": "college-canteen-hl9x",
+    "id": "college-canteen",
     "name": "College Canteen",
     "category": "canteen",
     "categoryLabel": "canteen",
-    "color": "#FF9500",
-    "lat": 22.45853,
-    "lng": 88.16936,
+    "color": "#FF9F0A",
+    "lat": 22.4595352,
+    "lng": 88.169353,
+    "shortName": "Canteen",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.45828,
-        88.16908
+        22.4595995,
+        88.1691943
       ],
       [
-        22.45828,
-        88.16964
+        22.4595995,
+        88.1695118
       ],
       [
-        22.45878,
-        88.16964
+        22.4594708,
+        88.1695118
       ],
       [
-        22.45878,
-        88.16908
+        22.4594708,
+        88.1691943
       ]
     ],
-    "details": "Main student canteen near the academic zone",
+    "details": "Main student canteen with open seating",
     "aliases": [
       "Canteen"
     ]
   },
   {
-    "id": "cafeteria-psei",
+    "id": "cafeteria",
     "name": "Cafeteria",
     "category": "canteen",
-    "categoryLabel": "cafeteria",
-    "color": "#FF9500",
-    "lat": 22.458381,
-    "lng": 88.169521,
+    "categoryLabel": "canteen",
+    "color": "#FF9F0A",
+    "lat": 22.4595305,
+    "lng": 88.1697003,
+    "shortName": "Cafeteria",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458161,
-        88.16927100000001
+        22.4595903,
+        88.1695515
       ],
       [
-        22.458161,
-        88.169771
+        22.4595903,
+        88.1698491
       ],
       [
-        22.458600999999998,
-        88.169771
+        22.4594708,
+        88.1698491
       ],
       [
-        22.458600999999998,
-        88.16927100000001
+        22.4594708,
+        88.1695515
       ]
     ],
-    "details": "Snacks, coffee and quick bites",
+    "details": "Snacks, beverages and bakery counter",
     "aliases": [
       "Cafe"
     ]
   },
   {
-    "id": "food-court-mvih",
+    "id": "food-court",
     "name": "Food Court",
     "category": "food",
-    "categoryLabel": "food",
-    "color": "#FF9500",
-    "lat": 22.458381,
-    "lng": 88.169199,
+    "categoryLabel": "food court",
+    "color": "#FF9F0A",
+    "lat": 22.4595352,
+    "lng": 88.1700426,
+    "shortName": "Food Court",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458161,
-        88.16894900000001
+        22.4595995,
+        88.1698888
       ],
       [
-        22.458161,
-        88.169449
+        22.4595995,
+        88.1701964
       ],
       [
-        22.458600999999998,
-        88.169449
+        22.4594708,
+        88.1701964
       ],
       [
-        22.458600999999998,
-        88.16894900000001
+        22.4594708,
+        88.1698888
       ]
     ],
     "details": "Multi-counter food court",
     "aliases": []
   },
   {
-    "id": "campus-tea-stall-cwi6",
+    "id": "campus-tea-stall",
     "name": "Campus Tea Stall",
     "category": "tea",
-    "categoryLabel": "tea",
-    "color": "#FF9500",
-    "lat": 22.458629,
-    "lng": 88.170594,
+    "categoryLabel": "snack counter",
+    "color": "#FFB340",
+    "lat": 22.4595397,
+    "lng": 88.1703205,
+    "shortName": "Tea Stall",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458499,
-        88.170464
+        22.4595903,
+        88.1702361
       ],
       [
-        22.458499,
-        88.17072399999999
+        22.4595903,
+        88.1704048
       ],
       [
-        22.458758999999997,
-        88.17072399999999
+        22.4594892,
+        88.1704048
       ],
       [
-        22.458758999999997,
-        88.170464
+        22.4594892,
+        88.1702361
       ]
     ],
-    "details": "Popular adda spot near the main gate",
+    "details": "Tea and snacks stall beside the front lawn",
     "aliases": [
       "Chai Stall",
       "Tea Stall"
     ]
   },
   {
-    "id": "cricket-ground-4ciy",
+    "id": "cricket-ground",
     "name": "Cricket Ground",
     "category": "sports",
-    "categoryLabel": "ground",
-    "color": "#34C759",
-    "lat": 22.460315,
-    "lng": 88.167107,
+    "categoryLabel": "sports facility",
+    "color": "#30B0C7",
+    "lat": 22.4579972,
+    "lng": 88.1691507,
+    "shortName": "Cricket Ground",
+    "major": true,
+    "levels": null,
     "polygon": [
       [
-        22.459515,
-        88.166207
+        22.4581562,
+        88.1688371
       ],
       [
-        22.459515,
-        88.168007
+        22.4581654,
+        88.1694622
       ],
       [
-        22.461115000000003,
-        88.168007
+        22.4578437,
+        88.1694721
       ],
       [
-        22.461115000000003,
-        88.166207
+        22.4578253,
+        88.1688371
       ]
     ],
-    "details": "Main cricket ground on the western campus field",
+    "details": "Main cricket ground with turf wicket and practice nets",
     "aliases": [
       "Cricket Field"
     ]
   },
   {
-    "id": "football-field-he7u",
+    "id": "football-field",
     "name": "Football Field",
     "category": "sports",
-    "categoryLabel": "ground",
-    "color": "#34C759",
-    "lat": 22.458827,
-    "lng": 88.166892,
+    "categoryLabel": "sports facility",
+    "color": "#30B0C7",
+    "lat": 22.4576318,
+    "lng": 88.1691522,
+    "shortName": "Football Field",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458227,
-        88.166092
+        22.4577977,
+        88.1688371
       ],
       [
-        22.458227,
-        88.167692
+        22.4578069,
+        88.1694622
       ],
       [
-        22.459426999999998,
-        88.167692
+        22.4574668,
+        88.1694721
       ],
       [
-        22.459426999999998,
-        88.166092
+        22.4574576,
+        88.1688371
       ]
     ],
-    "details": "Full-size football field",
+    "details": "Football and athletics field",
     "aliases": [
       "Football Ground"
     ]
   },
   {
-    "id": "basketball-court-r23g",
+    "id": "basketball-court",
     "name": "Basketball Court",
     "category": "sports",
-    "categoryLabel": "court",
-    "color": "#34C759",
-    "lat": 22.458034,
-    "lng": 88.167965,
+    "categoryLabel": "sports facility",
+    "color": "#30B0C7",
+    "lat": 22.4580551,
+    "lng": 88.1696904,
+    "shortName": "Basketball Court",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.457814000000003,
-        88.167745
+        22.4581379,
+        88.1695515
       ],
       [
-        22.457814000000003,
-        88.168185
+        22.4581379,
+        88.1698293
       ],
       [
-        22.458254,
-        88.168185
+        22.4579724,
+        88.1698293
       ],
       [
-        22.458254,
-        88.167745
+        22.4579724,
+        88.1695515
       ]
     ],
-    "details": "Outdoor basketball court",
+    "details": "Outdoor basketball court with floodlights",
     "aliases": [
       "Basketball Ground"
     ]
   },
   {
-    "id": "swimming-pool-dppq",
-    "name": "Swimming Pool",
-    "category": "sports",
-    "categoryLabel": "pool",
-    "color": "#34C759",
-    "lat": 22.458014,
-    "lng": 88.16848,
-    "polygon": [
-      [
-        22.457834,
-        88.1682
-      ],
-      [
-        22.457834,
-        88.16876
-      ],
-      [
-        22.458194,
-        88.16876
-      ],
-      [
-        22.458194,
-        88.1682
-      ]
-    ],
-    "details": "Campus swimming pool (visible turquoise basin)",
-    "aliases": [
-      "Pool"
-    ]
-  },
-  {
-    "id": "gymnasium-0y9d",
+    "id": "gymnasium",
     "name": "Gymnasium",
     "category": "gym",
-    "categoryLabel": "gym",
-    "color": "#34C759",
-    "lat": 22.457885,
-    "lng": 88.168824,
+    "categoryLabel": "fitness",
+    "color": "#30B0C7",
+    "lat": 22.4586803,
+    "lng": 88.16847,
+    "shortName": "Gymnasium",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.457685,
-        88.168604
+        22.458763,
+        88.1683211
       ],
       [
-        22.457685,
-        88.169044
+        22.458763,
+        88.1686188
       ],
       [
-        22.458085,
-        88.169044
+        22.4585975,
+        88.1686188
       ],
       [
-        22.458085,
-        88.168604
+        22.4585975,
+        88.1683211
       ]
     ],
-    "details": "Indoor gym with modern equipment",
+    "details": "Indoor games hall and fitness gymnasium",
     "aliases": [
       "Gym"
     ]
   },
   {
-    "id": "central-lawn-om5i",
+    "id": "central-lawn",
     "name": "Central Lawn",
     "category": "green",
-    "categoryLabel": "green",
-    "color": "#34C759",
-    "lat": 22.458976,
-    "lng": 88.169521,
+    "categoryLabel": "green space",
+    "color": "#2DA44E",
+    "lat": 22.4582787,
+    "lng": 88.1700465,
+    "shortName": "Central Lawn",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458676,
-        88.16922100000001
+        22.4583217,
+        88.169611
       ],
       [
-        22.458676,
-        88.169821
+        22.4583217,
+        88.1704841
       ],
       [
-        22.459276,
-        88.169821
+        22.4582482,
+        88.1704643
       ],
       [
-        22.459276,
-        88.16922100000001
+        22.4582206,
+        88.1699087
+      ],
+      [
+        22.4582574,
+        88.1696308
       ]
     ],
-    "details": "Open lawn used for fests and gatherings",
+    "details": "Landscaped central lawn with walkways and seating",
     "aliases": [
       "Lawn"
     ]
   },
   {
-    "id": "campus-garden-gqpk",
+    "id": "campus-garden",
     "name": "Campus Garden",
     "category": "green",
-    "categoryLabel": "garden",
-    "color": "#34C759",
-    "lat": 22.45734,
-    "lng": 88.16818,
+    "categoryLabel": "green space",
+    "color": "#2DA44E",
+    "lat": 22.4578161,
+    "lng": 88.1685643,
+    "shortName": "Garden",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.456989999999998,
-        88.16778000000001
+        22.4581195,
+        88.1683807
       ],
       [
-        22.456989999999998,
-        88.16858
+        22.4581195,
+        88.1687379
       ],
       [
-        22.45769,
-        88.16858
+        22.4575128,
+        88.1687478
       ],
       [
-        22.45769,
-        88.16778000000001
+        22.4575128,
+        88.1683906
       ]
     ],
-    "details": "Landscaped garden walkway near the auditorium",
+    "details": "Orchard, nursery and campus garden",
     "aliases": [
       "Garden"
     ]
   },
   {
-    "id": "medical-center-i7p5",
+    "id": "medical-center",
     "name": "Medical Center",
     "category": "health",
-    "categoryLabel": "health",
+    "categoryLabel": "health centre",
     "color": "#FF2D55",
-    "lat": 22.457638,
-    "lng": 88.169789,
+    "lat": 22.4572323,
+    "lng": 88.1681475,
+    "shortName": "Medical Center",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.457458,
-        88.169609
+        22.4573013,
+        88.1680235
       ],
       [
-        22.457458,
-        88.169969
+        22.4573013,
+        88.1682715
       ],
       [
-        22.457818,
-        88.169969
+        22.4571634,
+        88.1682715
       ],
       [
-        22.457818,
-        88.169609
+        22.4571634,
+        88.1680235
       ]
     ],
-    "details": "On-campus medical aid and first aid",
+    "details": "First-aid room with visiting doctor and ambulance bay",
     "aliases": [
       "Sick Room",
       "Health Center"
     ]
   },
   {
-    "id": "campus-atm-tb94",
+    "id": "campus-atm",
     "name": "Campus ATM",
     "category": "atm",
-    "categoryLabel": "atm",
-    "color": "#32ADE6",
-    "lat": 22.458728,
-    "lng": 88.170562,
+    "categoryLabel": "campus service",
+    "color": "#8E8E93",
+    "lat": 22.4582712,
+    "lng": 88.1706181,
+    "shortName": "Campus ATM",
+    "major": false,
+    "levels": null,
     "polygon": [
       [
-        22.458628,
-        88.170462
+        22.4583217,
+        88.1705536
       ],
       [
-        22.458628,
-        88.17066200000001
+        22.4583217,
+        88.1706826
       ],
       [
-        22.458828,
-        88.17066200000001
+        22.4582206,
+        88.1706826
       ],
       [
-        22.458828,
-        88.170462
+        22.4582206,
+        88.1705536
       ]
     ],
-    "details": "ATM near the main gate",
+    "details": "ATM counter beside the main drive",
     "aliases": [
       "ATM Counter"
+    ]
+  },
+  {
+    "id": "bbit-public-school",
+    "name": "BBIT Public School",
+    "category": "landmark",
+    "categoryLabel": "gate",
+    "color": "#FF3B30",
+    "lat": 22.4572345,
+    "lng": 88.1696566,
+    "shortName": "Public School",
+    "major": true,
+    "levels": null,
+    "polygon": [
+      [
+        22.4573657,
+        88.1694225
+      ],
+      [
+        22.4573381,
+        88.1698789
+      ],
+      [
+        22.4571359,
+        88.1699087
+      ],
+      [
+        22.4571083,
+        88.1697598
+      ],
+      [
+        22.4571267,
+        88.1694324
+      ]
+    ],
+    "details": "CBSE-affiliated school run by the Jagannath Gupta Family Trust",
+    "aliases": [
+      "Public School"
+    ]
+  },
+  {
+    "id": "swimming-pool",
+    "name": "Swimming Pool",
+    "category": "sports",
+    "categoryLabel": "sports facility",
+    "color": "#30B0C7",
+    "lat": 22.4582527,
+    "lng": 88.1682765,
+    "shortName": "Swimming Pool",
+    "major": true,
+    "levels": null,
+    "polygon": [
+      [
+        22.4583585,
+        88.1681029
+      ],
+      [
+        22.4583585,
+        88.1684501
+      ],
+      [
+        22.458147,
+        88.1684501
+      ],
+      [
+        22.458147,
+        88.1681029
+      ]
+    ],
+    "details": "Open-air swimming pool with changing rooms and filtration plant",
+    "aliases": [
+      "Pool"
+    ]
+  },
+  {
+    "id": "main-parking-lot",
+    "name": "Main Parking Lot",
+    "category": "landmark",
+    "categoryLabel": "gate",
+    "color": "#FF3B30",
+    "lat": 22.4580367,
+    "lng": 88.1704891,
+    "shortName": "Parking",
+    "major": false,
+    "levels": null,
+    "polygon": [
+      [
+        22.4581654,
+        88.1703254
+      ],
+      [
+        22.4581654,
+        88.1706528
+      ],
+      [
+        22.457908,
+        88.1706528
+      ],
+      [
+        22.457908,
+        88.1703254
+      ]
+    ],
+    "details": "Visitor and staff parking off the main drive",
+    "aliases": [
+      "Parking"
     ]
   }
 ]

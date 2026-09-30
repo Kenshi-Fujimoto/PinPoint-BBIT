@@ -1,0 +1,1825 @@
+{
+  "$comment": "Campus reconstruction spec v3 \u2014 authored in SCREENSHOT PIXEL SPACE of the georeferenced Google Maps capture (1568x787, 0.5108 m/px, centre 22.4583332,88.1694324). tools/build-campus-data.mjs converts every feature to lat/lng and runs layout QA (building overlaps, blocks outside the boundary). At this zoom 1 m = 1.958 px, so a 60x40 px block is ~30x20 m. Anchor evidence: OSM KP Mondal Road centreline, the OSM gate stub at px (1040.5, 391.4), the OSM BBIT node at px (847, 229) and the OSM Public School node at px (873, 627).",
+  "shot": "1",
+  "boundary": [
+    [
+      478,
+      620
+    ],
+    [
+      470,
+      300
+    ],
+    [
+      478,
+      150
+    ],
+    [
+      560,
+      118
+    ],
+    [
+      700,
+      110
+    ],
+    [
+      860,
+      114
+    ],
+    [
+      1010,
+      124
+    ],
+    [
+      1084,
+      150
+    ],
+    [
+      1064,
+      300
+    ],
+    [
+      1042,
+      470
+    ],
+    [
+      1023,
+      620
+    ],
+    [
+      960,
+      692
+    ],
+    [
+      820,
+      710
+    ],
+    [
+      700,
+      720
+    ],
+    [
+      560,
+      714
+    ],
+    [
+      500,
+      672
+    ]
+  ],
+  "gates": [
+    {
+      "id": "gate-main",
+      "name": "Main Gate (KP Mondal Road)",
+      "shortName": "Main Gate",
+      "kind": "main",
+      "px": [
+        1052,
+        391
+      ],
+      "details": "Principal entrance from KP Mondal Road, opening onto the main drive",
+      "px_comment": "on the campus ring road"
+    },
+    {
+      "id": "gate-south",
+      "name": "South Gate (School Road)",
+      "shortName": "South Gate",
+      "kind": "secondary",
+      "px": [
+        846,
+        712
+      ],
+      "details": "Southern access serving the public school and the sports grounds",
+      "px_comment": "on the campus ring road"
+    },
+    {
+      "id": "gate-west",
+      "name": "Service Gate (West)",
+      "shortName": "Service Gate",
+      "kind": "service",
+      "px": [
+        492,
+        436
+      ],
+      "details": "Deliveries and workshop access on the western boundary",
+      "px_comment": "on the campus ring road"
+    },
+    {
+      "id": "gate-north",
+      "name": "North Gate (Hostel Road)",
+      "shortName": "North Gate",
+      "kind": "secondary",
+      "px": [
+        572,
+        138
+      ],
+      "details": "Access to the hostel and mess zone",
+      "px_comment": "on the campus ring road"
+    }
+  ],
+  "roads": [
+    {
+      "id": "road-entry-drive",
+      "name": "Main Entry Drive",
+      "kind": "arterial",
+      "path": [
+        [
+          1052,
+          391
+        ],
+        [
+          995,
+          391
+        ],
+        [
+          930,
+          391
+        ],
+        [
+          866,
+          390
+        ],
+        [
+          800,
+          388
+        ]
+      ]
+    },
+    {
+      "id": "road-core-ring",
+      "name": "Academic Core Ring",
+      "kind": "internal",
+      "path": [
+        [
+          808,
+          388
+        ],
+        [
+          808,
+          300
+        ],
+        [
+          812,
+          262
+        ],
+        [
+          950,
+          262
+        ],
+        [
+          1006,
+          272
+        ],
+        [
+          1010,
+          300
+        ],
+        [
+          1012,
+          330
+        ],
+        [
+          1004,
+          350
+        ],
+        [
+          996,
+          366
+        ],
+        [
+          990,
+          380
+        ],
+        [
+          948,
+          388
+        ],
+        [
+          880,
+          392
+        ],
+        [
+          808,
+          388
+        ]
+      ]
+    },
+    {
+      "id": "road-hostel-road",
+      "name": "Hostel Road",
+      "kind": "internal",
+      "path": [
+        [
+          572,
+          138
+        ],
+        [
+          600,
+          190
+        ],
+        [
+          612,
+          244
+        ],
+        [
+          622,
+          292
+        ],
+        [
+          644,
+          332
+        ],
+        [
+          672,
+          352
+        ],
+        [
+          706,
+          360
+        ]
+      ]
+    },
+    {
+      "id": "road-grounds-road",
+      "name": "Grounds Road",
+      "kind": "internal",
+      "path": [
+        [
+          492,
+          436
+        ],
+        [
+          560,
+          440
+        ],
+        [
+          620,
+          442
+        ],
+        [
+          648,
+          442
+        ],
+        [
+          642,
+          500
+        ],
+        [
+          638,
+          556
+        ],
+        [
+          652,
+          596
+        ],
+        [
+          612,
+          624
+        ],
+        [
+          560,
+          640
+        ]
+      ]
+    },
+    {
+      "id": "road-workshop-lane",
+      "name": "Workshop Lane",
+      "kind": "service",
+      "path": [
+        [
+          572,
+          440
+        ],
+        [
+          578,
+          500
+        ],
+        [
+          580,
+          556
+        ],
+        [
+          572,
+          600
+        ]
+      ]
+    },
+    {
+      "id": "road-school-spur",
+      "name": "School Spur",
+      "kind": "service",
+      "path": [
+        [
+          846,
+          712
+        ],
+        [
+          838,
+          678
+        ],
+        [
+          812,
+          660
+        ],
+        [
+          796,
+          656
+        ]
+      ]
+    },
+    {
+      "id": "road-annexe-lane",
+      "name": "Annexe Lane",
+      "kind": "service",
+      "path": [
+        [
+          812,
+          660
+        ],
+        [
+          806,
+          692
+        ],
+        [
+          802,
+          714
+        ]
+      ]
+    },
+    {
+      "id": "road-lab-walk",
+      "name": "Labs Walk",
+      "kind": "footpath",
+      "path": [
+        [
+          702,
+          368
+        ],
+        [
+          702,
+          332
+        ]
+      ]
+    },
+    {
+      "id": "road-front-lawn-walk",
+      "name": "Front Lawn Walk",
+      "kind": "footpath",
+      "path": [
+        [
+          1016,
+          330
+        ],
+        [
+          1026,
+          296
+        ],
+        [
+          1026,
+          262
+        ]
+      ]
+    },
+    {
+      "id": "road-poolside-walk",
+      "name": "Poolside Walk",
+      "kind": "footpath",
+      "path": [
+        [
+          648,
+          442
+        ],
+        [
+          610,
+          436
+        ],
+        [
+          566,
+          436
+        ]
+      ]
+    },
+    {
+      "id": "road-sports-walk",
+      "name": "Sports Link Walk",
+      "kind": "footpath",
+      "path": [
+        [
+          806,
+          500
+        ],
+        [
+          870,
+          500
+        ],
+        [
+          880,
+          462
+        ]
+      ]
+    },
+    {
+      "id": "road-hostel-walk",
+      "name": "Hostel Walk",
+      "kind": "footpath",
+      "path": [
+        [
+          600,
+          190
+        ],
+        [
+          572,
+          194
+        ],
+        [
+          556,
+          196
+        ]
+      ]
+    }
+  ],
+  "greens": [
+    {
+      "id": "green-sports",
+      "name": "Sports Ground",
+      "poly": [
+        [
+          648,
+          424
+        ],
+        [
+          796,
+          422
+        ],
+        [
+          802,
+          486
+        ],
+        [
+          798,
+          586
+        ],
+        [
+          648,
+          590
+        ]
+      ]
+    },
+    {
+      "id": "green-central-lawn",
+      "name": "Central Lawn",
+      "poly": [
+        [
+          812,
+          392
+        ],
+        [
+          1000,
+          392
+        ],
+        [
+          996,
+          414
+        ],
+        [
+          880,
+          420
+        ],
+        [
+          820,
+          412
+        ]
+      ]
+    },
+    {
+      "id": "green-north-field",
+      "name": "North Field",
+      "poly": [
+        [
+          500,
+          116
+        ],
+        [
+          644,
+          114
+        ],
+        [
+          642,
+          146
+        ],
+        [
+          560,
+          156
+        ],
+        [
+          506,
+          168
+        ]
+      ]
+    },
+    {
+      "id": "green-front-lawn",
+      "name": "Front Lawn",
+      "poly": [
+        [
+          1002,
+          262
+        ],
+        [
+          1044,
+          258
+        ],
+        [
+          1048,
+          330
+        ],
+        [
+          1014,
+          356
+        ],
+        [
+          1002,
+          340
+        ]
+      ]
+    },
+    {
+      "id": "green-west-orchard",
+      "name": "West Orchard",
+      "poly": [
+        [
+          474,
+          330
+        ],
+        [
+          494,
+          318
+        ],
+        [
+          500,
+          340
+        ],
+        [
+          496,
+          400
+        ],
+        [
+          492,
+          470
+        ],
+        [
+          488,
+          540
+        ],
+        [
+          484,
+          600
+        ],
+        [
+          472,
+          590
+        ]
+      ]
+    },
+    {
+      "id": "green-school",
+      "name": "School Green",
+      "poly": [
+        [
+          712,
+          596
+        ],
+        [
+          778,
+          592
+        ],
+        [
+          790,
+          640
+        ],
+        [
+          744,
+          652
+        ],
+        [
+          714,
+          624
+        ]
+      ]
+    },
+    {
+      "id": "green-south-green",
+      "name": "South Green",
+      "poly": [
+        [
+          494,
+          650
+        ],
+        [
+          556,
+          658
+        ],
+        [
+          560,
+          700
+        ],
+        [
+          506,
+          702
+        ]
+      ]
+    },
+    {
+      "id": "green-hostel-court",
+      "name": "Hostel Court",
+      "poly": [
+        [
+          552,
+          208
+        ],
+        [
+          620,
+          204
+        ],
+        [
+          624,
+          290
+        ],
+        [
+          556,
+          294
+        ]
+      ]
+    }
+  ],
+  "water": [
+    {
+      "id": "water-pool",
+      "name": "Swimming Pool",
+      "poly": [
+        [
+          520,
+          392
+        ],
+        [
+          586,
+          388
+        ],
+        [
+          590,
+          432
+        ],
+        [
+          524,
+          436
+        ]
+      ]
+    },
+    {
+      "id": "water-pond",
+      "name": "School Pond",
+      "poly": [
+        [
+          596,
+          650
+        ],
+        [
+          640,
+          644
+        ],
+        [
+          668,
+          656
+        ],
+        [
+          664,
+          684
+        ],
+        [
+          624,
+          696
+        ],
+        [
+          600,
+          686
+        ]
+      ]
+    }
+  ],
+  "parking": [
+    {
+      "id": "parking-main",
+      "name": "Main Parking",
+      "poly": [
+        [
+          964,
+          430
+        ],
+        [
+          1030,
+          434
+        ],
+        [
+          1026,
+          486
+        ],
+        [
+          960,
+          482
+        ]
+      ]
+    },
+    {
+      "id": "parking-hostel",
+      "name": "Hostel Parking",
+      "poly": [
+        [
+          520,
+          340
+        ],
+        [
+          580,
+          344
+        ],
+        [
+          578,
+          362
+        ],
+        [
+          518,
+          358
+        ]
+      ]
+    },
+    {
+      "id": "parking-auditorium",
+      "name": "Auditorium Parking",
+      "poly": [
+        [
+          884,
+          668
+        ],
+        [
+          970,
+          672
+        ],
+        [
+          966,
+          692
+        ],
+        [
+          882,
+          688
+        ]
+      ]
+    }
+  ],
+  "trees": [
+    [
+      820,
+      376,
+      5
+    ],
+    [
+      850,
+      376,
+      5
+    ],
+    [
+      884,
+      376,
+      5
+    ],
+    [
+      920,
+      374,
+      5
+    ],
+    [
+      956,
+      372,
+      5
+    ],
+    [
+      992,
+      368,
+      5
+    ],
+    [
+      700,
+      396,
+      4
+    ],
+    [
+      694,
+      420,
+      4
+    ],
+    [
+      690,
+      446,
+      4
+    ],
+    [
+      688,
+      472,
+      4
+    ],
+    [
+      688,
+      498,
+      4
+    ],
+    [
+      690,
+      524,
+      4
+    ],
+    [
+      694,
+      550,
+      4
+    ],
+    [
+      486,
+      292,
+      4
+    ],
+    [
+      508,
+      288,
+      4
+    ],
+    [
+      560,
+      296,
+      4
+    ],
+    [
+      604,
+      300,
+      4
+    ],
+    [
+      622,
+      330,
+      4
+    ],
+    [
+      1010,
+      200,
+      5
+    ],
+    [
+      1030,
+      214,
+      5
+    ],
+    [
+      1014,
+      240,
+      5
+    ],
+    [
+      1034,
+      252,
+      5
+    ],
+    [
+      1018,
+      282,
+      4
+    ],
+    [
+      812,
+      596,
+      5
+    ],
+    [
+      836,
+      588,
+      4
+    ],
+    [
+      860,
+      580,
+      4
+    ],
+    [
+      780,
+      572,
+      4
+    ],
+    [
+      1020,
+      420,
+      5
+    ],
+    [
+      1030,
+      448,
+      5
+    ],
+    [
+      1000,
+      470,
+      4
+    ],
+    [
+      540,
+      700,
+      4
+    ],
+    [
+      572,
+      706,
+      4
+    ],
+    [
+      616,
+      704,
+      4
+    ],
+    [
+      648,
+      130,
+      4
+    ],
+    [
+      800,
+      128,
+      4
+    ],
+    [
+      940,
+      134,
+      4
+    ],
+    [
+      1004,
+      146,
+      4
+    ],
+    [
+      824,
+      428,
+      4
+    ],
+    [
+      844,
+      424,
+      4
+    ]
+  ],
+  "structures": [
+    {
+      "id": "structure-school-annexe",
+      "name": "School Annexe",
+      "rectRot": [
+        820,
+        694,
+        58,
+        22,
+        -3
+      ]
+    },
+    {
+      "id": "structure-sports-pavilion",
+      "name": "Sports Pavilion",
+      "rect": [
+        808,
+        486,
+        858,
+        522
+      ]
+    },
+    {
+      "id": "structure-gate-quarter",
+      "name": "Gate Quarters",
+      "rect": [
+        676,
+        626,
+        702,
+        648
+      ]
+    },
+    {
+      "id": "structure-substation",
+      "name": "Sub-station & DG Yard",
+      "rect": [
+        604,
+        352,
+        632,
+        374
+      ]
+    },
+    {
+      "id": "structure-water-tank",
+      "name": "Overhead Water Tank",
+      "rect": [
+        606,
+        616,
+        630,
+        636
+      ]
+    },
+    {
+      "id": "structure-cycle-stand",
+      "name": "Cycle Stand",
+      "rect": [
+        700,
+        396,
+        764,
+        404
+      ]
+    },
+    {
+      "id": "structure-pump-house",
+      "name": "Pump House",
+      "rect": [
+        676,
+        652,
+        700,
+        672
+      ]
+    },
+    {
+      "id": "structure-store",
+      "name": "Central Store",
+      "rect": [
+        610,
+        392,
+        640,
+        414
+      ]
+    }
+  ],
+  "buildings": [
+    {
+      "id": "main-gate",
+      "name": "Main Gate",
+      "category": "landmark",
+      "major": true,
+      "rect": [
+        1036,
+        380,
+        1060,
+        404
+      ],
+      "details": "Guard room and entrance canopy at the head of the main drive",
+      "shortName": "Main Gate"
+    },
+    {
+      "id": "reception-and-enquiry",
+      "name": "Reception & Enquiry",
+      "category": "landmark",
+      "rect": [
+        1004,
+        362,
+        1040,
+        384
+      ],
+      "details": "Visitor reception beside the main drive",
+      "shortName": "Reception"
+    },
+    {
+      "id": "central-plaza",
+      "name": "Central Plaza",
+      "category": "landmark",
+      "poly": [
+        [
+          816,
+          316
+        ],
+        [
+          884,
+          316
+        ],
+        [
+          882,
+          348
+        ],
+        [
+          818,
+          348
+        ]
+      ],
+      "details": "Paved plaza at the heart of the academic core"
+    },
+    {
+      "id": "administrative-block",
+      "name": "Administrative Block",
+      "category": "admin",
+      "major": true,
+      "rect": [
+        892,
+        270,
+        1000,
+        306
+      ],
+      "details": "Director's office, registry and administrative departments",
+      "shortName": "Admin Block"
+    },
+    {
+      "id": "admission-office",
+      "name": "Admission Office",
+      "category": "admin",
+      "rect": [
+        820,
+        178,
+        900,
+        220
+      ],
+      "details": "Admissions counter and enquiry desk"
+    },
+    {
+      "id": "examination-cell",
+      "name": "Examination Cell",
+      "category": "admin",
+      "rect": [
+        908,
+        178,
+        986,
+        220
+      ],
+      "details": "Examinations, results and records"
+    },
+    {
+      "id": "accounts-and-fees-office",
+      "name": "Accounts & Fees Office",
+      "category": "admin",
+      "rect": [
+        990,
+        178,
+        1030,
+        214
+      ],
+      "details": "Fee counter and accounts"
+    },
+    {
+      "id": "training-and-placement-cell",
+      "name": "Training & Placement Cell",
+      "category": "admin",
+      "rect": [
+        820,
+        226,
+        938,
+        256
+      ],
+      "details": "Industrial training and campus placements",
+      "shortName": "Placement Cell"
+    },
+    {
+      "id": "central-library",
+      "name": "Central Library",
+      "category": "library",
+      "major": true,
+      "poly": [
+        [
+          816,
+          272
+        ],
+        [
+          884,
+          272
+        ],
+        [
+          886,
+          306
+        ],
+        [
+          866,
+          312
+        ],
+        [
+          816,
+          310
+        ]
+      ],
+      "details": "Central library, reference section and reading rooms",
+      "shortName": "Library"
+    },
+    {
+      "id": "academic-building-a",
+      "name": "Academic Building A",
+      "category": "academic",
+      "major": true,
+      "rect": [
+        706,
+        268,
+        754,
+        322
+      ],
+      "details": "Lecture halls, tutorial rooms and faculty cabins"
+    },
+    {
+      "id": "academic-building-b",
+      "name": "Academic Building B",
+      "category": "academic",
+      "major": true,
+      "rect": [
+        760,
+        268,
+        802,
+        322
+      ],
+      "details": "Lecture halls and seminar rooms"
+    },
+    {
+      "id": "polytechnic-block",
+      "name": "Polytechnic Block",
+      "category": "academic",
+      "rect": [
+        706,
+        328,
+        754,
+        382
+      ],
+      "details": "Diploma programmes: ETCE, EE, ME, CST and CE"
+    },
+    {
+      "id": "mba-block",
+      "name": "MBA Block",
+      "category": "academic",
+      "rect": [
+        892,
+        314,
+        1000,
+        346
+      ],
+      "details": "Management programmes, case-study rooms and seminar suites"
+    },
+    {
+      "id": "mtech-block",
+      "name": "M.Tech Block",
+      "category": "academic",
+      "rect": [
+        756,
+        328,
+        796,
+        382
+      ],
+      "details": "Post-graduate engineering programmes and research labs"
+    },
+    {
+      "id": "bca-and-bba-block",
+      "name": "BCA & BBA Block",
+      "category": "academic",
+      "rect": [
+        940,
+        226,
+        1030,
+        256
+      ],
+      "details": "Computer applications and business administration"
+    },
+    {
+      "id": "cse-department-and-labs",
+      "name": "CSE Department & Labs",
+      "category": "academic",
+      "major": true,
+      "rect": [
+        652,
+        264,
+        692,
+        334
+      ],
+      "details": "Computer Science & Engineering department, programming and networks labs",
+      "shortName": "CSE Dept & Labs"
+    },
+    {
+      "id": "ece-department-and-labs",
+      "name": "ECE Department & Labs",
+      "category": "academic",
+      "rect": [
+        660,
+        166,
+        724,
+        192
+      ],
+      "details": "Electronics & Communication Engineering department and VLSI lab",
+      "shortName": "ECE Dept & Labs"
+    },
+    {
+      "id": "ee-department-and-labs",
+      "name": "EE Department & Labs",
+      "category": "academic",
+      "rect": [
+        660,
+        230,
+        724,
+        256
+      ],
+      "details": "Electrical Engineering department and machines laboratory",
+      "shortName": "EE Dept & Labs"
+    },
+    {
+      "id": "it-department-and-labs",
+      "name": "IT Department & Labs",
+      "category": "academic",
+      "rect": [
+        732,
+        230,
+        796,
+        256
+      ],
+      "details": "Information Technology department and software labs",
+      "shortName": "IT Dept & Labs"
+    },
+    {
+      "id": "ai-and-data-science-dept",
+      "name": "AI & Data Science Dept",
+      "category": "academic",
+      "rect": [
+        732,
+        166,
+        796,
+        192
+      ],
+      "details": "Artificial intelligence, machine learning and data science",
+      "shortName": "AI & Data Science"
+    },
+    {
+      "id": "cse-ai-lab",
+      "name": "CSE (AI) Lab",
+      "category": "academic",
+      "rect": [
+        660,
+        124,
+        724,
+        150
+      ],
+      "details": "Artificial intelligence and deep-learning laboratory",
+      "shortName": "AI Lab"
+    },
+    {
+      "id": "cse-cyber-security-lab",
+      "name": "CSE (Cyber Security) Lab",
+      "category": "academic",
+      "rect": [
+        732,
+        198,
+        796,
+        224
+      ],
+      "details": "Cyber security, forensics and ethical hacking laboratory",
+      "shortName": "Cyber Security Lab"
+    },
+    {
+      "id": "basic-science-and-humanities",
+      "name": "Basic Science & Humanities",
+      "category": "academic",
+      "rect": [
+        660,
+        198,
+        724,
+        224
+      ],
+      "details": "First-year teaching, physics, chemistry and mathematics labs",
+      "shortName": "Basic Science"
+    },
+    {
+      "id": "mechanical-dept-polytechnic",
+      "name": "Mechanical Dept (Polytechnic)",
+      "category": "academic",
+      "rect": [
+        496,
+        488,
+        566,
+        526
+      ],
+      "details": "Mechanical engineering workshops, drawing hall and thermal lab",
+      "shortName": "Mechanical (Diploma)"
+    },
+    {
+      "id": "civil-dept-polytechnic",
+      "name": "Civil Dept (Polytechnic)",
+      "category": "academic",
+      "rect": [
+        496,
+        532,
+        566,
+        570
+      ],
+      "details": "Civil engineering laboratories, survey store and materials testing",
+      "shortName": "Civil (Diploma)"
+    },
+    {
+      "id": "etc-dept-polytechnic",
+      "name": "ETC Dept (Polytechnic)",
+      "category": "academic",
+      "rect": [
+        496,
+        444,
+        566,
+        482
+      ],
+      "details": "Electronics and telecommunication laboratories",
+      "shortName": "ETC (Diploma)"
+    },
+    {
+      "id": "central-computing-center",
+      "name": "Central Computing Center",
+      "category": "academic",
+      "major": true,
+      "rect": [
+        816,
+        354,
+        884,
+        378
+      ],
+      "details": "Central computer centre, server room and internet backbone",
+      "shortName": "Computing Center"
+    },
+    {
+      "id": "central-workshop",
+      "name": "Central Workshop",
+      "category": "academic",
+      "rect": [
+        496,
+        576,
+        560,
+        614
+      ],
+      "details": "Fitting, welding, carpentry and machine shops",
+      "shortName": "Workshop"
+    },
+    {
+      "id": "seminar-hall",
+      "name": "Seminar Hall",
+      "category": "academic",
+      "rect": [
+        888,
+        344,
+        984,
+        366
+      ],
+      "details": "Seminars, workshops and guest lectures"
+    },
+    {
+      "id": "ac-auditorium",
+      "name": "A/C Auditorium",
+      "category": "building",
+      "major": true,
+      "rect": [
+        884,
+        606,
+        978,
+        664
+      ],
+      "details": "Air-conditioned auditorium for college functions and cultural events",
+      "shortName": "Auditorium"
+    },
+    {
+      "id": "boys-hostel",
+      "name": "Boys' Hostel",
+      "category": "hostel",
+      "major": true,
+      "rectRot": [
+        512,
+        190,
+        70,
+        22,
+        -4
+      ],
+      "details": "Men's hostel bar with courtyard and attached mess",
+      "shortName": "Boys' Hostel"
+    },
+    {
+      "id": "junior-boys-hostel",
+      "name": "Junior Boys' Hostel",
+      "category": "hostel",
+      "rectRot": [
+        512,
+        226,
+        70,
+        22,
+        4
+      ],
+      "details": "First and second year men's hostel",
+      "shortName": "Jr Boys' Hostel"
+    },
+    {
+      "id": "girls-hostel",
+      "name": "Girls' Hostel",
+      "category": "hostel",
+      "major": true,
+      "rectRot": [
+        514,
+        262,
+        70,
+        22,
+        -4
+      ],
+      "details": "Women's hostel with secured entry and warden quarters",
+      "shortName": "Girls' Hostel"
+    },
+    {
+      "id": "faculty-hostel",
+      "name": "Faculty Hostel",
+      "category": "hostel",
+      "rect": [
+        486,
+        300,
+        540,
+        326
+      ],
+      "details": "Residence for visiting and resident faculty"
+    },
+    {
+      "id": "hostel-mess",
+      "name": "Hostel Mess",
+      "category": "mess",
+      "major": true,
+      "poly": [
+        [
+          556,
+          170
+        ],
+        [
+          620,
+          172
+        ],
+        [
+          622,
+          200
+        ],
+        [
+          600,
+          202
+        ],
+        [
+          598,
+          190
+        ],
+        [
+          556,
+          188
+        ]
+      ],
+      "details": "Dining hall for hostel residents with kitchen block",
+      "shortName": "Mess"
+    },
+    {
+      "id": "college-canteen",
+      "name": "College Canteen",
+      "category": "canteen",
+      "major": true,
+      "rect": [
+        736,
+        118,
+        800,
+        146
+      ],
+      "details": "Main student canteen with open seating",
+      "shortName": "Canteen"
+    },
+    {
+      "id": "cafeteria",
+      "name": "Cafeteria",
+      "category": "canteen",
+      "details": "Snacks, beverages and bakery counter",
+      "rect": [
+        808,
+        120,
+        868,
+        146
+      ]
+    },
+    {
+      "id": "food-court",
+      "name": "Food Court",
+      "category": "food",
+      "rect": [
+        876,
+        118,
+        938,
+        146
+      ],
+      "details": "Multi-counter food court"
+    },
+    {
+      "id": "campus-tea-stall",
+      "name": "Campus Tea Stall",
+      "category": "tea",
+      "rect": [
+        946,
+        120,
+        980,
+        142
+      ],
+      "details": "Tea and snacks stall beside the front lawn",
+      "shortName": "Tea Stall"
+    },
+    {
+      "id": "cricket-ground",
+      "name": "Cricket Ground",
+      "category": "sports",
+      "major": true,
+      "poly": [
+        [
+          664,
+          432
+        ],
+        [
+          790,
+          430
+        ],
+        [
+          792,
+          500
+        ],
+        [
+          664,
+          504
+        ]
+      ],
+      "details": "Main cricket ground with turf wicket and practice nets",
+      "shortName": "Cricket Ground"
+    },
+    {
+      "id": "football-field",
+      "name": "Football Field",
+      "category": "sports",
+      "poly": [
+        [
+          664,
+          510
+        ],
+        [
+          790,
+          508
+        ],
+        [
+          792,
+          582
+        ],
+        [
+          664,
+          584
+        ]
+      ],
+      "details": "Football and athletics field",
+      "shortName": "Football Field"
+    },
+    {
+      "id": "basketball-court",
+      "name": "Basketball Court",
+      "category": "sports",
+      "rect": [
+        808,
+        436,
+        864,
+        472
+      ],
+      "details": "Outdoor basketball court with floodlights"
+    },
+    {
+      "id": "gymnasium",
+      "name": "Gymnasium",
+      "category": "gym",
+      "rect": [
+        560,
+        300,
+        620,
+        336
+      ],
+      "details": "Indoor games hall and fitness gymnasium"
+    },
+    {
+      "id": "central-lawn",
+      "name": "Central Lawn",
+      "category": "green",
+      "poly": [
+        [
+          820,
+          396
+        ],
+        [
+          996,
+          396
+        ],
+        [
+          992,
+          412
+        ],
+        [
+          880,
+          418
+        ],
+        [
+          824,
+          410
+        ]
+      ],
+      "details": "Landscaped central lawn with walkways and seating"
+    },
+    {
+      "id": "campus-garden",
+      "name": "Campus Garden",
+      "category": "green",
+      "poly": [
+        [
+          572,
+          440
+        ],
+        [
+          644,
+          440
+        ],
+        [
+          646,
+          572
+        ],
+        [
+          574,
+          572
+        ]
+      ],
+      "details": "Orchard, nursery and campus garden",
+      "shortName": "Garden"
+    },
+    {
+      "id": "medical-center",
+      "name": "Medical Center",
+      "category": "health",
+      "rect": [
+        500,
+        618,
+        550,
+        648
+      ],
+      "details": "First-aid room with visiting doctor and ambulance bay"
+    },
+    {
+      "id": "campus-atm",
+      "name": "Campus ATM",
+      "category": "atm",
+      "rect": [
+        1010,
+        396,
+        1036,
+        418
+      ],
+      "details": "ATM counter beside the main drive"
+    },
+    {
+      "id": "bbit-public-school",
+      "name": "BBIT Public School",
+      "category": "landmark",
+      "major": true,
+      "poly": [
+        [
+          782,
+          604
+        ],
+        [
+          874,
+          610
+        ],
+        [
+          880,
+          654
+        ],
+        [
+          850,
+          660
+        ],
+        [
+          784,
+          656
+        ]
+      ],
+      "details": "CBSE-affiliated school run by the Jagannath Gupta Family Trust",
+      "shortName": "Public School"
+    },
+    {
+      "id": "swimming-pool",
+      "name": "Swimming Pool",
+      "category": "sports",
+      "major": true,
+      "rect": [
+        516,
+        388,
+        586,
+        434
+      ],
+      "details": "Open-air swimming pool with changing rooms and filtration plant"
+    },
+    {
+      "id": "main-parking-lot",
+      "name": "Main Parking Lot",
+      "category": "landmark",
+      "rect": [
+        964,
+        430,
+        1030,
+        486
+      ],
+      "details": "Visitor and staff parking off the main drive",
+      "shortName": "Parking"
+    }
+  ],
+  "ringInsetPx": 15
+}

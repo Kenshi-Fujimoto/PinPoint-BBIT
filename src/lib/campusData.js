@@ -39,6 +39,7 @@ export const placeColor = (place) =>
 export const LAYER_ZOOM = {
   boundary: 13,
   greens: 15,
+  trees: 17.5,
   roads: 14.5,
   roadNames: 16.5,
   buildings: 16,
@@ -60,9 +61,17 @@ export const layerCounts = () => ({
   greens: CAMPUS_LAYOUT.greens.length,
   water: CAMPUS_LAYOUT.water.length,
   gates: CAMPUS_LAYOUT.gates.length,
+  parking: (CAMPUS_LAYOUT.parking || []).length,
+  structures: (CAMPUS_LAYOUT.structures || []).length,
+  trees: (CAMPUS_LAYOUT.trees || []).length,
 });
 
-export const campusBounds = () => boundsOf([CAMPUS_LAYOUT.boundary, CAMPUS_PLACES.map((p) => p.polygon)]);
+export const campusBounds = () =>
+  boundsOf([
+    CAMPUS_LAYOUT.boundary,
+    (CAMPUS_LAYOUT.structures || []).map((s) => s.polygon),
+    CAMPUS_PLACES.map((p) => p.polygon),
+  ]);
 
 /** All distinct categories actually present in the data, in display order. */
 export const placeCategories = () => {

@@ -22,6 +22,7 @@ import {
 } from '../lib/campusData';
 import {
   CampusBoundary, CampusGreens, CampusWater, CampusRoads, CampusGates, PlaceFootprints, MAP_THEMES,
+  CampusParking, CampusTrees, CampusStructures,
 } from './map/CampusLayers';
 import { createCivicIcon, createLostFoundIcon, computeDispersedPositions, liveGpsIcon, createPlaceDot } from './map/mapIcons';
 import { BBIT_MAP_CENTER, BBIT_MAP_ZOOM, BBIT_CAMPUS_BOUNDS, BBIT_WEBSITE_URL } from '../types';
@@ -449,7 +450,10 @@ export default function InteractiveMap({
 
               <CampusGreens theme={theme} zoom={currentZoom} show={showGreens} />
               <CampusWater theme={theme} zoom={currentZoom} show={showGreens} />
+              <CampusTrees theme={theme} zoom={currentZoom} show={showGreens} />
               <CampusRoads theme={theme} zoom={currentZoom} variant={variant} show={showRoads} />
+              <CampusParking theme={theme} zoom={currentZoom} show={showRoads} />
+              <CampusStructures theme={theme} zoom={currentZoom} />
               <CampusBoundary theme={theme} zoom={currentZoom} />
               <CampusGates theme={theme} zoom={currentZoom} />
 

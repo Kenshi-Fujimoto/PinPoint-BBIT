@@ -5,7 +5,7 @@
  *
  * Corresponds to QA suites DUP-01…08 and MAT-01…08 in docs/_qa-checklist.md.
  *
- * Reference point: BBIT campus centre [22.4589, 88.1695].
+ * Reference points: coordinates around the BBIT campus (maths-only fixture).
  * 1 deg latitude ≈ 111,194.93 m, so:
  *   10 m ≈ 0.0000899322° · 30 m ≈ 0.000269796° · 40 m ≈ 0.000359729°
  *  100 m ≈ 0.000899322° · 300 m ≈ 0.00269796° · 600 m ≈ 0.00539593°

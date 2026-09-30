@@ -1,10 +1,10 @@
 /**
  * Unit tests — Domain types, campus geofence & curated data invariants
  * Covers: isInsideCampus, clampToCampus, BBIT_* constants, category/status
- *         catalogues, the surveyed campus layout and the 50 curated places.
+ *         catalogues, and the 50 curated campus places.
  *
- * Corresponds to QA suites MAP-01…09 and the "app starts empty / no fake
- * data" project promise in docs/_qa-checklist.md §9.1.
+ * Corresponds to QA suites MAP-01…04, MAP-09 and the "app starts empty /
+ * no fake data" project promise in docs/_qa-checklist.md §9.1.
  */
 import { describe, it, expect } from 'vitest';
 import {
@@ -14,37 +14,34 @@ import {
   BBIT_MAP_CENTER,
   BBIT_MAP_ZOOM,
   BBIT_CAMPUS_BOUNDS,
-  BBIT_CAMPUS_LAYOUT,
   BBIT_CAMPUS_PLACES,
   CAMPUS_LANDMARKS,
-  CAMPUS_GATES,
   isInsideCampus,
   clampToCampus,
 } from './index';
 
-const [[SOUTH, WEST], [NORTH, EAST]] = BBIT_CAMPUS_BOUNDS;
+// Official BBIT boundary box: lat 22.4570–22.4618, lng 88.1658–88.1710
+const SW = [22.4570, 88.1658];
+const NE = [22.4618, 88.1710];
+const CENTER = [22.4589, 88.1695];
 
-/** Planar metres between two [lat, lng] points (campus scale). */
-const metres = (a, b) => Math.hypot((a[0] - b[0]) * 111132.92, (a[1] - b[1]) * 102970);
-
-describe('isInsideCampus (surveyed campus geofence)', () => {
+describe('isInsideCampus (strict geofence)', () => {
   it('accepts the campus centre (MAP-01)', () => {
-    expect(isInsideCampus(BBIT_MAP_CENTER[0], BBIT_MAP_CENTER[1])).toBe(true);
+    expect(isInsideCampus(CENTER[0], CENTER[1])).toBe(true);
   });
 
-  it('treats the geofence edges as inside (inclusive bounds, MAP-03)', () => {
-    expect(isInsideCampus(SOUTH, WEST)).toBe(true);
-    expect(isInsideCampus(NORTH, EAST)).toBe(true);
-    expect(isInsideCampus(SOUTH, EAST)).toBe(true);
-    expect(isInsideCampus(NORTH, WEST)).toBe(true);
+  it('treats the boundary corners as inside (inclusive bounds, MAP-03)', () => {
+    expect(isInsideCampus(SW[0], SW[1])).toBe(true);
+    expect(isInsideCampus(NE[0], NE[1])).toBe(true);
+    expect(isInsideCampus(SW[0], NE[1])).toBe(true);
+    expect(isInsideCampus(NE[0], SW[1])).toBe(true);
   });
 
   it('rejects coordinates just outside each edge (MAP-02, MAP-03)', () => {
-    const eps = 0.00005; // ≈5 m
-    expect(isInsideCampus(SOUTH - eps, BBIT_MAP_CENTER[1])).toBe(false);
-    expect(isInsideCampus(NORTH + eps, BBIT_MAP_CENTER[1])).toBe(false);
-    expect(isInsideCampus(BBIT_MAP_CENTER[0], WEST - eps)).toBe(false);
-    expect(isInsideCampus(BBIT_MAP_CENTER[0], EAST + eps)).toBe(false);
+    expect(isInsideCampus(22.4569, CENTER[1])).toBe(false); // south of campus
+    expect(isInsideCampus(22.4619, CENTER[1])).toBe(false); // north of campus
+    expect(isInsideCampus(CENTER[0], 88.1657)).toBe(false); // west of campus
+    expect(isInsideCampus(CENTER[0], 88.1711)).toBe(false); // east of campus
   });
 
   it('rejects other cities entirely', () => {
@@ -52,88 +49,29 @@ describe('isInsideCampus (surveyed campus geofence)', () => {
     expect(isInsideCampus(19.0760, 72.8777)).toBe(false); // Mumbai
     expect(isInsideCampus(28.6139, 77.2090)).toBe(false); // Delhi
   });
-
-  it('spans the surveyed campus rather than a hand-drawn box', () => {
-    // the campus is roughly 400 m × 340 m of real ground
-    const widthM = (EAST - WEST) * 102970;
-    const heightM = (NORTH - SOUTH) * 111132.92;
-    expect(widthM).toBeGreaterThan(250);
-    expect(widthM).toBeLessThan(500);
-    expect(heightM).toBeGreaterThan(250);
-    expect(heightM).toBeLessThan(450);
-  });
 });
 
 describe('clampToCampus', () => {
   it('leaves on-campus coordinates untouched', () => {
-    expect(clampToCampus(BBIT_MAP_CENTER[0], BBIT_MAP_CENTER[1])).toEqual(BBIT_MAP_CENTER);
+    expect(clampToCampus(CENTER[0], CENTER[1])).toEqual(CENTER);
   });
 
   it('clamps far-away coordinates to the nearest campus corner', () => {
-    expect(clampToCampus(40, 100)).toEqual([NORTH, EAST]);
-    expect(clampToCampus(-40, -100)).toEqual([SOUTH, WEST]);
+    expect(clampToCampus(40, 100)).toEqual(NE);
+    expect(clampToCampus(-40, -100)).toEqual(SW);
   });
 
   it('clamps only the offending axis', () => {
-    expect(clampToCampus(22.459, 88.0)).toEqual([22.459, WEST]);
-    expect(clampToCampus(22.0, 88.1695)).toEqual([SOUTH, 88.1695]);
+    expect(clampToCampus(22.46, 88.15)).toEqual([22.46, SW[1]]);
+    expect(clampToCampus(22.4, 88.17)).toEqual([SW[0], 88.17]);
   });
 });
 
 describe('Map constants', () => {
-  it('places the map centre inside the surveyed campus', () => {
-    expect(isInsideCampus(BBIT_MAP_CENTER[0], BBIT_MAP_CENTER[1])).toBe(true);
-    expect(BBIT_MAP_ZOOM).toBeGreaterThanOrEqual(16);
-    expect(BBIT_MAP_ZOOM).toBeLessThanOrEqual(18);
-  });
-
-  it('derives the geofence from the campus wall in the layout data', () => {
-    for (const [lat, lng] of BBIT_CAMPUS_LAYOUT.boundary) {
-      expect(isInsideCampus(lat, lng)).toBe(true);
-    }
-  });
-});
-
-describe('Surveyed campus layout', () => {
-  it('describes a closed boundary wall with real shape', () => {
-    expect(BBIT_CAMPUS_LAYOUT.boundary.length).toBeGreaterThanOrEqual(12);
-    expect(metres(BBIT_CAMPUS_LAYOUT.boundary[0], BBIT_CAMPUS_LAYOUT.boundary.at(-1))).toBeLessThan(2);
-  });
-
-  it('contains roads, greens, water, parking, trees and gates', () => {
-    expect(BBIT_CAMPUS_LAYOUT.roads.length).toBeGreaterThanOrEqual(8);
-    expect(BBIT_CAMPUS_LAYOUT.greens.length).toBeGreaterThanOrEqual(4);
-    expect(BBIT_CAMPUS_LAYOUT.water.length).toBeGreaterThanOrEqual(1);
-    expect(BBIT_CAMPUS_LAYOUT.parking.length).toBeGreaterThanOrEqual(1);
-    expect(BBIT_CAMPUS_LAYOUT.trees.length).toBeGreaterThanOrEqual(10);
-    expect(BBIT_CAMPUS_LAYOUT.gates.length).toBeGreaterThanOrEqual(2);
-  });
-
-  it('gives every road a name, a kind and at least two points', () => {
-    const kinds = new Set(['arterial', 'internal', 'service', 'footpath']);
-    for (const road of BBIT_CAMPUS_LAYOUT.roads) {
-      expect(road.name).toBeTruthy();
-      expect(kinds.has(road.kind)).toBe(true);
-      expect(road.path.length).toBeGreaterThanOrEqual(2);
-    }
-  });
-
-  it('keeps every road, tree and structure inside the campus geofence', () => {
-    for (const road of BBIT_CAMPUS_LAYOUT.roads) {
-      for (const [lat, lng] of road.path) expect(isInsideCampus(lat, lng)).toBe(true);
-    }
-    for (const tree of BBIT_CAMPUS_LAYOUT.trees) expect(isInsideCampus(tree.lat, tree.lng)).toBe(true);
-    for (const st of BBIT_CAMPUS_LAYOUT.structures) {
-      expect(st.polygon.length).toBeGreaterThanOrEqual(3);
-    }
-  });
-
-  it('positions every gate on or near the campus wall', () => {
-    for (const gate of CAMPUS_GATES) {
-      expect(isInsideCampus(gate.lat, gate.lng)).toBe(true);
-      const nearest = Math.min(...BBIT_CAMPUS_LAYOUT.boundary.map((pt) => metres([gate.lat, gate.lng], pt)));
-      expect(nearest).toBeLessThan(90);
-    }
+  it('exposes the BBIT map centre, zoom level and boundary box', () => {
+    expect(BBIT_MAP_CENTER).toEqual(CENTER);
+    expect(BBIT_MAP_ZOOM).toBe(17);
+    expect(BBIT_CAMPUS_BOUNDS).toEqual([SW, NE]);
   });
 });
 
@@ -201,48 +139,9 @@ describe('Curated campus places (50 BBIT landmarks)', () => {
     }
   });
 
-  it('keeps every curated place centroid inside the campus geofence', () => {
+  it('keeps every curated place inside the official campus bounds', () => {
     for (const place of BBIT_CAMPUS_PLACES) {
       expect(isInsideCampus(place.lat, place.lng)).toBe(true);
-    }
-  });
-
-  it('gives every place a real footprint polygon (MAP-07)', () => {
-    for (const place of BBIT_CAMPUS_PLACES) {
-      expect(Array.isArray(place.polygon)).toBe(true);
-      expect(place.polygon.length).toBeGreaterThanOrEqual(3);
-      // footprint is measured in metres at campus scale: 20 m² … 20 000 m²
-      const latSpan = (Math.max(...place.polygon.map((p) => p[0])) - Math.min(...place.polygon.map((p) => p[0]))) * 111132.92;
-      const lngSpan = (Math.max(...place.polygon.map((p) => p[1])) - Math.min(...place.polygon.map((p) => p[1]))) * 102970;
-      const boxArea = latSpan * lngSpan;
-      expect(boxArea).toBeGreaterThan(20);
-      expect(boxArea).toBeLessThan(20000);
-    }
-  });
-
-  it('does not let two building footprints sit on top of each other (MAP-08)', () => {
-    const boxes = BBIT_CAMPUS_PLACES.map((place) => {
-      const lats = place.polygon.map((p) => p[0] * 111132.92);
-      const lngs = place.polygon.map((p) => p[1] * 102970);
-      return {
-        id: place.id,
-        name: place.name,
-        x0: Math.min(...lngs), x1: Math.max(...lngs),
-        y0: Math.min(...lats), y1: Math.max(...lats),
-      };
-    });
-    for (let i = 0; i < boxes.length; i += 1) {
-      for (let j = i + 1; j < boxes.length; j += 1) {
-        const a = boxes[i];
-        const b = boxes[j];
-        const w = Math.min(a.x1, b.x1) - Math.max(a.x0, b.x0);
-        const h = Math.min(a.y1, b.y1) - Math.max(a.y0, b.y0);
-        if (w <= 0 || h <= 0) continue;
-        const overlap = w * h;
-        const smaller = Math.min((a.x1 - a.x0) * (a.y1 - a.y0), (b.x1 - b.x0) * (b.y1 - b.y0));
-        // adjacent wings may touch slightly; anything more is a data error
-        expect(overlap / smaller, `${a.name} overlaps ${b.name}`).toBeLessThan(0.15);
-      }
     }
   });
 

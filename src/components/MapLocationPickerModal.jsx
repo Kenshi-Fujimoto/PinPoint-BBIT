@@ -1,10 +1,13 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import {
-  X,
-  MapPin,
-  Navigation,
-  Check,
-  Search,
+import { MapContainer, TileLayer, Marker, Polygon, Tooltip, useMapEvents, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import { 
+  X, 
+  MapPin, 
+  Navigation, 
+  Check, 
+  Search, 
+  Building2,
   Sparkles,
   ExternalLink,
   Layers,
@@ -14,12 +17,60 @@ import {
   ListFilter,
   Satellite
 } from 'lucide-react';
-import { BBIT_MAP_CENTER, BBIT_CAMPUS_BOUNDS, clampToCampus } from '../types';
-import { placeCategories, searchPlaces, nearestPlace } from '../lib/campusData';
-import {
-  CampusBoundary, CampusGreens, CampusWater, CampusRoads, CampusGates, PlaceFootprints, MAP_THEMES,
-} from './map/CampusLayers';
-import { pickerPinIcon } from './map/mapIcons';
+import { 
+  CAMPUS_LANDMARKS,
+  BBIT_CAMPUS_PLACES,
+  BBIT_CAMPUS_BOUNDS,
+  BBIT_MAP_CENTER, 
+  BBIT_MAP_ZOOM,
+  isInsideCampus,
+  clampToCampus
+} from '../types';
+
+// Custom Pin for Map Picker
+const pickerPinIcon = L.divIcon({
+  className: 'custom-picker-pin',
+  html: `
+    <div style="position: relative; display: flex; flex-direction: column; align-items: center; width: 44px; height: 50px; cursor: grab;">
+      <div style="width: 36px; height: 36px; border-radius: 12px; background: linear-gradient(135deg, #0A84FF, #0071E3); border: 2.5px solid #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0, 113, 227, 0.9); color: white; font-weight: bold; font-size: 16px;">
+        📍
+      </div>
+      <div style="width: 4px; height: 10px; background: #0071E3; border-radius: 2px;"></div>
+      <div style="width: 8px; height: 4px; background: rgba(0,0,0,0.3); border-radius: 50%;"></div>
+    </div>
+  `,
+  iconSize: [44, 50],
+  iconAnchor: [22, 46],
+});
+
+// Minimal Building Dot on Picker Map
+function createPickerBuildingDot(color = '#0071E3') {
+  return L.divIcon({
+    className: 'picker-building-dot',
+    html: `
+      <div style="width: 12px; height: 12px; border-radius: 50%; background: ${color}; border: 1.5px solid #FFFFFF; box-shadow: 0 2px 6px rgba(0,0,0,0.6); cursor: pointer; transition: transform 0.15s ease;"></div>
+    `,
+    iconSize: [12, 12],
+    iconAnchor: [6, 6],
+  });
+}
+
+// Major prominent landmarks to show labels for by default
+const MAJOR_LANDMARK_IDS = new Set([
+  'main-gate-xaji',
+  'central-library-zbik',
+  'administrative-block-3zmf',
+  'academic-building-a-cidk',
+  'central-computing-center-sg65',
+  'ac-auditorium-ala7',
+  'bbit-public-school-pbhs',
+  'boys-hostel-53lc',
+  'girls-hostel-c11e',
+  'hostel-mess-pht0',
+  'college-canteen-hl9x',
+  'cricket-ground-4ciy',
+  'swimming-pool-dppq'
+]);
 
 // Automatically triggers Leaflet container recalculation on mount & tab switch
 function MapResizeFix({ activeTab }) {
@@ -39,14 +90,11 @@ function MapResizeFix({ activeTab }) {
 }
 
 // Event listener for user clicking anywhere on map with strict campus bounding
-function LocationPickerEvents({ onPick, onZoom }) {
-  const map = useMapEvents({
+function LocationPickerEvents({ onPick }) {
+  useMapEvents({
     click(e) {
       const [clampedLat, clampedLng] = clampToCampus(e.latlng.lat, e.latlng.lng);
       onPick(Number(clampedLat.toFixed(6)), Number(clampedLng.toFixed(6)));
-    },
-    zoomend() {
-      onZoom?.(map.getZoom());
     },
   });
   return null;
@@ -81,8 +129,6 @@ export default function MapLocationPickerModal({
   const [mapLayerType, setMapLayerType] = useState('satellite'); // 'satellite' or 'streets'
   const [mobileView, setMobileView] = useState('map'); // 'map' or 'places'
   const [flyTarget, setFlyTarget] = useState(null);
-  const [currentZoom, setCurrentZoom] = useState(18);
-  const [labelDensity, setLabelDensity] = useState('major');
   const [isGpsLoading, setIsGpsLoading] = useState(false);
 
   // Sync state whenever modal is opened
@@ -100,13 +146,28 @@ export default function MapLocationPickerModal({
 
   const categoriesList = [
     { id: 'all', label: 'All' },
-    ...placeCategories().map((c) => ({ id: c.id, label: c.label })),
+    { id: 'academic', label: 'Departments & Labs' },
+    { id: 'hostel', label: 'Hostels' },
+    { id: 'canteen', label: 'Canteens' },
+    { id: 'sports', label: 'Sports' },
   ];
 
-  const filteredPlaces = useMemo(
-    () => searchPlaces(searchTerm, selectedCategory),
-    [selectedCategory, searchTerm],
-  );
+  const filteredPlaces = useMemo(() => {
+    return BBIT_CAMPUS_PLACES.filter(p => {
+      const matchCat = selectedCategory === 'all' || 
+        (selectedCategory === 'canteen' && (p.category === 'canteen' || p.category === 'mess' || p.category === 'tea' || p.category === 'food')) ||
+        (selectedCategory === 'sports' && (p.category === 'sports' || p.category === 'gym' || p.category === 'green')) ||
+        p.category === selectedCategory;
+
+      const q = searchTerm.toLowerCase().trim();
+      const matchSearch = !q || 
+        p.name.toLowerCase().includes(q) || 
+        p.categoryLabel.toLowerCase().includes(q) ||
+        (p.details && p.details.toLowerCase().includes(q));
+
+      return matchCat && matchSearch;
+    });
+  }, [selectedCategory, searchTerm]);
 
   if (!isOpen) return null;
 
@@ -117,9 +178,19 @@ export default function MapLocationPickerModal({
     setSelectedLat(lat);
     setSelectedLng(lng);
 
-    const { place, distanceM } = nearestPlace(lat, lng);
-    if (place && distanceM < 70) {
-      setLocationName(place.name);
+    let closest = null;
+    let minDistance = Infinity;
+
+    BBIT_CAMPUS_PLACES.forEach(b => {
+      const d = Math.hypot(b.lat - lat, b.lng - lng);
+      if (d < minDistance) {
+        minDistance = d;
+        closest = b;
+      }
+    });
+
+    if (closest && minDistance < 0.00075) {
+      setLocationName(closest.name);
     } else {
       setLocationName(`Selected Spot (${lat.toFixed(5)}, ${lng.toFixed(5)})`);
     }
@@ -143,13 +214,22 @@ export default function MapLocationPickerModal({
           setSelectedLat(userLat);
           setSelectedLng(userLng);
           
-          const { place, distanceM } = nearestPlace(userLat, userLng);
-          if (place && distanceM < 150) {
-            setLocationName(place.name);
+          let closest = null;
+          let minDistance = Infinity;
+          BBIT_CAMPUS_PLACES.forEach(b => {
+            const d = Math.hypot(b.lat - userLat, b.lng - userLng);
+            if (d < minDistance) {
+              minDistance = d;
+              closest = b;
+            }
+          });
+
+          if (closest && minDistance < 0.0015) {
+            setLocationName(closest.name);
           } else {
             setLocationName(`Live GPS Location (${userLat.toFixed(4)}°N, ${userLng.toFixed(4)}°E)`);
           }
-
+          
           setFlyTarget([userLat, userLng]);
           setIsGpsLoading(false);
         },
@@ -313,9 +393,9 @@ export default function MapLocationPickerModal({
             
             <div className="flex-1 relative w-full h-full min-h-[300px]">
               <MapContainer
-                center={BBIT_MAP_CENTER}
+                center={[selectedLat, selectedLng]}
                 zoom={18}
-                minZoom={14}
+                minZoom={13}
                 maxZoom={19}
                 scrollWheelZoom={true}
                 className="w-full h-full absolute inset-0 z-0"
@@ -323,7 +403,7 @@ export default function MapLocationPickerModal({
               >
                 <MapResizeFix activeTab={mobileView} />
                 <FlyToCoords coords={flyTarget} />
-                <LocationPickerEvents onPick={handleMapClick} onZoom={setCurrentZoom} />
+                <LocationPickerEvents onPick={handleMapClick} />
 
                 {/* Base Tile Layer: Satellite vs Street */}
                 {mapLayerType === 'satellite' ? (
@@ -347,25 +427,57 @@ export default function MapLocationPickerModal({
                   />
                 )}
 
-                {/* SURVEYED CAMPUS LAYERS */}
-                {showOverlays && (
-                  <>
-                    <CampusGreens theme={MAP_THEMES.satellite} zoom={currentZoom} />
-                    <CampusWater theme={MAP_THEMES.satellite} zoom={currentZoom} />
-                    <CampusRoads theme={MAP_THEMES.satellite} zoom={currentZoom} variant="satellite" />
-                    <CampusBoundary theme={MAP_THEMES.satellite} zoom={currentZoom} />
-                    <CampusGates theme={MAP_THEMES.satellite} zoom={currentZoom} />
-                    <PlaceFootprints
-                      places={filteredPlaces}
-                      theme={MAP_THEMES.satellite}
-                      variant="satellite"
-                      zoom={currentZoom}
-                      mode={labelDensity}
-                      onUse={handleSelectPlace}
-                      actionLabel="Pin here"
-                    />
-                  </>
-                )}
+                {/* OVERLAY: ALL 50 SURVEYED BUILDINGS & LABELS */}
+                {showOverlays && filteredPlaces.map((place) => {
+                  const isMajor = MAJOR_LANDMARK_IDS.has(place.id);
+                  const isSelected = selectedLat === place.lat && selectedLng === place.lng;
+
+                  return (
+                    <React.Fragment key={place.id}>
+                      {/* Building Polygon Boundary */}
+                      {place.polygon && (
+                        <Polygon
+                          positions={place.polygon}
+                          pathOptions={{
+                            color: isSelected ? '#0071E3' : (place.color || '#0071E3'),
+                            fillColor: isSelected ? '#0071E3' : (place.color || '#0071E3'),
+                            fillOpacity: isSelected ? 0.45 : 0.22,
+                            weight: isSelected ? 2.5 : 1.5,
+                          }}
+                          eventHandlers={{
+                            click: () => handleSelectPlace(place),
+                          }}
+                        >
+                          <Tooltip direction="top" className="custom-clean-map-tooltip">
+                            <span className="font-sans font-bold text-[11px] text-white">
+                              {place.name} ({place.categoryLabel})
+                            </span>
+                          </Tooltip>
+                        </Polygon>
+                      )}
+
+                      {/* Interactive Building Dot */}
+                      <Marker
+                        position={[place.lat, place.lng]}
+                        icon={createPickerBuildingDot(place.color)}
+                        eventHandlers={{
+                          click: () => handleSelectPlace(place),
+                        }}
+                      >
+                        <Tooltip
+                          permanent={isMajor}
+                          direction="top"
+                          offset={[0, -8]}
+                          className="custom-clean-map-tooltip"
+                        >
+                          <span className="font-sans font-bold text-[11px] text-white">
+                            {place.name}
+                          </span>
+                        </Tooltip>
+                      </Marker>
+                    </React.Fragment>
+                  );
+                })}
 
                 {/* Selected Pinpoint Marker */}
                 <Marker

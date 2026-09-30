@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "status": "provisional-scaffold",
+    "note": "Scaffold only — replaced by imagery-traced geometry before this work ships.",
+    "imagery": "Esri World Imagery (Maxar)",
+    "tracedAt": null
+  },
+  "boundary": [
+    [22.4618, 88.1658],
+    [22.4618, 88.171],
+    [22.457, 88.171],
+    [22.457, 88.1658]
+  ],
+  "gates": [],
+  "roads": [],
+  "greens": [],
+  "water": []
+}

@@ -1,74 +1,76 @@
 import bbitPlaces from '../data/bbitPlaces.json';
+import campusLayout from '../data/campusLayout.json';
+import { boundsOf } from '../lib/geo';
 
 export const CIVIC_CATEGORIES = [
-  { 
-    id: 'pothole', 
-    label: 'Pothole & Road Hazard', 
-    icon: 'AlertTriangle', 
+  {
+    id: 'pothole',
+    label: 'Pothole & Road Hazard',
+    icon: 'AlertTriangle',
     tagClass: 'bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 border-orange-200/80 dark:border-orange-800/60',
     accentColor: '#FF9500',
     emoji: '🕳️'
   },
-  { 
-    id: 'streetlight', 
-    label: 'Lighting & Streetlight', 
-    icon: 'Lightbulb', 
+  {
+    id: 'streetlight',
+    label: 'Lighting & Streetlight',
+    icon: 'Lightbulb',
     tagClass: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200/80 dark:border-amber-800/60',
     accentColor: '#FF9500',
     emoji: '💡'
   },
-  { 
-    id: 'water_leak', 
-    label: 'Water Leak & Drainage', 
-    icon: 'Droplets', 
+  {
+    id: 'water_leak',
+    label: 'Water Leak & Drainage',
+    icon: 'Droplets',
     tagClass: 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-200/80 dark:border-sky-800/60',
     accentColor: '#32ADE6',
     emoji: '💧'
   },
-  { 
-    id: 'garbage', 
-    label: 'Waste & Sanitation', 
-    icon: 'Trash2', 
+  {
+    id: 'garbage',
+    label: 'Waste & Sanitation',
+    icon: 'Trash2',
     tagClass: 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200/80 dark:border-rose-800/60',
     accentColor: '#F43F5E',
     emoji: '🗑️'
   },
-  { 
-    id: 'broken_infra', 
-    label: 'Broken Infrastructure', 
-    icon: 'Wrench', 
+  {
+    id: 'broken_infra',
+    label: 'Broken Infrastructure',
+    icon: 'Wrench',
     tagClass: 'bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border-purple-200/80 dark:border-purple-800/60',
     accentColor: '#A855F7',
     emoji: '🔧'
   },
-  { 
-    id: 'wifi_deadzone', 
-    label: 'WiFi & Connectivity', 
-    icon: 'WifiOff', 
+  {
+    id: 'wifi_deadzone',
+    label: 'WiFi & Connectivity',
+    icon: 'WifiOff',
     tagClass: 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border-indigo-200/80 dark:border-indigo-800/60',
     accentColor: '#0071E3',
     emoji: '📶'
   },
-  { 
-    id: 'electrical', 
-    label: 'Electrical & Safety', 
-    icon: 'Zap', 
+  {
+    id: 'electrical',
+    label: 'Electrical & Safety',
+    icon: 'Zap',
     tagClass: 'bg-yellow-50 dark:bg-yellow-950/40 text-yellow-800 dark:text-yellow-300 border-yellow-200/80 dark:border-yellow-800/60',
     accentColor: '#EAB308',
     emoji: '⚡'
   },
-  { 
-    id: 'hvac', 
-    label: 'HVAC & Climate', 
-    icon: 'Wind', 
+  {
+    id: 'hvac',
+    label: 'HVAC & Climate',
+    icon: 'Wind',
     tagClass: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200/80 dark:border-emerald-800/60',
     accentColor: '#34C759',
     emoji: '🍃'
   },
-  { 
-    id: 'other', 
-    label: 'Other / Custom Hazard', 
-    icon: 'AlertCircle', 
+  {
+    id: 'other',
+    label: 'Other / Custom Hazard',
+    icon: 'AlertCircle',
     tagClass: 'bg-stone-100 dark:bg-stone-800/90 text-stone-800 dark:text-stone-200 border-stone-200 dark:border-stone-700',
     accentColor: '#78716C',
     emoji: '⚠️'
@@ -115,27 +117,37 @@ export const LOST_FOUND_CATEGORIES = [
   { id: 'other', label: 'Other Items', icon: 'Package', color: 'purple' },
 ];
 
-export const BBIT_MAP_CENTER = [22.4589, 88.1695];
+/** Campus layout (boundary, wall, roads, greens, water, parking, trees, gates). */
+export const BBIT_CAMPUS_LAYOUT = campusLayout;
+
+/**
+ * Geofence derived from the surveyed campus wall, not a hand-drawn box: every
+ * submission is clamped to the smallest rectangle that contains the wall.
+ */
+const CAMPUS_BOUNDS_FROM_LAYOUT = boundsOf([campusLayout.boundary]) || [[22.4570, 88.1658], [22.4618, 88.1710]];
+
+export const BBIT_CAMPUS_BOUNDS = CAMPUS_BOUNDS_FROM_LAYOUT;
+
+/** Centre of the surveyed campus (used as the map's initial view). */
+export const BBIT_MAP_CENTER = [
+  Number(((CAMPUS_BOUNDS_FROM_LAYOUT[0][0] + CAMPUS_BOUNDS_FROM_LAYOUT[1][0]) / 2).toFixed(6)),
+  Number(((CAMPUS_BOUNDS_FROM_LAYOUT[0][1] + CAMPUS_BOUNDS_FROM_LAYOUT[1][1]) / 2).toFixed(6)),
+];
+
 export const BBIT_MAP_ZOOM = 17;
 export const BBIT_WEBSITE_URL = 'https://www.bbit.edu.in';
 
-// Official BBIT (Budge Budge Institute of Technology) Boundary Box for strict clamping
-export const BBIT_CAMPUS_BOUNDS = [
-  [22.4570, 88.1658], // South-West corner
-  [22.4618, 88.1710], // North-East corner
-];
-
 export function isInsideCampus(lat, lng) {
-  return lat >= 22.4570 && lat <= 22.4618 && lng >= 88.1658 && lng <= 88.1710;
+  const [[south, west], [north, east]] = CAMPUS_BOUNDS_FROM_LAYOUT;
+  return lat >= south && lat <= north && lng >= west && lng <= east;
 }
 
 export function clampToCampus(lat, lng) {
-  const clampedLat = Math.max(22.4570, Math.min(22.4618, lat));
-  const clampedLng = Math.max(88.1658, Math.min(88.1710, lng));
-  return [clampedLat, clampedLng];
+  const [[south, west], [north, east]] = CAMPUS_BOUNDS_FROM_LAYOUT;
+  return [Math.max(south, Math.min(north, lat)), Math.max(west, Math.min(east, lng))];
 }
 
-// 50 Curated Campus Places of Budge Budge Institute of Technology
+/** 50 curated campus places, each with a footprint traced from satellite imagery. */
 export const BBIT_CAMPUS_PLACES = bbitPlaces;
 
 // Grouped Landmarks List
@@ -149,3 +161,6 @@ export const CAMPUS_LANDMARKS = bbitPlaces.map(p => ({
   color: p.color,
   polygon: p.polygon,
 }));
+
+// Campus gates, gates are also exposed as a flat list for pickers
+export const CAMPUS_GATES = campusLayout.gates;

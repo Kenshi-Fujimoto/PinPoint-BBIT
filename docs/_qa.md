@@ -23,7 +23,7 @@
 ## 2. How we tested it — three ways
 
 **1. The app checks itself (automatic tests).**
-The "thinking" part of PinPoint — the maths behind duplicate warnings, match scores, spam detection, and the campus boundary — is covered by **64 automatic tests**. Anyone can run them:
+The "thinking" part of PinPoint — the maths behind duplicate warnings, match scores, spam detection, and the campus boundary — is covered by **73 automatic tests**. Anyone can run them:
 
 ```bash
 npm test
@@ -35,7 +35,7 @@ In about one second you get **64 green ticks**. We run this every time we change
 We walked through every screen: reporting issues, posting lost items, matching, upvoting, the staff portal, the phone view, the offline view. The full tick-list is kept for the team in [`_qa-checklist.md`](_qa-checklist.md).
 
 **3. We read our own code to prove promises.**
-Example: we promise the app *never* shows fake sample reports. One of the 64 tests actually fails the whole suite if anyone ever wires sample data into the app.
+Example: we promise the app *never* shows fake sample reports. One of the 73 tests actually fails the whole suite if anyone ever wires sample data into the app.
 
 ---
 
@@ -50,7 +50,7 @@ Example: we promise the app *never* shows fake sample reports. One of the 64 tes
 | Secret question protects the owner of a found item | ✅ |
 | Staff portal: review, filter, search, update status, remove spam posts | ✅ |
 | Spam detector catches scam posts (fake prizes, crypto, phishing links) | ✅ (tested automatically, with real-looking honest posts as counter-checks) |
-| Map shows all **50 real campus places** on satellite imagery | ✅ (all 50 checked for correct names, positions and being inside campus) |
+| Map shows all **50 real campus places** with footprints over satellite imagery | ✅ (all 50 checked for correct names, footprints, non-overlap and being inside campus) |
 | Reports only accepted **inside the BBIT campus boundary** | ✅ (boundary maths tested automatically) |
 | Works on phone and computer, light and dark mode | ✅ |
 | Installable as a phone app, opens without internet | ✅ |
@@ -89,7 +89,7 @@ npm run dev        # open http://localhost:3000
 
 ## 6. The one-line summary
 
-> **Everything we demonstrate works and is tested — 64 automatic tests plus hands-on checks of every screen. What stands between this demo and real campus use is a real staff login, saved-report confirmation, and database rules — all known, all on our list.**
+> **Everything we demonstrate works and is tested — 73 automatic tests plus hands-on checks of every screen. What stands between this demo and real campus use is a real staff login, saved-report confirmation, and database rules — all known, all on our list.**
 
 ---
 

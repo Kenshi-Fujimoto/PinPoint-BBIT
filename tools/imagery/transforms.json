@@ -1,0 +1,28 @@
+{
+  "1": {
+    "file": "shot1.jpg",
+    "center": {
+      "lat": 22.4583332,
+      "lng": 88.1694324
+    },
+    "mPerPx": 0.5108,
+    "refPixel": [
+      784,
+      393.5
+    ],
+    "note": "From the shared Google Maps URL (@22.4583332,88.1694324,402m at 1568x787). Verified against the OSM KP Mondal Road centreline."
+  },
+  "synth": {
+    "file": "smoke-test.jpg",
+    "center": {
+      "lat": 22.4583332,
+      "lng": 88.1694324
+    },
+    "mPerPx": 0.5108,
+    "refPixel": [
+      784,
+      393.5
+    ],
+    "note": "synthetic round-trip self test (tools/smoke-test-tools.mjs)"
+  }
+}

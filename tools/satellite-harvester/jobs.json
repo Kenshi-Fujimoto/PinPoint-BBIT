@@ -1,0 +1,23 @@
+[
+  {
+    "id": "overview-z18",
+    "name": "bbit-overview-z18",
+    "z": 18,
+    "bbox": [22.4525, 88.1595, 22.4655, 88.1785],
+    "quality": 0.9
+  },
+  {
+    "id": "campus-z19",
+    "name": "bbit-campus-z19",
+    "z": 19,
+    "bbox": [22.4560, 88.1650, 22.4615, 88.1725],
+    "quality": 0.92
+  },
+  {
+    "id": "probe-z20",
+    "name": "bbit-probe-z20",
+    "z": 20,
+    "bbox": [22.4575, 88.1665, 22.4595, 88.1705],
+    "quality": 0.92
+  }
+]

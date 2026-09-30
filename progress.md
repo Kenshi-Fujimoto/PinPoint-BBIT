@@ -2,6 +2,8 @@
 
 **A campus app for Budge Budge Institute of Technology**
 
+> 📖 How we checked all of this: see the plain-language **[Testing & Quality Report](docs/_qa.md)** (and the detailed team checklist next to it).
+
 | | |
 | :--- | :--- |
 | **Last updated** | 30 September 2026 |
@@ -61,8 +63,8 @@ This table follows the plan we set out in our project plan.
 **1. The staff area is not properly protected. 🔴**
 This is our most important gap. The staff page currently uses a simple placeholder passcode (and even opens unlocked), instead of checking whether the person is really a staff member. Anyone who finds the page could edit or delete reports. This must be fixed before real students use the app.
 
-**2. We have no automated tests. 🔴**
-Our project plan said we would test before release. So far we have only tested by hand. We have no repeatable tests, which means changes could silently break something.
+**2. Our automated tests only cover the core logic. 🟡**
+We have added a unit-test suite (`npm test`, 64 tests) covering the smart matching, duplicate detection, spam detection, campus geofence, and the curated places data — plus a guard that fails the build if anyone ever wires sample data into the app. What we still lack are tests for the screens themselves: filling in forms, sign-in, and the staff portal still have to be checked by hand.
 
 **3. Saving a report is silent. 🟡**
 When a student submits a report, the window simply closes. It should clearly say "Report saved". If saving fails, it currently only logs the error quietly instead of telling the student.
@@ -92,7 +94,7 @@ A security check on our supporting libraries reported warnings. The most serious
 | Are all 50 campus places on the map? | ✅ Yes — counted and confirmed |
 | Do the report, lost-and-found and staff features exist and connect? | ✅ Yes — confirmed by reading through each screen |
 | Can the app be installed on a phone? | ✅ Yes — phone app files generated successfully |
-| Do we have automated tests? | ❌ No — none exist yet |
+| Do we have automated tests? | 🟡 Yes for the core logic — 64 unit tests via `npm test`. None yet for the UI flows |
 | Is there a live test with real Google sign-in and photo uploads? | ⬜ Not yet — this needs real accounts and cannot be tested in our setup |
 
 ---

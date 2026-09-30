@@ -81,6 +81,19 @@ Open **`http://localhost:3001`** in your browser. Express serves all frontend pa
 
 ---
 
+## 🧪 Testing & QA
+
+The project ships with an automated unit-test suite (Vitest) covering the pure-logic services — the proximity duplicate detector, the lost & found smart-matching engine, the spam/scam detector, campus geofencing, and the curated campus-places data — plus an integrity guard that enforces the *"app never renders mock data"* promise:
+
+```bash
+npm test          # run the full suite once (CI-friendly)
+npm run test:watch  # watch mode during development
+```
+
+📖 **Plain-language testing report (start here):** [`docs/_qa.md`](docs/_qa.md) · full step-by-step test checklist for the team: [`docs/_qa-checklist.md`](docs/_qa-checklist.md)
+
+---
+
 ## ▲ Deploying to Vercel
 
 > 📖 **Full step-by-step guide:** see **[`DEPLOYMENT.md`](DEPLOYMENT.md)** for environment variables, Firebase/EdgeStore setup, self-hosting (Express/Docker/Nginx), post-deploy smoke tests, troubleshooting and the production-readiness checklist.

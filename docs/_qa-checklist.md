@@ -10,7 +10,7 @@
 > | **Last updated** | 30 September 2026 |
 > | **Current QA verdict** | 🟡 **Demo-ready — NOT production-ready** (see [Known Issues](#8-known-issues--open-defects)) |
 > | **Plain-language report** | [`_qa.md`](_qa.md) |
-> | **Related docs** | [README.md](../README.md) · [DEPLOYMENT.md](../DEPLOYMENT.md) · [progress.md](../progress.md) · [planning.md](../planning.md) |
+> | **Related docs** | [README.md](../README.md) · [deployment.md](deployment.md) · [progress.md](progress.md) · [planning.md](planning.md) |
 
 ---
 
@@ -64,7 +64,7 @@
 - Automated unit / E2E tests — **none exist yet** (top priority gap, see [§8](#8-known-issues--open-defects))
 - Load / stress testing
 - Real Google OAuth end-to-end with production accounts (requires real keys — must be tested on a staging deployment)
-- Firestore security rule enforcement (rules are drafted in [DEPLOYMENT.md §4.3](../DEPLOYMENT.md) but not deployed/verified)
+- Firestore security rule enforcement (rules are drafted in [deployment.md §9](deployment.md#9-production-readiness-checklist) but not deployed/verified)
 
 ### 1.3 QA goals
 
@@ -92,10 +92,10 @@
 
 ```bash
 npm install          # clean install
-cp .env.example .env # if present; otherwise see DEPLOYMENT.md §3.3 for the template
+cp .env.example .env # if present; otherwise see deployment.md §3.3 for the template
 ```
 
-Environment variables (full reference in [DEPLOYMENT.md §3](../DEPLOYMENT.md)):
+Environment variables (full reference in [deployment.md §3.3](deployment.md#33-environment-variables)):
 
 - `VITE_FIREBASE_*` — 6 public client values (API key, auth domain, project ID, storage bucket, messaging sender ID, app ID)
 - `EDGE_STORE_ACCESS_KEY` / `EDGE_STORE_SECRET_KEY` — server-side secrets (**never** prefix with `VITE_`)
@@ -402,7 +402,7 @@ Test on the latest stable versions unless noted.
 
 ## 8. Known Issues & Open Defects
 
-Source: [progress.md](../progress.md) — verified against the code on 30 Sep 2026.
+Source: [progress.md](progress.md) — verified against the code on 30 Sep 2026.
 
 | # | Issue | Severity | Priority | Evidence |
 | :--- | :--- | :--- | :--- | :--- |
@@ -410,8 +410,8 @@ Source: [progress.md](../progress.md) — verified against the code on 30 Sep 20
 | 2 | **No automated tests.** All testing is manual; regressions can slip through silently. | 🔴 S1 | P1 | No test runner in `package.json` |
 | 3 | **Silent save.** Submitting a report just closes the modal — no success confirmation; failures only logged to console. | 🟡 S3 | P2 | `App.jsx` create handlers |
 | 4 | **Offline writes can be lost.** App opens offline, but there is no retry queue for reports made without a connection. | 🟡 S3 | P2 | Firestore persistence without sync guarantee |
-| 5 | **Setup documentation incomplete** (largely addressed by DEPLOYMENT.md — verify before closing). | 🟡 S3 | P3 | — |
-| 6 | **No Firestore security rules deployed.** Anyone with the config can read/write the database. | 🔴 S1 | P1 | Draft rules exist in DEPLOYMENT.md §4.3 only |
+| 5 | **Setup documentation incomplete** (largely addressed by deployment.md — verify before closing). | 🟡 S3 | P3 | — |
+| 6 | **No Firestore security rules deployed.** Anyone with the config can read/write the database. | 🔴 S1 | P1 | Draft starter rules exist in deployment.md §9 |
 | 7 | **Dependency audit warnings.** Worst offenders are in unused transitive dependencies. | 🟡 S3 | P3 | `npm audit` |
 | 8 | **Polish:** recycle bin empties on refresh; slow first load on poor connections. | 🔵 S4 | P3 | `AdminPanel.jsx` in-memory history |
 
@@ -498,7 +498,7 @@ Before tagging a release or pointing real students at the app, **all** of the fo
 - [ ] **S1 issues #1 (admin security) and #6 (Firestore rules) are closed**; the UI/E2E half of #2 is completed
 - [ ] `npm run build` succeeds; `npm audit` reviewed
 - [ ] Secrets scan of the built bundle passes (no EdgeStore keys client-side)
-- [ ] Post-deploy smoke tests from [DEPLOYMENT.md §9](../DEPLOYMENT.md) pass against the live URL
+- [ ] Post-deploy smoke tests from [deployment.md §8](deployment.md#8-post-deployment-verification) pass against the live URL
 - [ ] `/api/health` returns `"status":"ok"` with expected service flags on the live deployment
 - [ ] App verified to start **empty** on a fresh staging database
 - [ ] Data reset/cleanup plan for the staging project confirmed
@@ -510,4 +510,4 @@ Before tagging a release or pointing real students at the app, **all** of the fo
 
 ---
 
-*Maintained alongside [progress.md](../progress.md). Update the Known Issues table and sign-off log whenever a defect is fixed or found.*
+*Maintained alongside [progress.md](progress.md). Update the Known Issues table and sign-off log whenever a defect is fixed or found.*

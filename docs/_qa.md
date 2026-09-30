@@ -93,4 +93,4 @@ npm run dev        # open http://localhost:3000
 
 ---
 
-*For the team's detailed test suites (every case, step by step): [`_qa-checklist.md`](_qa-checklist.md) · Project status: [`progress.md`](../progress.md)*
+*For the team's detailed test suites (every case, step by step): [`_qa-checklist.md`](_qa-checklist.md) · Project status: [`progress.md`](progress.md) · Defense/viva preparation: [`defense-qa.md`](defense-qa.md) · Planning: [`planning.md`](planning.md) · Deployment: [`deployment.md`](deployment.md)*

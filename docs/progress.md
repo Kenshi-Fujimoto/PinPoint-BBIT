@@ -2,7 +2,7 @@
 
 **A campus app for Budge Budge Institute of Technology**
 
-> 📖 How we checked all of this: see the plain-language **[Testing & Quality Report](docs/_qa.md)** (and the detailed team checklist next to it).
+> 📖 How we checked all of this: see the plain-language **[Testing & Quality Report](_qa.md)** (and the detailed team checklist next to it).
 
 | | |
 | :--- | :--- |

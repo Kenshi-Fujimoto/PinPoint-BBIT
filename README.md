@@ -114,6 +114,9 @@ vercel
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
 4. Add your **Environment Variables** (`VITE_FIREBASE_API_KEY`, `EDGE_STORE_ACCESS_KEY`, etc.).
+   - Template with all six Firebase values: [`.env.example`](.env.example)
+   - Keys accepted with any common prefix: `VITE_FIREBASE_*`, `FIREBASE_*`, `REACT_APP_FIREBASE_*`, `NEXT_PUBLIC_FIREBASE_*`
+   - 🔐 **Google sign-in not working?** The app now tells you exactly why (missing variable, unauthorized domain, blocked pop-up, disabled provider) — see **[docs/firebase-signin-troubleshooting.md](docs/firebase-signin-troubleshooting.md)**.
 5. Click **Deploy**. Vercel will automatically build the static assets, route client-side SPA requests to `index.html`, and route `/api/edgestore` to the EdgeStore serverless handler!
 
 ---

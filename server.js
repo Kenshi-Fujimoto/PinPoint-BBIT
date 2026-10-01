@@ -7,6 +7,7 @@ import fs from 'fs';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { createEdgeStoreExpressHandler } from '@edgestore/server/adapters/express';
 import { edgeStoreRouter } from './src/services/edgestoreRouter.js';
+import { readFirebaseConfigFromEnv, validateFirebaseConfig } from './src/services/firebaseConfig.js';
 
 dotenv.config();
 
@@ -24,6 +25,24 @@ app.use(cors({
 
 app.use(cookieParser());
 app.use(express.json());
+
+// ── Public runtime configuration ────────────────────────────────────────────
+// Firebase web config values are public by design (they ship inside every
+// client bundle), so serving them is safe. This lets a pre-built `dist/` — or
+// a Vercel deployment — pick up keys from server environment variables without
+// a rebuild, and lets self-hosters keep all config in one place.
+app.get('/api/config', (req, res) => {
+  const firebase = readFirebaseConfigFromEnv(process.env);
+  const validation = validateFirebaseConfig(firebase);
+  res.set('Cache-Control', 'no-store');
+  res.json({
+    firebase,
+    configured: validation.configured,
+    missing: validation.missing,
+    // Never expose server secrets: only the six public web-config fields.
+    edgestoreConfigured: Boolean(process.env.EDGE_STORE_ACCESS_KEY && process.env.EDGE_STORE_SECRET_KEY),
+  });
+});
 
 // EdgeStore Cloud Bucket Handler
 try {
@@ -61,7 +80,7 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
     services: {
       edgestore: Boolean(process.env.EDGE_STORE_ACCESS_KEY && process.env.EDGE_STORE_SECRET_KEY),
-      firestore: Boolean(process.env.VITE_FIREBASE_PROJECT_ID),
+      firestore: validateFirebaseConfig(readFirebaseConfigFromEnv(process.env)).configured,
     },
   });
 });

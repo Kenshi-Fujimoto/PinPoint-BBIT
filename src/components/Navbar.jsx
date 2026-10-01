@@ -151,10 +151,20 @@ export default function Navbar({
                     <div className="px-4 py-2.5 border-b border-stone-100 dark:border-stone-800">
                       <p className="font-bold text-stone-900 dark:text-white truncate">{user.displayName}</p>
                       <p className="text-[11px] text-stone-400 truncate">{user.email}</p>
-                      <span className="inline-flex items-center space-x-1 mt-1.5 px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-[10px]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                        <span>Verified Account</span>
-                      </span>
+                      {user.isDemo ? (
+                        <span
+                          className="inline-flex items-center space-x-1 mt-1.5 px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 font-bold text-[10px]"
+                          title="Firebase keys are not configured — sign-in used the local offline demo profile"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                          <span>Offline Demo Mode</span>
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center space-x-1 mt-1.5 px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-[10px]">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                          <span>Verified Account</span>
+                        </span>
+                      )}
                     </div>
 
                     <button

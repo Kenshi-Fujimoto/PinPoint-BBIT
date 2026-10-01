@@ -21,8 +21,8 @@ import {
   deleteLostFoundItem,
   subscribeToAuth,
   signInWithGoogle,
-  signOutUser,
-  isFirebaseConfigured
+  signInWithGoogleRedirect,
+  signOutUser
 } from './services/firebase';
 import { 
   getStoredCivicIssues, 
@@ -108,13 +108,18 @@ export default function App() {
   };
 
   // Google Authentication Trigger
+  // Errors are deliberately NOT swallowed here: the AuthModal catches them and
+  // shows the user exactly what Firebase reported (unauthorized domain, blocked
+  // pop-up, disabled provider, …) instead of closing silently.
   const handleGoogleSignIn = async () => {
-    try {
-      const user = await signInWithGoogle();
-      setCurrentUser(user);
-    } catch (err) {
-      console.error('Sign-in failed:', err);
-    }
+    const user = await signInWithGoogle();
+    if (user) setCurrentUser(user);
+    return user;
+  };
+
+  // Redirect fallback for browsers/iframes that block the Google pop-up.
+  const handleGoogleSignInRedirect = async () => {
+    await signInWithGoogleRedirect();
   };
 
   const handleGoogleSignOut = async () => {
@@ -651,6 +656,7 @@ export default function App() {
           isOpen={isAuthModalOpen}
           onClose={() => setIsAuthModalOpen(false)}
           onSignInWithGoogle={handleGoogleSignIn}
+          onSignInWithRedirect={handleGoogleSignInRedirect}
           promptReason={authPromptReason}
         />
 

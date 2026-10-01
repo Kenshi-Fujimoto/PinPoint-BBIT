@@ -21,6 +21,12 @@ import {
   onAuthStateChanged 
 } from 'firebase/auth';
 import { getStoredCivicIssues, saveCivicIssues, getStoredLostFound, saveLostFound } from './storage';
+import {
+  DEMO_USER_KEY,
+  LEGACY_USER_KEY,
+  createDemoUser,
+  parseStoredUser,
+} from './demoSession';
 
 // Firebase configuration from environment variables
 const firebaseConfig = {
@@ -74,19 +80,58 @@ if (isFirebaseConfigured) {
 export { isFirebaseConfigured, db, auth };
 
 /**
+ * Session persistence helpers.
+ *
+ * Every access is wrapped: Safari private mode, disabled cookies and quota
+ * errors must never break the sign-in flow. Reads are validated through
+ * `parseStoredUser`, and corrupted records are dropped instead of being
+ * handed to React.
+ */
+function readStoredSession() {
+  try {
+    const raw = localStorage.getItem(DEMO_USER_KEY) || localStorage.getItem(LEGACY_USER_KEY);
+    const user = parseStoredUser(raw);
+    if (!user && raw) {
+      // Untrusted/corrupt record: clear it so a later read stays clean.
+      localStorage.removeItem(DEMO_USER_KEY);
+      localStorage.removeItem(LEGACY_USER_KEY);
+    }
+    return user;
+  } catch (err) {
+    console.warn('Unable to read the saved session — continuing signed out:', err);
+    return null;
+  }
+}
+
+function writeStoredSession(user) {
+  try {
+    localStorage.setItem(DEMO_USER_KEY, JSON.stringify(user));
+    localStorage.removeItem(LEGACY_USER_KEY);
+  } catch (err) {
+    console.warn('Unable to persist the session locally:', err);
+  }
+}
+
+function clearStoredSession() {
+  try {
+    localStorage.removeItem(DEMO_USER_KEY);
+    localStorage.removeItem(LEGACY_USER_KEY);
+  } catch (err) {
+    console.warn('Unable to clear the saved session:', err);
+  }
+}
+
+/**
  * Google Authentication Helpers
  */
 export async function signInWithGoogle() {
   if (!auth) {
-    // If running in offline test mode without Firebase env keys, return mock user
-    console.warn('Firebase Auth not configured, signing in with demo Google profile');
-    const demoUser = {
-      uid: `google-user-${Date.now()}`,
-      displayName: 'BBIT Scholar',
-      email: 'student@bbit.edu.in',
-      photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
-    };
-    localStorage.setItem('pinpoint_user', JSON.stringify(demoUser));
+    // Offline demo mode: no Firebase keys, so hand back a local demo profile.
+    // The stable uid keeps upvotes and ownership checks valid across reloads,
+    // and `isDemo` lets the navbar label the account honestly.
+    console.warn('Firebase Auth not configured — signing in with a local demo Google profile');
+    const demoUser = createDemoUser();
+    writeStoredSession(demoUser);
     return demoUser;
   }
 
@@ -98,7 +143,7 @@ export async function signInWithGoogle() {
       email: result.user.email,
       photoURL: result.user.photoURL,
     };
-    localStorage.setItem('pinpoint_user', JSON.stringify(user));
+    writeStoredSession(user);
     return user;
   } catch (error) {
     console.error('Google Sign-In Error:', error);
@@ -110,8 +155,7 @@ export async function signOutUser() {
   if (auth) {
     await signOut(auth);
   }
-  localStorage.removeItem('pinpoint_user');
-  localStorage.removeItem('civicbloom_user');
+  clearStoredSession();
 }
 
 export function subscribeToAuth(callback) {
@@ -123,20 +167,29 @@ export function subscribeToAuth(callback) {
           displayName: firebaseUser.displayName || 'BBIT Member',
           email: firebaseUser.email,
           photoURL: firebaseUser.photoURL,
+          isDemo: false,
         };
-        localStorage.setItem('pinpoint_user', JSON.stringify(user));
+        writeStoredSession(user);
         callback(user);
       } else {
-        localStorage.removeItem('pinpoint_user');
-        localStorage.removeItem('civicbloom_user');
+        clearStoredSession();
         callback(null);
       }
     });
   } else {
-    // Check localStorage fallback
-    const saved = localStorage.getItem('pinpoint_user') || localStorage.getItem('civicbloom_user');
-    callback(saved ? JSON.parse(saved) : null);
-    return () => {};
+    // Offline demo mode: restore the saved profile (never throws) and keep
+    // tabs in sync, so signing out in one tab signs out everywhere.
+    callback(readStoredSession());
+
+    if (typeof window === 'undefined') return () => {};
+
+    const handleStorage = (event) => {
+      if (!event || event.key === null || event.key === DEMO_USER_KEY || event.key === LEGACY_USER_KEY) {
+        callback(readStoredSession());
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
   }
 }
 

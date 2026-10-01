@@ -2,7 +2,7 @@ import React from 'react';
 import { X, ShieldCheck, Sparkles, HeartHandshake, Lock, Eye } from 'lucide-react';
 import PinPointLogo from './PinPointLogo';
 
-export default function AuthModal({ isOpen, onClose, onSignInWithGoogle, promptReason = '' }) {
+export default function AuthModal({ isOpen, onClose, onSignInWithGoogle, promptReason = '', isOfflineDemo = false }) {
   if (!isOpen) return null;
 
   return (
@@ -27,6 +27,19 @@ export default function AuthModal({ isOpen, onClose, onSignInWithGoogle, promptR
         <p className="text-xs text-stone-500 dark:text-stone-400 mb-4 leading-relaxed px-2">
           {promptReason || 'Unauthenticated visitors can view all items. Sign in to submit reports, upload photos, claim items, or vote.'}
         </p>
+
+        {/* Offline / Demo Mode Notice */}
+        {isOfflineDemo && (
+          <div className="mb-4 flex items-start space-x-2 rounded-2xl border border-amber-200/80 dark:border-amber-900/60 bg-amber-50 dark:bg-amber-950/40 p-3 text-left text-[11px] leading-relaxed text-amber-800 dark:text-amber-200">
+            <Sparkles className="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" />
+            <span>
+              <strong>Offline demo mode:</strong> Firebase keys aren&apos;t configured, so
+              &ldquo;Continue with Google&rdquo; signs you in locally as the{' '}
+              <strong>BBIT Scholar</strong> demo profile. It is labelled{' '}
+              <strong>Demo</strong> in the navbar and stays on this device.
+            </span>
+          </div>
+        )}
 
         {/* View-Only vs Member Feature Cards */}
         <div className="mb-5 bg-stone-50 dark:bg-stone-800/60 p-3 rounded-2xl border border-stone-200/80 dark:border-stone-700/70 text-left space-y-2 text-xs">

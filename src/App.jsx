@@ -652,6 +652,7 @@ export default function App() {
           onClose={() => setIsAuthModalOpen(false)}
           onSignInWithGoogle={handleGoogleSignIn}
           promptReason={authPromptReason}
+          isOfflineDemo={!isFirebaseConfigured}
         />
 
         {/* PWA Install Prompt Banner */}

@@ -11,13 +11,16 @@ const CIVIC_STORAGE_KEY = 'pinpoint_issues_v4';
 const LOST_FOUND_STORAGE_KEY = 'pinpoint_lostfound_v4';
 const USER_UPVOTES_KEY = 'pinpoint_user_upvotes_v4';
 
-// One-time purge of every legacy storage generation
+// One-time purge of every legacy storage generation.
+// NOTE: session keys ('pinpoint_user', 'civicbloom_user') are deliberately NOT
+// listed here — wiping them on load would sign the user out (and erase the
+// offline demo profile) on every single page refresh. Session lifecycle is
+// owned by services/firebase.js + services/demoSession.js.
 try {
   ['pinpoint_issues_v1', 'pinpoint_lostfound_v1', 'pinpoint_user_upvotes_v1',
    'pinpoint_issues_v2', 'pinpoint_lostfound_v2', 'pinpoint_user_upvotes_v2',
    'pinpoint_issues_v3', 'pinpoint_lostfound_v3', 'pinpoint_user_upvotes_v3',
-   'civicbloom_issues_v1', 'civicbloom_lostfound_v1',
-   'civicbloom_user', 'pinpoint_user'].forEach(k => localStorage.removeItem(k));
+   'civicbloom_issues_v1', 'civicbloom_lostfound_v1'].forEach(k => localStorage.removeItem(k));
 } catch (_) { /* no-op */ }
 
 export function getStoredCivicIssues() {

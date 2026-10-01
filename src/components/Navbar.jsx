@@ -30,7 +30,15 @@ export default function Navbar({
   onSignOut
 }) {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [avatarFailed, setAvatarFailed] = useState(false);
   const userMenuRef = useRef(null);
+
+  // Reset the avatar fallback whenever a different profile signs in
+  useEffect(() => {
+    setAvatarFailed(false);
+  }, [user?.photoURL]);
+
+  const isDemoUser = Boolean(user?.isDemo);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -128,20 +136,30 @@ export default function Navbar({
               <div className="relative" ref={userMenuRef}>
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  title={isDemoUser ? 'Demo profile (offline mode) — data stays on this device' : user.email}
                   className="flex items-center space-x-2 p-1 pl-2 pr-2.5 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 transition-all text-xs font-semibold text-stone-800 dark:text-stone-200"
                 >
-                  {user.photoURL ? (
+                  {user.photoURL && !avatarFailed ? (
                     <img 
                       src={user.photoURL} 
                       alt={user.displayName} 
+                      onError={() => setAvatarFailed(true)}
                       className="w-6 h-6 rounded-lg object-cover ring-1 ring-indigo-500/40"
                     />
                   ) : (
-                    <div className="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-[10px]">
+                    <div className={`w-6 h-6 rounded-lg text-white flex items-center justify-center font-bold text-[10px] ${isDemoUser ? 'bg-amber-500' : 'bg-indigo-600'}`}>
                       {user.displayName?.[0]?.toUpperCase() || 'U'}
                     </div>
                   )}
                   <span className="hidden sm:inline truncate max-w-[100px]">{user.displayName?.split(' ')[0]}</span>
+                  {isDemoUser && (
+                    <span
+                      className="px-1.5 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 font-bold text-[9px] uppercase tracking-wide"
+                      title="Demo sign-in: Firebase keys are not configured, so this profile is stored locally."
+                    >
+                      Demo
+                    </span>
+                  )}
                   <ChevronDown className="w-3 h-3 text-stone-400" />
                 </button>
 
@@ -151,10 +169,17 @@ export default function Navbar({
                     <div className="px-4 py-2.5 border-b border-stone-100 dark:border-stone-800">
                       <p className="font-bold text-stone-900 dark:text-white truncate">{user.displayName}</p>
                       <p className="text-[11px] text-stone-400 truncate">{user.email}</p>
-                      <span className="inline-flex items-center space-x-1 mt-1.5 px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-[10px]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                        <span>Verified Account</span>
-                      </span>
+                      {isDemoUser ? (
+                        <span className="inline-flex items-center space-x-1 mt-1.5 px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 font-bold text-[10px]">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                          <span>Demo Account · Offline Mode</span>
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center space-x-1 mt-1.5 px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 font-bold text-[10px]">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                          <span>Verified Account</span>
+                        </span>
+                      )}
                     </div>
 
                     <button

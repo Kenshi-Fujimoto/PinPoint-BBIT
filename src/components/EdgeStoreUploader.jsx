@@ -12,6 +12,11 @@ import {
   Lock
 } from 'lucide-react';
 import { uploadToEdgeStore, useEdgeStore } from '../services/edgestore';
+import {
+  IMAGE_ACCEPT_ATTRIBUTE,
+  SUPPORTED_FORMATS_LABEL,
+  validateImageFile,
+} from '../services/imageTypes';
 
 export default function EdgeStoreUploader({ 
   onUploadSuccess, 
@@ -67,12 +72,14 @@ export default function EdgeStoreUploader({
       return;
     }
 
-    if (!selected.type.startsWith('image/')) {
-      setError('Please select an image file (JPG, PNG, WebP, GIF).');
-      return;
-    }
-    if (selected.size > 15 * 1024 * 1024) {
-      setError('Image file size must be under 15MB.');
+    // Single validation gate. It checks the file *extension* as well as the
+    // MIME type, so JPEGs that arrive with a blank type (common when picking a
+    // photo on Android) upload instead of being rejected.
+    const validationError = validateImageFile(selected);
+    if (validationError) {
+      setError(validationError);
+      // Clear the input so picking the same file again still fires onChange.
+      if (fileInputRef.current) fileInputRef.current.value = '';
       return;
     }
 
@@ -87,7 +94,7 @@ export default function EdgeStoreUploader({
       setIsUploading(false);
     } catch (err) {
       console.error('Upload failed:', err);
-      setError('Upload failed. You can paste an image link directly instead.');
+      setError(err?.message || 'Upload failed. You can paste an image link directly instead.');
       setIsUploading(false);
     }
   };
@@ -237,7 +244,7 @@ export default function EdgeStoreUploader({
             <input
               ref={fileInputRef}
               type="file"
-              accept="image/jpeg,image/png,image/webp,image/gif,image/*"
+              accept={IMAGE_ACCEPT_ATTRIBUTE}
               onChange={handleFileChange}
               disabled={isUploading || !currentUser}
               className="hidden"
@@ -280,7 +287,7 @@ export default function EdgeStoreUploader({
                     Click to browse or drag & drop photo here
                   </span>
                   <span className="text-[11px] text-stone-400 mt-0.5 block">
-                    Supports JPG, PNG, WebP from your phone or laptop
+                    Supports {SUPPORTED_FORMATS_LABEL} from your phone or laptop
                   </span>
                 </div>
               </div>

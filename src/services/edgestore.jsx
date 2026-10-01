@@ -15,7 +15,12 @@ export async function compressImage(file, maxWidth = 1200, maxHeight = 1200, qua
     reader.onerror = () => reject(new Error('Failed to read selected image file.'));
     reader.onload = (e) => {
       const img = new Image();
-      img.onerror = () => reject(new Error('Selected file is not a valid image.'));
+      img.onerror = () =>
+        reject(
+          new Error(
+            'This image could not be decoded. If it came from an iPhone, switch Settings → Camera → Formats → "Most Compatible" (JPEG) and try again.'
+          )
+        );
       img.onload = () => {
         let { width, height } = img;
         if (width > maxWidth || height > maxHeight) {
@@ -51,6 +56,14 @@ export async function compressImage(file, maxWidth = 1200, maxHeight = 1200, qua
  * Direct file upload helper with graceful fallback for simulated cloud upload
  */
 export async function uploadToEdgeStore(file, onProgress, edgestoreClient) {
+  if (!isSupportedImage(file)) {
+    throw new Error('Unsupported file type. Please choose a JPG, JPEG, PNG, WebP or GIF image.');
+  }
+
+  // Some browsers (notably Android's photo picker) report `type: ''` for JPEGs.
+  // Rewrap so the storage bucket and the canvas pipeline both see image/jpeg.
+  const uploadFile = normalizeImageFile(file);
+
   if (onProgress) onProgress(20);
 
   // If EdgeStore client is active and configured with working backend
@@ -65,7 +78,7 @@ export async function uploadToEdgeStore(file, onProgress, edgestoreClient) {
     try {
       if (onProgress) onProgress(40);
       const res = await uploader({
-        file,
+        file: uploadFile,
         onProgressChange: (p) => {
           if (onProgress) onProgress(Math.min(95, Math.max(30, p)));
         },
@@ -85,7 +98,7 @@ export async function uploadToEdgeStore(file, onProgress, edgestoreClient) {
 
   // Graceful high-quality client-side compression fallback
   if (onProgress) onProgress(60);
-  const compressed = await compressImage(file, 1200, 1200, 0.85);
+  const compressed = await compressImage(uploadFile, 1200, 1200, 0.85);
   if (onProgress) onProgress(100);
   return compressed;
 }

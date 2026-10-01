@@ -1,5 +1,6 @@
 import React from 'react';
 import { createEdgeStoreProvider } from '@edgestore/react';
+import { isSupportedImage, normalizeImageFile } from './imageTypes.js';
 
 const { EdgeStoreProvider, useEdgeStore } = createEdgeStoreProvider();
 

@@ -1,28 +1,36 @@
 import { initializeApp, getApps } from 'firebase/app';
-import { 
-  getFirestore, 
+import {
+  getFirestore,
   initializeFirestore,
   persistentLocalCache,
   persistentMultipleTabManager,
-  collection, 
-  onSnapshot, 
-  doc, 
-  setDoc, 
-  updateDoc, 
+  collection,
+  onSnapshot,
+  doc,
+  setDoc,
   deleteDoc,
-  query, 
-  orderBy
+  query,
+  orderBy,
 } from 'firebase/firestore';
-import { 
-  getAuth, 
-  GoogleAuthProvider, 
-  signInWithPopup, 
-  signOut, 
-  onAuthStateChanged 
+import {
+  browserLocalPersistence,
+  getAuth,
+  getRedirectResult,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithPopup,
+  signInWithRedirect,
+  signOut,
 } from 'firebase/auth';
 import { getStoredCivicIssues, saveCivicIssues, getStoredLostFound, saveLostFound } from './storage';
 
-// Firebase configuration from environment variables
+const AUTH_STORAGE_KEY = 'pinpoint_user';
+const LEGACY_AUTH_STORAGE_KEY = 'civicbloom_user';
+
+// Firebase configuration is intentionally supplied by the deployment environment.
+// Values prefixed with VITE_ are public Firebase web-app identifiers, not service
+// account credentials. See .env.example and docs/google-sign-in.md for setup.
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY || '',
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || '',
@@ -32,22 +40,62 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
 };
 
-const isFirebaseConfigured = Boolean(
-  firebaseConfig.apiKey && 
-  firebaseConfig.projectId && 
-  !firebaseConfig.apiKey.includes('YOUR_')
-);
+const REQUIRED_FIREBASE_FIELDS = [
+  'apiKey',
+  'authDomain',
+  'projectId',
+  'storageBucket',
+  'messagingSenderId',
+  'appId',
+];
+
+const isPlaceholderValue = (value) => /^(your_|replace_|<)/i.test(value.trim());
+
+// Firebase Auth needs the complete web-app configuration. The former check only
+// required an API key and project ID, which made a partial configuration look like
+// a working Google login until Firebase failed at runtime.
+const isFirebaseConfigured = REQUIRED_FIREBASE_FIELDS.every((field) => {
+  const value = firebaseConfig[field];
+  return typeof value === 'string' && value.trim() && !isPlaceholderValue(value);
+});
 
 let app = null;
 let db = null;
 let auth = null;
+let authPersistenceReady = Promise.resolve();
+
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: 'select_account' });
+
+function canUseBrowserStorage() {
+  return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+}
+
+function toAppUser(firebaseUser) {
+  return {
+    uid: firebaseUser.uid,
+    displayName: firebaseUser.displayName || 'BBIT Member',
+    email: firebaseUser.email || '',
+    photoURL: firebaseUser.photoURL || '',
+  };
+}
+
+function saveAuthenticatedUser(user) {
+  if (!canUseBrowserStorage()) return;
+  window.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
+  window.localStorage.removeItem(LEGACY_AUTH_STORAGE_KEY);
+}
+
+function clearStoredAuthenticatedUser() {
+  if (!canUseBrowserStorage()) return;
+  window.localStorage.removeItem(AUTH_STORAGE_KEY);
+  window.localStorage.removeItem(LEGACY_AUTH_STORAGE_KEY);
+}
 
 if (isFirebaseConfigured) {
   try {
     app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-    
+
     if (typeof window !== 'undefined') {
       try {
         db = initializeFirestore(app, {
@@ -56,6 +104,7 @@ if (isFirebaseConfigured) {
           }),
         });
       } catch (cacheErr) {
+        // Firestore may already be initialized (for example after hot reload).
         db = getFirestore(app);
       }
     } else {
@@ -63,46 +112,92 @@ if (isFirebaseConfigured) {
     }
 
     auth = getAuth(app);
+    authPersistenceReady = setPersistence(auth, browserLocalPersistence).catch((error) => {
+      // Auth still works with Firebase's default persistence if a browser blocks
+      // IndexedDB/local storage. Do not prevent a user from signing in for that.
+      console.warn('Unable to set persistent Firebase Auth session:', error);
+    });
+
+    // Completes a sign-in that used the redirect fallback after a blocked popup.
+    // onAuthStateChanged below remains the source of truth for the app user.
+    authPersistenceReady
+      .then(() => getRedirectResult(auth))
+      .catch((error) => console.error('Google redirect sign-in error:', error));
+
     console.log('✅ Connected to Firebase Firestore & Auth with persistent multi-tab cache');
   } catch (err) {
     console.error('Firebase initialization error:', err);
+    app = null;
+    db = null;
+    auth = null;
   }
 } else {
-  console.log('ℹ️ Firebase credentials not provided in .env. Running in synchronized offline-first mode.');
+  console.info('Firebase credentials are not configured. Google sign-in is unavailable until the VITE_FIREBASE_* values are set.');
 }
 
 export { isFirebaseConfigured, db, auth };
+
+/**
+ * Convert Firebase Auth codes into instructions a student can act on instead of
+ * silently failing or exposing a raw SDK error.
+ */
+export function getGoogleSignInErrorMessage(error) {
+  switch (error?.code) {
+    case 'auth/configuration-not-found':
+      return 'Google sign-in has not been configured for this deployment yet. Please ask a site administrator to complete the Firebase setup.';
+    case 'auth/unauthorized-domain':
+      return 'This website is not authorised for Google sign-in yet. Ask an administrator to add this domain in Firebase Authentication.';
+    case 'auth/operation-not-allowed':
+      return 'Google sign-in is disabled in Firebase Authentication. Ask an administrator to enable the Google provider.';
+    case 'auth/popup-closed-by-user':
+      return 'The Google sign-in window was closed before you finished. Please try again.';
+    case 'auth/popup-blocked':
+      return 'Your browser blocked the Google sign-in window. Please allow pop-ups and try again.';
+    case 'auth/network-request-failed':
+      return 'We could not reach Google. Check your internet connection and try again.';
+    case 'auth/account-exists-with-different-credential':
+      return 'An account already exists with a different sign-in method. Use that method first, then try Google again.';
+    default:
+      return 'Google sign-in could not be completed. Please try again.';
+  }
+}
+
+function userFacingGoogleSignInError(error) {
+  const normalized = new Error(getGoogleSignInErrorMessage(error));
+  normalized.code = error?.code || 'auth/unknown';
+  return normalized;
+}
 
 /**
  * Google Authentication Helpers
  */
 export async function signInWithGoogle() {
   if (!auth) {
-    // If running in offline test mode without Firebase env keys, return mock user
-    console.warn('Firebase Auth not configured, signing in with demo Google profile');
-    const demoUser = {
-      uid: `google-user-${Date.now()}`,
-      displayName: 'BBIT Scholar',
-      email: 'student@bbit.edu.in',
-      photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80',
-    };
-    localStorage.setItem('pinpoint_user', JSON.stringify(demoUser));
-    return demoUser;
+    // Never manufacture a local "Google" user. That made it appear that real
+    // Google sign-in worked even though no account had authenticated.
+    throw userFacingGoogleSignInError({ code: 'auth/configuration-not-found' });
   }
+
+  await authPersistenceReady;
 
   try {
     const result = await signInWithPopup(auth, googleProvider);
-    const user = {
-      uid: result.user.uid,
-      displayName: result.user.displayName || 'BBIT Member',
-      email: result.user.email,
-      photoURL: result.user.photoURL,
-    };
-    localStorage.setItem('pinpoint_user', JSON.stringify(user));
+    const user = toAppUser(result.user);
+    saveAuthenticatedUser(user);
     return user;
   } catch (error) {
-    console.error('Google Sign-In Error:', error);
-    throw error;
+    // Popup sign-in is best on desktop. On browsers that block it (including
+    // some installed PWAs), continue with Firebase's full-page redirect flow.
+    if (error?.code === 'auth/popup-blocked') {
+      try {
+        await signInWithRedirect(auth, googleProvider);
+        return null; // The browser navigates; the auth listener restores the user on return.
+      } catch (redirectError) {
+        throw userFacingGoogleSignInError(redirectError);
+      }
+    }
+
+    throw userFacingGoogleSignInError(error);
   }
 }
 
@@ -110,34 +205,28 @@ export async function signOutUser() {
   if (auth) {
     await signOut(auth);
   }
-  localStorage.removeItem('pinpoint_user');
-  localStorage.removeItem('civicbloom_user');
+  clearStoredAuthenticatedUser();
 }
 
 export function subscribeToAuth(callback) {
   if (auth) {
     return onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
-        const user = {
-          uid: firebaseUser.uid,
-          displayName: firebaseUser.displayName || 'BBIT Member',
-          email: firebaseUser.email,
-          photoURL: firebaseUser.photoURL,
-        };
-        localStorage.setItem('pinpoint_user', JSON.stringify(user));
+        const user = toAppUser(firebaseUser);
+        saveAuthenticatedUser(user);
         callback(user);
       } else {
-        localStorage.removeItem('pinpoint_user');
-        localStorage.removeItem('civicbloom_user');
+        clearStoredAuthenticatedUser();
         callback(null);
       }
     });
-  } else {
-    // Check localStorage fallback
-    const saved = localStorage.getItem('pinpoint_user') || localStorage.getItem('civicbloom_user');
-    callback(saved ? JSON.parse(saved) : null);
-    return () => {};
   }
+
+  // A Firebase session is the only source of authentication. Clear legacy demo
+  // profiles so an old localStorage value can never grant member-only access.
+  clearStoredAuthenticatedUser();
+  callback(null);
+  return () => {};
 }
 
 /**
@@ -147,18 +236,17 @@ export function subscribeToCivicIssues(onUpdate) {
   if (db && isFirebaseConfigured) {
     const q = query(collection(db, 'civic_issues'), orderBy('reportedAt', 'desc'));
     return onSnapshot(q, (snapshot) => {
-      const issues = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const issues = snapshot.docs.map((document) => ({ id: document.id, ...document.data() }));
       saveCivicIssues(issues);
       onUpdate(issues);
     }, (error) => {
       console.warn('Firestore subscription fallback to local storage:', error);
       onUpdate(getStoredCivicIssues());
     });
-  } else {
-    const local = getStoredCivicIssues();
-    onUpdate(local);
-    return () => {};
   }
+
+  onUpdate(getStoredCivicIssues());
+  return () => {};
 }
 
 /**
@@ -168,18 +256,17 @@ export function subscribeToLostFound(onUpdate) {
   if (db && isFirebaseConfigured) {
     const q = query(collection(db, 'lost_found_items'), orderBy('timestamp', 'desc'));
     return onSnapshot(q, (snapshot) => {
-      const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const items = snapshot.docs.map((document) => ({ id: document.id, ...document.data() }));
       saveLostFound(items);
       onUpdate(items);
     }, (error) => {
       console.warn('Firestore subscription fallback to local storage:', error);
       onUpdate(getStoredLostFound());
     });
-  } else {
-    const local = getStoredLostFound();
-    onUpdate(local);
-    return () => {};
   }
+
+  onUpdate(getStoredLostFound());
+  return () => {};
 }
 
 /**
@@ -215,8 +302,8 @@ export async function syncCivicIssue(issue) {
     try {
       const sanitized = sanitizeForFirestore(issue);
       await setDoc(doc(db, 'civic_issues', issue.id), sanitized, { merge: true });
-    } catch (e) {
-      console.error('Error syncing civic issue to Firestore:', e);
+    } catch (error) {
+      console.error('Error syncing civic issue to Firestore:', error);
     }
   }
 }
@@ -226,8 +313,8 @@ export async function syncLostFoundItem(item) {
     try {
       const sanitized = sanitizeForFirestore(item);
       await setDoc(doc(db, 'lost_found_items', item.id), sanitized, { merge: true });
-    } catch (e) {
-      console.error('Error syncing lost & found item to Firestore:', e);
+    } catch (error) {
+      console.error('Error syncing lost & found item to Firestore:', error);
     }
   }
 }
@@ -236,8 +323,8 @@ export async function deleteCivicIssue(issueId) {
   if (db && isFirebaseConfigured) {
     try {
       await deleteDoc(doc(db, 'civic_issues', issueId));
-    } catch (e) {
-      console.error('Error deleting civic issue from Firestore:', e);
+    } catch (error) {
+      console.error('Error deleting civic issue from Firestore:', error);
     }
   }
 }
@@ -246,9 +333,8 @@ export async function deleteLostFoundItem(itemId) {
   if (db && isFirebaseConfigured) {
     try {
       await deleteDoc(doc(db, 'lost_found_items', itemId));
-    } catch (e) {
-      console.error('Error deleting lost & found item from Firestore:', e);
+    } catch (error) {
+      console.error('Error deleting lost & found item from Firestore:', error);
     }
   }
 }
-

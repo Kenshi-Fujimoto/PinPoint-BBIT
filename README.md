@@ -59,14 +59,23 @@
 npm install
 ```
 
-### 2. Run Development Mode
+### 2. Configure Google Sign-In (required for real accounts)
+Copy the provided template and add the Firebase Web App values for this project:
+
+```bash
+cp .env.example .env.local
+```
+
+Then enable the **Google** provider and authorize the app domain in Firebase Authentication. The complete, deploy-safe checklist is in **[docs/google-sign-in.md](docs/google-sign-in.md)**. Without these values, PinPoint intentionally keeps visitors signed out rather than creating a fake/demo Google profile.
+
+### 3. Run Development Mode
 ```bash
 # Vite frontend dev server with Hot Module Replacement
 npm run dev
 ```
 Open **`http://localhost:3000`** in your browser.
 
-### 3. Build & Serve Full App Through Express
+### 4. Build & Serve Full App Through Express
 To build the production bundle and serve both the frontend and backend APIs unified on a single Express server:
 
 ```bash

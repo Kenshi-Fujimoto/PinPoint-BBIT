@@ -107,14 +107,12 @@ export default function App() {
     saveLostFound(newItems);
   };
 
-  // Google Authentication Trigger
+  // Google Authentication Trigger. Let the sign-in dialog show actionable errors
+  // instead of swallowing a failed popup and appearing to do nothing.
   const handleGoogleSignIn = async () => {
-    try {
-      const user = await signInWithGoogle();
-      setCurrentUser(user);
-    } catch (err) {
-      console.error('Sign-in failed:', err);
-    }
+    const user = await signInWithGoogle();
+    if (user) setCurrentUser(user);
+    return user;
   };
 
   const handleGoogleSignOut = async () => {
@@ -652,6 +650,7 @@ export default function App() {
           onClose={() => setIsAuthModalOpen(false)}
           onSignInWithGoogle={handleGoogleSignIn}
           promptReason={authPromptReason}
+          isGoogleSignInConfigured={isFirebaseConfigured}
         />
 
         {/* PWA Install Prompt Banner */}

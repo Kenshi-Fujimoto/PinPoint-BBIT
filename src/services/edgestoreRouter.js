@@ -22,7 +22,16 @@ export const edgeStoreRouter = es.router({
   }),
   publicImages: es.imageBucket({
     maxSize: 1024 * 1024 * 10, // 10MB
-    accept: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+    accept: [
+      'image/jpeg',
+      'image/jpg', // non-standard MIME emitted by some Android/Java stacks
+      'image/pjpeg', // progressive JPEG
+      'image/png',
+      'image/webp',
+      'image/gif',
+      'image/bmp',
+      'image/avif',
+    ],
   }),
   publicFiles: es.fileBucket({
     maxSize: 1024 * 1024 * 20, // 20MB
